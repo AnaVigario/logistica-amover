@@ -6,20 +6,15 @@ namespace projeto.Data
 {
     public class BackEndContext : DbContext
     {
-        public DbSet<Utilizadores> utilizadores {  get; set; }
-        public DbSet<Tarefa> tarefas { get; set; }
-
-        public DbSet<Servico> servicos { get; set; }
-
-        public DbSet<RelatorioDesempenho> relatorios { get; set; }
-        public DbSet<AlertaManutencao> alertas { get; set; }
+        public DbSet<User> users { get; set; }
+        public DbSet<Models.Task> tasks { get; set; }
+        public DbSet<Service> services { get; set; }
+        public DbSet<PerformanceReport> reports { get; set; }
+        public DbSet<Alert> alerts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Utilizadores>().HasMany(e => e.AlertaManutencao).WithMany(e => e.Utilizadores); 
             base.OnModelCreating(modelBuilder);
-
         }
-
     }
 }

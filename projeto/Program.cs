@@ -1,5 +1,4 @@
 using projeto.Controllers;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using projeto.Data;
 

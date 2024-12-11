@@ -6,124 +6,120 @@ namespace projeto.Controllers
 {
     public class DatabaseOperations
     {
-        public static BackEndContext Db=new BackEndContext();
+        public static BackEndContext Db = new BackEndContext();
 
-        public void AdicionarUtilizador(string nome,string email,string senha, string tipo_utilizador)
+        public void CreateUser(string name, string email, string password, string type)
         {
-            Utilizadores novo = new Utilizadores();
-            novo.tipo_utilizador = tipo_utilizador;
-            novo.email = email;
-            novo.name = nome;
-            novo.senha = senha;
-            Db.utilizadores.Add(novo);
+            User user = new User();
+            user.type = type;
+            user.email = email;
+            user.name = name;
+            user.password = password;
+            Db.users.Add(user);
             Db.SaveChanges();
         }
 
-        public void EditarUtilizador(int id, string nome, string email, string senha, string tipo_utilizador)
+        public void EditUser(int id, string nome, string email, string senha, string tipo_utilizador)
         {
-            Utilizadores user = Db.utilizadores.Where(x => x.id == id).FirstOrDefault();
-
-            user.tipo_utilizador = tipo_utilizador;
+            User user = Db.users.Where(x => x.ID == id).FirstOrDefault();
+            user.type = tipo_utilizador;
             user.email = email;
             user.name = nome;
-            user.senha = senha;
+            user.password = senha;
             Db.SaveChanges();
         }
 
-        public void EliminarUtilizador(int id)
+        public void DeleteUser(int userId)
         {
-            Utilizadores novo = Db.utilizadores.Where(x => x.id == id).FirstOrDefault();
-            Db.utilizadores.Remove(novo);
+            User user = Db.users.Where(x => x.ID == userId).FirstOrDefault();
+            Db.users.Remove(user);
             Db.SaveChanges();
         }
 
-        public int Login(string email, string senha)
+        public int Login(string email, string password)
         {
-            Utilizadores user = Db.utilizadores.Where(x => x.email == email).FirstOrDefault();
-            
-            if (user != null && user.senha == senha)
+            User user = Db.users.Where(x => x.email == email).FirstOrDefault();
+            if (user != null && user.password == password)
             {
-                return user.id;
+                return user.ID;
             }
-
             return -1;
         }
 
-        public void AdicionarAlerta(string descricao, int id_admin, List<int> id_users)
+        public void CreateAlert(string description, int adminId, List<int> targetIds)
         {
-            AlertaManutencao alerta = new AlertaManutencao();
-            alerta.descricao = descricao;
-            alerta.data = DateTime.Now;
-            alerta.admin = Db.utilizadores.Where(x => x.id == id_admin).FirstOrDefault();
-            alerta.Utilizadores = new List<Utilizadores>();
-            foreach (int id1 in id_users) 
+            Alert alert = new Alert();
+            alert.description = description;
+            alert.timestamp = DateTime.Now;
+            alert.linked_admin = Db.users.Where(x => x.ID == adminId).FirstOrDefault();
+            alert.targets = new List<User>();
+            foreach (int id1 in targetIds) 
             {
-                alerta.Utilizadores.Add(Db.utilizadores.Where(x => x.id == id1).FirstOrDefault());
+                alert.targets.Add(Db.users.Where(x => x.ID == id1).FirstOrDefault());
             }
-            Db.alertas.Add(alerta);
+            Db.alerts.Add(alert);
             Db.SaveChanges();
         }
 
-        public List<AlertaManutencao> VisualizarAlertas()
+        public List<Alert> GetAlerts()
         {
-            List<AlertaManutencao> alertas = Db.alertas.Include(y => y.Utilizadores).ToList();
-            if (alertas != null)
+            List<Alert> alerts = Db.alerts.Include(y => y.targets).ToList();
+            if (alerts != null)
             {
-                
-                return alertas;
+                return alerts;
             }
             return null;
         }
 
-        public void AdicionarTarefa(string tipo, DateTime data, string descricao, string estado, int id, int servico, List<string> coordenadas)
+        public void CreateTask(string type, DateTime deadline, string description, string status, int userId, int serviceId, List<string> coordinates)
         {
-            Tarefa tarefa = new Tarefa();
-            tarefa.tipo = tipo;
-            tarefa.DeadLine = data;
-            tarefa.data = DateTime.Now;
-            tarefa.descricao= descricao;
-            tarefa.estado = estado;
-            tarefa.utilizador = Db.utilizadores.Where(x => x.id == id).FirstOrDefault();
-            tarefa.servico = Db.servicos.Where(x => x.id_servico == servico).FirstOrDefault();
-            tarefa.coordenadas = coordenadas;
-            Db.tarefas.Add(tarefa);
+            Data.Models.Task task = new Data.Models.Task();
+            task.type = type;
+            task.deadline = deadline;
+            task.deadline = DateTime.Now;
+            task.description = description;
+            task.status = status;
+            task.users = Db.users.Where(x => x.ID == userId).FirstOrDefault();
+            task.service = Db.services.Where(x => x.ID == serviceId).FirstOrDefault();
+            task.coordinates = coordinates;
+            Db.tasks.Add(task);
             Db.SaveChanges();
         }
 
-        public List<Tarefa> VisualizarTarefas()
+        public List<Data.Models.Task> GetTasks()
         {
-            return Db.tarefas.ToList();
+            return Db.tasks.ToList();
         }
 
-        public void AdicionarServico(string tipo, string descricao, string estado, int id)
+        public void CreateService(string type, string description, string status, int userId)
         {
-            Servico servico = new Servico();
-            servico.tipo = tipo;
-            servico.data = DateTime.Now;
-            servico.descricao = descricao;
-            servico.estado = estado;
-            servico.utilizador = Db.utilizadores.Where(x => x.id == id).FirstOrDefault();
-            Db.servicos.Add(servico);
+            Service service = new Service();
+            service.type = type;
+            service.date = DateTime.Now;
+            service.description = description;
+            service.status = status;
+            service.user = Db.users.Where(x => x.ID == userId).FirstOrDefault();
+            Db.services.Add(service);
             Db.SaveChanges();
         }
 
-        public List<Servico> VisualizarServicos()
+        public List<Service> GetServices()
         {           
-            return Db.servicos.ToList();
+            return Db.services.ToList();
         }
 
-        public void AdicionarRelatorioDesempenho(string descricao)
+        public void CreateReport(string description)
         {
-            RelatorioDesempenho relatorioDesempenho = new RelatorioDesempenho();
-            relatorioDesempenho.descricao = descricao;
-            relatorioDesempenho.data = DateTime.Now;
-            Db.relatorios.Add(relatorioDesempenho);
+            PerformanceReport relatorioDesempenho = new PerformanceReport();
+            relatorioDesempenho.description = description;
+            relatorioDesempenho.timestamp = DateTime.Now;
+            Db.reports.Add(relatorioDesempenho);
             Db.SaveChanges();
         }
 
-        public List<RelatorioDesempenho> VisualizarRelatorioDesempenho()
+        public List<PerformanceReport> GetReports()
         {
-            return Db.relatorios.ToList();
+            return Db.reports.ToList();
         }
     }
 }
