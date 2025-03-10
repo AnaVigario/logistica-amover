@@ -19,6 +19,11 @@ namespace projeto.Controllers
             Db.SaveChanges();
         }
 
+        public List<User> GetUsers()
+        {
+            return Db.users.ToList();
+        }
+
         public void EditUser(int id, string nome, string email, string senha, string tipo_utilizador)
         {
             User user = Db.users.Where(x => x.ID == id).FirstOrDefault();
