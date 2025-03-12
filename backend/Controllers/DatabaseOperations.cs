@@ -24,6 +24,11 @@ namespace projeto.Controllers
             return Db.users.ToList();
         }
 
+        public User GetUser(int id)
+        {
+            return Db.users.Where(x => x.ID == id).FirstOrDefault();
+        }
+
         public void EditUser(int id, string nome, string email, string senha, string tipo_utilizador)
         {
             User user = Db.users.Where(x => x.ID == id).FirstOrDefault();
@@ -76,6 +81,32 @@ namespace projeto.Controllers
             return null;
         }
 
+        public Alert GetAlert(int id)
+        {
+            return Db.alerts.Where(x => x.ID == id).FirstOrDefault();
+        }
+
+        public void EditAlert(int id, string description, int adminId, List<int> targetIds)
+        {
+            Alert alert = Db.alerts.Where(x => x.ID == id).FirstOrDefault();
+            alert.description = description;
+            alert.timestamp = DateTime.Now;
+            alert.linked_admin = Db.users.Where(x => x.ID == adminId).FirstOrDefault();
+            alert.targets = new List<User>();
+            foreach (int id1 in targetIds)
+            {
+                alert.targets.Add(Db.users.Where(x => x.ID == id1).FirstOrDefault());
+            }
+            Db.SaveChanges();
+        }
+
+        public void DeleteAlert(int alertId)
+        {
+            Alert alert = Db.alerts.Where(x => x.ID == alertId).FirstOrDefault();
+            Db.alerts.Remove(alert);
+            Db.SaveChanges();
+        }
+
         public void CreateTask(string type, DateTime deadline, string description, string status, int userId, int serviceId, List<string> coordinates)
         {
             Data.Models.Task task = new Data.Models.Task();
@@ -96,6 +127,31 @@ namespace projeto.Controllers
             return Db.tasks.ToList();
         }
 
+        public Data.Models.Task GetTask(int id)
+        {
+            return Db.tasks.Where(x => x.ID == id).FirstOrDefault();
+        }
+
+        public void EditTask(int id, string type, DateTime deadline, string description, string status, int userId, int serviceId, List<string> coordinates)
+        {
+            Data.Models.Task task = Db.tasks.Where(x => x.ID == id).FirstOrDefault();
+            task.type = type;
+            task.deadline = deadline;
+            task.description = description;
+            task.status = status;
+            task.users = Db.users.Where(x => x.ID == userId).FirstOrDefault();
+            task.service = Db.services.Where(x => x.ID == serviceId).FirstOrDefault();
+            task.coordinates = coordinates;
+            Db.SaveChanges();
+        }
+
+        public void DeleteTask(int taskId)
+        {
+            Data.Models.Task task = Db.tasks.Where(x => x.ID == taskId).FirstOrDefault();
+            Db.tasks.Remove(task);
+            Db.SaveChanges();
+        }
+
         public void CreateService(string type, string description, string status, int userId)
         {
             Service service = new Service();
@@ -111,6 +167,28 @@ namespace projeto.Controllers
         public List<Service> GetServices()
         {           
             return Db.services.ToList();
+        }
+
+        public Service GetService(int id)
+        {
+            return Db.services.Where(x => x.ID == id).FirstOrDefault();
+        }
+
+        public void EditService(int id, string type, string description, string status, int userId)
+        {
+            Service service = Db.services.Where(x => x.ID == id).FirstOrDefault();
+            service.type = type;
+            service.description = description;
+            service.status = status;
+            service.user = Db.users.Where(x => x.ID == userId).FirstOrDefault();
+            Db.SaveChanges();
+        }
+
+        public void DeleteService(int serviceId)
+        {
+            Service service = Db.services.Where(x => x.ID == serviceId).FirstOrDefault();
+            Db.services.Remove(service);
+            Db.SaveChanges();
         }
 
         public void CreateReport(string description)
