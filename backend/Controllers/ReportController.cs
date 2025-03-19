@@ -29,5 +29,21 @@ namespace projeto.Controllers
             List<PerformanceReport> reply = DatabaseOperations.GetReports();
             return reply;
         }
+
+        /*
+        [HttpGet("{id}", Name = "GetReport")]
+        public PerformanceReport Get(int id)
+        {
+            PerformanceReport reply = DatabaseOperations.GetReport(id);
+            return reply;
+        }
+
+        [HttpDelete("{id}", Name = "DeleteReport")]
+        public void Delete(int id)
+        {
+            DatabaseOperations.DeleteReport(id);
+            return;
+        }
+        */
     }
 }
