@@ -28,5 +28,26 @@ namespace projeto.Controllers
             List<Service> reply = DatabaseOperations.GetServices();
             return reply;
         }
+
+        [HttpGet("{id}", Name = "GetService")]
+        public Service Get(int id)
+        {
+            Service reply = DatabaseOperations.GetService(id);
+            return reply;
+        }
+
+        [HttpPut("{id}", Name = "PutService")]
+        public void Put(int id, string type, string description, string status, int ID)
+        {
+            DatabaseOperations.EditService(id, type, description, status, ID);
+            return;
+        }
+
+        [HttpDelete("{id}", Name = "DeleteService")]
+        public void Delete(int id)
+        {
+            DatabaseOperations.DeleteService(id);
+            return;
+        }
     }
 }

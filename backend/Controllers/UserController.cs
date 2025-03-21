@@ -28,6 +28,13 @@ namespace projeto.Controllers
             return reply;
         }
 
+        [HttpGet("{id}", Name = "GetUser")]
+        public Data.Models.User Get(int id)
+        {
+            Data.Models.User reply = db.GetUser(id);
+            return reply;
+        }
+
         [HttpPut(Name = "UpdateUser")]
         public void Put(int ID, string name, string email, string password, string role)
         {

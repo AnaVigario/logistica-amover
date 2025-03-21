@@ -28,5 +28,27 @@ namespace projeto.Controllers
             List<Data.Models.Task> reply = DatabaseOperations.GetTasks();
             return reply;
         }
+
+        [HttpGet("{id}", Name = "GetTask")]
+        public Data.Models.Task Get(int id)
+        {
+            Data.Models.Task reply = DatabaseOperations.GetTask(id);
+            return reply;
+        }
+
+        [HttpPut("{id}", Name = "PutTask")]
+        public void Put(int id, string type, DateTime deadline, string description, string status, int ID, int service, string coordinates)
+        {
+            List<string> listCoordenadas = coordinates.Split('|').ToList();
+            DatabaseOperations.EditTask(id, type, deadline, description, status, ID, service, listCoordenadas);
+            return;
+        }
+
+        [HttpDelete("{id}", Name = "DeleteTask")]
+        public void Delete(int id)
+        {
+            DatabaseOperations.DeleteTask(id);
+            return;
+        }
     }
 }
