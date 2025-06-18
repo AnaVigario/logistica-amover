@@ -21,5 +21,6 @@ namespace projeto.Data.Models
         public virtual List<Task> tasks { get; set; }
         public virtual List<Service> services { get; set; }
         public virtual List<Alert> alerts { get; set; }
+        public virtual List<Vehicle> vehicles { get; set; }
     }
 }

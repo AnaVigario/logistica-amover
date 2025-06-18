@@ -11,6 +11,7 @@ namespace projeto.Data
         public DbSet<Service> services { get; set; }
         public DbSet<PerformanceReport> reports { get; set; }
         public DbSet<Alert> alerts { get; set; }
+        public DbSet<Vehicle> vehicles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
