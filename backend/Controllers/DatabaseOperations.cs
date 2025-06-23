@@ -191,6 +191,86 @@ namespace projeto.Controllers
             Db.SaveChanges();
         }
 
+        public void CreateVehicle(Vehicle v)
+        {
+            try
+            {
+                if (Db.vehicles.Any(x => x.VID == v.VID))
+                {
+                    throw new Exception("Veículo com o mesmo VID já existe.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao verificar veículo: " + ex.Message);
+            }
+            Db.vehicles.Add(v);
+            Db.SaveChanges();
+        }
+
+        public Vehicle GetVehicle(string VID)
+        {
+            try
+            {
+                var target = Db.vehicles.Where(x => x.VID == VID).FirstOrDefault();
+                return target;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter veículo: " + ex.Message);
+            }
+        }
+
+        public List<Vehicle> GetVehicles()
+        {
+            try
+            {
+                return Db.vehicles.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter veículos: " + ex.Message);
+            }
+        }
+
+        public bool EditVehicle(Vehicle v)
+        {
+            try
+            {
+                var target = Db.vehicles.Where(x => x.ID == v.ID).FirstOrDefault();
+                if (target == null)
+                {
+                    return false;
+                }
+                target.VID = v.VID;
+                Db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao editar veículo: " + ex.Message);
+            }
+        }
+
+        public bool DeleteVehicle(int id)
+        {
+            try
+            {
+                var target = Db.vehicles.Where(x => x.ID == id).FirstOrDefault();
+                if (target == null)
+                {
+                    return false;
+                }
+                Db.vehicles.Remove(target);
+                Db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao excluir veículo: " + ex.Message);
+            }
+        }   
+
         public void CreateReport(string description)
         {
             PerformanceReport relatorioDesempenho = new PerformanceReport();

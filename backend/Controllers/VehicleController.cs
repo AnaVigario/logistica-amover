@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Net.NetworkInformation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using projeto.Data.Models;
 
@@ -20,19 +21,22 @@ namespace projeto.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Post([FromBody] VehicleDTO v)
+        public IActionResult Post([FromBody] VehicleDTO _v)
         {
-            // CreateVehicle()
             try
             {
-                // db.CreateVehicle(v.VID);
+                Vehicle v = new Vehicle
+                {
+                    VID = _v.VID
+                };
+                db.CreateVehicle(v);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao criar veículo.");
                 return StatusCode(500, "Erro interno do servidor.");
             }
-            return Ok(new { message = "temp" });
+            return Ok(new { message = "Veículo registado com sucesso" });
         }
 
 
@@ -41,14 +45,18 @@ namespace projeto.Controllers
         {
             try
             {
-                // GetVehicles()
+                List<Vehicle> targets = db.GetVehicles();
+                if (targets == null || targets.Count == 0)
+                {
+                    return NotFound("Nenhum veículo encontrado.");
+                }
+                return Ok(targets);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao obter veículos.");
                 return StatusCode(500, "Erro interno do servidor.");
             }
-            return Ok(/* reply */);
         }
 
 
@@ -57,15 +65,14 @@ namespace projeto.Controllers
         {
             try
             {
-                // GetVehicle(VID)
+                var target = db.GetVehicle(VID.ToString());
+                return target == null ? NotFound("Nenhum veículo encontrado com o VID expecificado") : Ok(target);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao obter veículo com VID {VID}", VID);
                 return StatusCode(500, "Erro interno do servidor.");
             }
-
-            return Ok(/* vehicle */);
         }
 
 
@@ -75,15 +82,18 @@ namespace projeto.Controllers
         {
             try
             {
-                // Check if vehicle exists
-                // If not, return NotFound()
+                Vehicle v = new Vehicle
+                {
+                    ID = id,
+                    VID = vehicle.VID
+                };
+                return db.EditVehicle(v) ? Ok(new { message = "Veículo atualizado com sucesso." }) : NotFound("Veículo não encontrado.");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao atualizar veículo com ID {id}", id);
                 return StatusCode(500, "Erro interno do servidor.");
             }
-            return Ok(new { message = "Veículo atualizado com sucesso." });
         }
 
 
@@ -93,14 +103,13 @@ namespace projeto.Controllers
         {
             try
             {
-                // DeleteVehicle(id)
+                return db.DeleteVehicle(id) ? Ok(new { message = "Veículo eliminado com sucesso." }) : NotFound("Veículo não encontrado.");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao eliminar veículo com ID {id}", id);
                 return StatusCode(500, "Erro interno do servidor.");
             }
-            return Ok(new { message = "temp" });
         }
     }
 
