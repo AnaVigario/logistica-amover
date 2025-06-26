@@ -1,9 +1,18 @@
-﻿namespace projeto.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace projeto.Data.Models
 {
     public class Vehicle
     {
+        [Key]
         public int ID { get; set; }
+        [Required]
         public string VID { get; set; } // Vehicle Identification Number
-        public User Owner { get; set; }
+        
+        //FK
+        public int ownerID { get; set; }
+        
+        //NAV
+        public User owner { get; set; }
     }
 }

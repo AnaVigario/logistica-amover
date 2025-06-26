@@ -7,26 +7,27 @@ namespace projeto.Controllers
     [Route("[controller]")]
     public class ReportController : ControllerBase
     {
-        private static DatabaseOperations DatabaseOperations = new DatabaseOperations();
         private readonly ILogger<ReportController> _logger;
+        private readonly DatabaseOperations db;
 
-        public ReportController(ILogger<ReportController> logger)
+        public ReportController(ILogger<ReportController> logger, DatabaseOperations _db)
         {
             _logger = logger;
+            db = _db;
         }
 
         [HttpPost(Name = "PostReport")]
         public void Post(string description)
         {
 
-            DatabaseOperations.CreateReport(description);
+            db.CreateReport(description);
             return;
         }
 
         [HttpGet(Name = "GetReports")]
         public IEnumerable<PerformanceReport> Get()
         {
-            List<PerformanceReport> reply = DatabaseOperations.GetReports();
+            List<PerformanceReport> reply = db.GetReports();
             return reply;
         }
 

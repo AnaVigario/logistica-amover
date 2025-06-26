@@ -10,12 +10,13 @@ namespace projeto.Controllers
     [Route("api/[controller]")]
     public class VehicleController : ControllerBase
     {
-        private static DatabaseOperations db = new DatabaseOperations();
+        private readonly DatabaseOperations _db;
         private readonly ILogger<VehicleController> _logger;
 
-        public VehicleController(ILogger<VehicleController> logger)
+        public VehicleController(ILogger<VehicleController> logger, DatabaseOperations db)
         {
             _logger = logger;
+            _db = db;
         }
 
 
@@ -29,7 +30,7 @@ namespace projeto.Controllers
                 {
                     VID = _v.VID
                 };
-                db.CreateVehicle(v);
+                _db.CreateVehicle(v);
             }
             catch (Exception ex)
             {
@@ -45,7 +46,7 @@ namespace projeto.Controllers
         {
             try
             {
-                List<Vehicle> targets = db.GetVehicles();
+                List<Vehicle> targets = _db.GetVehicles();
                 if (targets == null || targets.Count == 0)
                 {
                     return NotFound("Nenhum veículo encontrado.");
@@ -65,7 +66,7 @@ namespace projeto.Controllers
         {
             try
             {
-                var target = db.GetVehicle(VID.ToString());
+                var target = _db.GetVehicle(VID.ToString());
                 return target == null ? NotFound("Nenhum veículo encontrado com o VID expecificado") : Ok(target);
             }
             catch (Exception ex)
@@ -87,7 +88,7 @@ namespace projeto.Controllers
                     ID = id,
                     VID = vehicle.VID
                 };
-                return db.EditVehicle(v) ? Ok(new { message = "Veículo atualizado com sucesso." }) : NotFound("Veículo não encontrado.");
+                return _db.EditVehicle(v) ? Ok(new { message = "Veículo atualizado com sucesso." }) : NotFound("Veículo não encontrado.");
             }
             catch (Exception ex)
             {
@@ -103,7 +104,7 @@ namespace projeto.Controllers
         {
             try
             {
-                return db.DeleteVehicle(id) ? Ok(new { message = "Veículo eliminado com sucesso." }) : NotFound("Veículo não encontrado.");
+                return _db.DeleteVehicle(id) ? Ok(new { message = "Veículo eliminado com sucesso." }) : NotFound("Veículo não encontrado.");
             }
             catch (Exception ex)
             {

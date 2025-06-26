@@ -7,12 +7,13 @@ namespace projeto.Controllers
     [Route("[controller]")]
     public class AlertController : ControllerBase
     {
-        private static DatabaseOperations DatabaseOperations = new DatabaseOperations();
+        private readonly DatabaseOperations _db;
         private readonly ILogger<AlertController> _logger;
 
-        public AlertController(ILogger<AlertController> logger)
+        public AlertController(ILogger<AlertController> logger, DatabaseOperations db)
         {
             _logger = logger;
+            _db = db;
         }
 
         [HttpPost(Name = "PostAlert")]
@@ -23,7 +24,7 @@ namespace projeto.Controllers
             {
                 ID_users.Add(Convert.ToInt32(s));
             };
-            DatabaseOperations.CreateAlert(description, ID_admin, ID_users);
+            _db.CreateAlert(description, ID_admin, ID_users);
            
             return;
         }
@@ -31,14 +32,14 @@ namespace projeto.Controllers
         [HttpGet(Name = "GetAlerts")]
         public IEnumerable<Alert> Get()
         {
-            List<Alert> reply = DatabaseOperations.GetAlerts();     
+            List<Alert> reply = _db.GetAlerts();     
             return reply; 
         }
 
         [HttpGet("{id}", Name = "GetAlert")]
         public Alert Get(int id)
         {
-            Alert reply = DatabaseOperations.GetAlert(id);
+            Alert reply = _db.GetAlert(id);
             return reply;
         }
 
@@ -50,14 +51,14 @@ namespace projeto.Controllers
             {
                 ID_users.Add(Convert.ToInt32(s));
             };
-            DatabaseOperations.EditAlert(id, description, ID_admin, ID_users);
+            _db.EditAlert(id, description, ID_admin, ID_users);
             return;
         }
 
         [HttpDelete("{id}", Name = "DeleteAlert")]
         public void Delete(int id)
         {
-            DatabaseOperations.DeleteAlert(id);
+            _db.DeleteAlert(id);
             return;
         }
     }

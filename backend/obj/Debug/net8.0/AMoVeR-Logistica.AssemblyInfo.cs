@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AMoVeR-Logistica")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1fb2be383efd5eb24eaaee276ed69042ccc4ca69")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1f05a644fdbb63ec1a146ba27ca5f4286eb2e40e")]
 [assembly: System.Reflection.AssemblyProductAttribute("AMoVeR-Logistica")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AMoVeR-Logistica")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

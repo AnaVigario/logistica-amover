@@ -5,22 +5,18 @@ namespace projeto.Data.Models
     {
         [Key]
         public int ID { get; set; }
-
         [Required]
         public string name { get; set; }
-
         [Required]
         public string email { get; set; }
-
         [Required]
         public string password { get; set; }
-
         [Required]
         public string type { get; set; }
 
-        public virtual List<Task> tasks { get; set; }
-        public virtual List<Service> services { get; set; }
-        public virtual List<Alert> alerts { get; set; }
+        //FK
+
+        //NAV
         public virtual List<Vehicle> vehicles { get; set; }
     }
 }

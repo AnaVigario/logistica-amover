@@ -1,12 +1,17 @@
-﻿using projeto.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using projeto.Data;
 using projeto.Data.Models;
-using System.Data.Entity;
 
 namespace projeto.Controllers
 {
     public class DatabaseOperations
     {
-        public static BackEndContext Db = new BackEndContext();
+        private readonly AMoverContext db;
+
+        public DatabaseOperations(AMoverContext context)
+        {
+            db = context;
+        }
 
         public void CreateUser(string name, string email, string password, string type)
         {
@@ -15,65 +20,65 @@ namespace projeto.Controllers
             user.email = email;
             user.name = name;
             user.password = password;
-            Db.users.Add(user);
-            Db.SaveChanges();
+            db.users.Add(user);
+            db.SaveChanges();
         }
 
         public List<User> GetUsers()
         {
-            return Db.users.ToList();
+            return db.users.ToList();
         }
 
         public User GetUser(int id)
         {
-            return Db.users.Where(x => x.ID == id).FirstOrDefault();
+            return db.users.Where(x => x.ID == id).FirstOrDefault();
         }
 
         public void EditUser(int id, string nome, string email, string senha, string tipo_utilizador)
         {
-            User user = Db.users.Where(x => x.ID == id).FirstOrDefault();
+            User user = db.users.Where(x => x.ID == id).FirstOrDefault();
             user.type = tipo_utilizador;
             user.email = email;
             user.name = nome;
             user.password = senha;
-            Db.SaveChanges();
+            db.SaveChanges();
         }
 
         public void DeleteUser(int userId)
         {
-            User user = Db.users.Where(x => x.ID == userId).FirstOrDefault();
-            Db.users.Remove(user);
-            Db.SaveChanges();
+            User user = db.users.Where(x => x.ID == userId).FirstOrDefault();
+            db.users.Remove(user);
+            db.SaveChanges();
         }
 
         public int Login(string email, string password)
         {
-            User user = Db.users.Where(x => x.email == email).FirstOrDefault();
+            User user = db.users.Where(x => x.email == email).FirstOrDefault();
             if (user != null && user.password == password)
             {
                 return user.ID;
             }
             return -1;
         }
-
+        /*
         public void CreateAlert(string description, int adminId, List<int> targetIds)
         {
             Alert alert = new Alert();
             alert.description = description;
             alert.timestamp = DateTime.Now;
-            alert.linked_admin = Db.users.Where(x => x.ID == adminId).FirstOrDefault();
+            alert.linked_admin = db.users.Where(x => x.ID == adminId).FirstOrDefault();
             alert.targets = new List<User>();
             foreach (int id1 in targetIds) 
             {
-                alert.targets.Add(Db.users.Where(x => x.ID == id1).FirstOrDefault());
+                alert.targets.Add(db.users.Where(x => x.ID == id1).FirstOrDefault());
             }
-            Db.alerts.Add(alert);
-            Db.SaveChanges();
+            db.alerts.Add(alert);
+            db.SaveChanges();
         }
 
         public List<Alert> GetAlerts()
         {
-            List<Alert> alerts = Db.alerts.Include(y => y.targets).ToList();
+            List<Alert> alerts = db.alerts.Include(y => y.targets).ToList();
             if (alerts != null)
             {
                 return alerts;
@@ -83,28 +88,28 @@ namespace projeto.Controllers
 
         public Alert GetAlert(int id)
         {
-            return Db.alerts.Where(x => x.ID == id).FirstOrDefault();
+            return db.alerts.Where(x => x.ID == id).FirstOrDefault();
         }
 
         public void EditAlert(int id, string description, int adminId, List<int> targetIds)
         {
-            Alert alert = Db.alerts.Where(x => x.ID == id).FirstOrDefault();
+            Alert alert = db.alerts.Where(x => x.ID == id).FirstOrDefault();
             alert.description = description;
             alert.timestamp = DateTime.Now;
-            alert.linked_admin = Db.users.Where(x => x.ID == adminId).FirstOrDefault();
+            alert.linked_admin = db.users.Where(x => x.ID == adminId).FirstOrDefault();
             alert.targets = new List<User>();
             foreach (int id1 in targetIds)
             {
-                alert.targets.Add(Db.users.Where(x => x.ID == id1).FirstOrDefault());
+                alert.targets.Add(db.users.Where(x => x.ID == id1).FirstOrDefault());
             }
-            Db.SaveChanges();
+            db.SaveChanges();
         }
 
         public void DeleteAlert(int alertId)
         {
-            Alert alert = Db.alerts.Where(x => x.ID == alertId).FirstOrDefault();
-            Db.alerts.Remove(alert);
-            Db.SaveChanges();
+            Alert alert = db.alerts.Where(x => x.ID == alertId).FirstOrDefault();
+            db.alerts.Remove(alert);
+            db.SaveChanges();
         }
 
         public void CreateTask(string type, DateTime deadline, string description, string status, int userId, int serviceId, List<string> coordinates)
@@ -115,41 +120,41 @@ namespace projeto.Controllers
             task.deadline = DateTime.Now;
             task.description = description;
             task.status = status;
-            task.users = Db.users.Where(x => x.ID == userId).FirstOrDefault();
-            task.service = Db.services.Where(x => x.ID == serviceId).FirstOrDefault();
+            task.users = db.users.Where(x => x.ID == userId).FirstOrDefault();
+            task.service = db.services.Where(x => x.ID == serviceId).FirstOrDefault();
             task.coordinates = coordinates;
-            Db.tasks.Add(task);
-            Db.SaveChanges();
+            db.tasks.Add(task);
+            db.SaveChanges();
         }
 
         public List<Data.Models.Task> GetTasks()
         {
-            return Db.tasks.ToList();
+            return db.tasks.ToList();
         }
 
         public Data.Models.Task GetTask(int id)
         {
-            return Db.tasks.Where(x => x.ID == id).FirstOrDefault();
+            return db.tasks.Where(x => x.ID == id).FirstOrDefault();
         }
 
         public void EditTask(int id, string type, DateTime deadline, string description, string status, int userId, int serviceId, List<string> coordinates)
         {
-            Data.Models.Task task = Db.tasks.Where(x => x.ID == id).FirstOrDefault();
+            Data.Models.Task task = db.tasks.Where(x => x.ID == id).FirstOrDefault();
             task.type = type;
             task.deadline = deadline;
             task.description = description;
             task.status = status;
-            task.users = Db.users.Where(x => x.ID == userId).FirstOrDefault();
-            task.service = Db.services.Where(x => x.ID == serviceId).FirstOrDefault();
+            task.users = db.users.Where(x => x.ID == userId).FirstOrDefault();
+            task.service = db.services.Where(x => x.ID == serviceId).FirstOrDefault();
             task.coordinates = coordinates;
-            Db.SaveChanges();
+            db.SaveChanges();
         }
 
         public void DeleteTask(int taskId)
         {
-            Data.Models.Task task = Db.tasks.Where(x => x.ID == taskId).FirstOrDefault();
-            Db.tasks.Remove(task);
-            Db.SaveChanges();
+            Data.Models.Task task = db.tasks.Where(x => x.ID == taskId).FirstOrDefault();
+            db.tasks.Remove(task);
+            db.SaveChanges();
         }
 
         public void CreateService(string type, string description, string status, int userId)
@@ -159,43 +164,43 @@ namespace projeto.Controllers
             service.date = DateTime.Now;
             service.description = description;
             service.status = status;
-            service.user = Db.users.Where(x => x.ID == userId).FirstOrDefault();
-            Db.services.Add(service);
-            Db.SaveChanges();
+            service.user = db.users.Where(x => x.ID == userId).FirstOrDefault();
+            db.services.Add(service);
+            db.SaveChanges();
         }
 
         public List<Service> GetServices()
         {           
-            return Db.services.ToList();
+            return db.services.ToList();
         }
 
         public Service GetService(int id)
         {
-            return Db.services.Where(x => x.ID == id).FirstOrDefault();
+            return db.services.Where(x => x.ID == id).FirstOrDefault();
         }
 
         public void EditService(int id, string type, string description, string status, int userId)
         {
-            Service service = Db.services.Where(x => x.ID == id).FirstOrDefault();
+            Service service = db.services.Where(x => x.ID == id).FirstOrDefault();
             service.type = type;
             service.description = description;
             service.status = status;
-            service.user = Db.users.Where(x => x.ID == userId).FirstOrDefault();
-            Db.SaveChanges();
+            service.user = db.users.Where(x => x.ID == userId).FirstOrDefault();
+            db.SaveChanges();
         }
 
         public void DeleteService(int serviceId)
         {
-            Service service = Db.services.Where(x => x.ID == serviceId).FirstOrDefault();
-            Db.services.Remove(service);
-            Db.SaveChanges();
+            Service service = db.services.Where(x => x.ID == serviceId).FirstOrDefault();
+            db.services.Remove(service);
+            db.SaveChanges();
         }
-
+        */
         public void CreateVehicle(Vehicle v)
         {
             try
             {
-                if (Db.vehicles.Any(x => x.VID == v.VID))
+                if (db.vehicles.Any(x => x.VID == v.VID))
                 {
                     throw new Exception("Veículo com o mesmo VID já existe.");
                 }
@@ -204,15 +209,15 @@ namespace projeto.Controllers
             {
                 throw new Exception("Erro ao verificar veículo: " + ex.Message);
             }
-            Db.vehicles.Add(v);
-            Db.SaveChanges();
+            db.vehicles.Add(v);
+            db.SaveChanges();
         }
 
         public Vehicle GetVehicle(string VID)
         {
             try
             {
-                var target = Db.vehicles.Where(x => x.VID == VID).FirstOrDefault();
+                var target = db.vehicles.Where(x => x.VID == VID).FirstOrDefault();
                 return target;
             }
             catch (Exception ex)
@@ -225,7 +230,7 @@ namespace projeto.Controllers
         {
             try
             {
-                return Db.vehicles.ToList();
+                return db.vehicles.ToList();
             }
             catch (Exception ex)
             {
@@ -237,13 +242,13 @@ namespace projeto.Controllers
         {
             try
             {
-                var target = Db.vehicles.Where(x => x.ID == v.ID).FirstOrDefault();
+                var target = db.vehicles.Where(x => x.ID == v.ID).FirstOrDefault();
                 if (target == null)
                 {
                     return false;
                 }
                 target.VID = v.VID;
-                Db.SaveChanges();
+                db.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -256,13 +261,13 @@ namespace projeto.Controllers
         {
             try
             {
-                var target = Db.vehicles.Where(x => x.ID == id).FirstOrDefault();
+                var target = db.vehicles.Where(x => x.ID == id).FirstOrDefault();
                 if (target == null)
                 {
                     return false;
                 }
-                Db.vehicles.Remove(target);
-                Db.SaveChanges();
+                db.vehicles.Remove(target);
+                db.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -270,19 +275,21 @@ namespace projeto.Controllers
                 throw new Exception("Erro ao excluir veículo: " + ex.Message);
             }
         }   
-
+        /*
         public void CreateReport(string description)
         {
             PerformanceReport relatorioDesempenho = new PerformanceReport();
             relatorioDesempenho.description = description;
             relatorioDesempenho.timestamp = DateTime.Now;
-            Db.reports.Add(relatorioDesempenho);
-            Db.SaveChanges();
+            db.reports.Add(relatorioDesempenho);
+            db.SaveChanges();
         }
 
         public List<PerformanceReport> GetReports()
         {
-            return Db.reports.ToList();
+            return db.reports.ToList();
         }
+
+        */
     }
 }

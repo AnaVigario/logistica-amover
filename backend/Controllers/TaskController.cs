@@ -6,33 +6,34 @@ namespace projeto.Controllers
     [Route("[controller]")]
     public class TaskController : ControllerBase
     {
-        private static DatabaseOperations DatabaseOperations = new DatabaseOperations();
+        private readonly DatabaseOperations _db;
         private readonly ILogger<TaskController> _logger;
 
-        public TaskController(ILogger<TaskController> logger)
+        public TaskController(ILogger<TaskController> logger, DatabaseOperations db)
         {
             _logger = logger;
+            _db = db;
         }
 
         [HttpPost(Name = "PostTask")]
         public void Post(string type, DateTime deadline, string description, string status, int ID, int service, string coordinates) //coordinates is a string with the coordinates separated by |
         {
             List<string> listCoordenadas = coordinates.Split('|').ToList();
-            DatabaseOperations.CreateTask(type, deadline, description, status,ID ,service, listCoordenadas);
+            _db.CreateTask(type, deadline, description, status,ID ,service, listCoordenadas);
             return;
         }
 
         [HttpGet(Name = "GetTasks")]
         public IEnumerable<Data.Models.Task> Get()
         {
-            List<Data.Models.Task> reply = DatabaseOperations.GetTasks();
+            List<Data.Models.Task> reply = _db.GetTasks();
             return reply;
         }
 
         [HttpGet("{id}", Name = "GetTask")]
         public Data.Models.Task Get(int id)
         {
-            Data.Models.Task reply = DatabaseOperations.GetTask(id);
+            Data.Models.Task reply = _db.GetTask(id);
             return reply;
         }
 
@@ -40,14 +41,14 @@ namespace projeto.Controllers
         public void Put(int id, string type, DateTime deadline, string description, string status, int ID, int service, string coordinates)
         {
             List<string> listCoordenadas = coordinates.Split('|').ToList();
-            DatabaseOperations.EditTask(id, type, deadline, description, status, ID, service, listCoordenadas);
+            _db.EditTask(id, type, deadline, description, status, ID, service, listCoordenadas);
             return;
         }
 
         [HttpDelete("{id}", Name = "DeleteTask")]
         public void Delete(int id)
         {
-            DatabaseOperations.DeleteTask(id);
+            _db.DeleteTask(id);
             return;
         }
     }

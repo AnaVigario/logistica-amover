@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models; 
+using Microsoft.OpenApi.Models;
+using projeto.Controllers;
+using projeto.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +56,9 @@ builder.Services.AddSwaggerGen(c =>
 // Add services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddDbContext<AMoverContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("CAmover")));
+builder.Services.AddScoped<DatabaseOperations>();
 
 var app = builder.Build();
 

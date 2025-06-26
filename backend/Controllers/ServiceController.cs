@@ -7,46 +7,47 @@ namespace projeto.Controllers
     [Route("[controller]")]
     public class ServiceController : ControllerBase
     {
-        private static DatabaseOperations DatabaseOperations = new DatabaseOperations();
+        private readonly DatabaseOperations _db;
         private readonly ILogger<ServiceController> _logger;
 
-        public ServiceController(ILogger<ServiceController> logger)
+        public ServiceController(ILogger<ServiceController> logger, DatabaseOperations db)
         {
             _logger = logger;
+            _db = db;
         }
 
         [HttpPost(Name = "PostService")]
         public void Post(string type, string description, string status, int ID)
         {
-            DatabaseOperations.CreateService(type, description, status, ID);
+            _db.CreateService(type, description, status, ID);
             return;
         }
 
         [HttpGet(Name = "GetServices")]
         public IEnumerable<Service> Get()
         {
-            List<Service> reply = DatabaseOperations.GetServices();
+            List<Service> reply = _db.GetServices();
             return reply;
         }
 
         [HttpGet("{id}", Name = "GetService")]
         public Service Get(int id)
         {
-            Service reply = DatabaseOperations.GetService(id);
+            Service reply = _db.GetService(id);
             return reply;
         }
 
         [HttpPut("{id}", Name = "PutService")]
         public void Put(int id, string type, string description, string status, int ID)
         {
-            DatabaseOperations.EditService(id, type, description, status, ID);
+            _db.EditService(id, type, description, status, ID);
             return;
         }
 
         [HttpDelete("{id}", Name = "DeleteService")]
         public void Delete(int id)
         {
-            DatabaseOperations.DeleteService(id);
+            _db.DeleteService(id);
             return;
         }
     }
