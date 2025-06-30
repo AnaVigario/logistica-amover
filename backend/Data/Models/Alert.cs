@@ -13,10 +13,10 @@ namespace projeto.Data.Models
         public DateTime timestamp { get; set; }
         
         //FK
-        public int admin_id { get; set; }
+        public int adminID { get; set; } // User n - 1
 
-
-        public virtual User linked_admin { get; set; }
+        //NAV
+        public virtual User admin { get; set; }
         public virtual List<User> targets { get; set; }
     }
 }

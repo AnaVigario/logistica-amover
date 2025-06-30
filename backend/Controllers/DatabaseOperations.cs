@@ -60,13 +60,13 @@ namespace projeto.Controllers
             }
             return -1;
         }
-        /*
+
         public void CreateAlert(string description, int adminId, List<int> targetIds)
         {
             Alert alert = new Alert();
             alert.description = description;
             alert.timestamp = DateTime.Now;
-            alert.linked_admin = db.users.Where(x => x.ID == adminId).FirstOrDefault();
+            alert.adminID = adminId;
             alert.targets = new List<User>();
             foreach (int id1 in targetIds) 
             {
@@ -96,7 +96,7 @@ namespace projeto.Controllers
             Alert alert = db.alerts.Where(x => x.ID == id).FirstOrDefault();
             alert.description = description;
             alert.timestamp = DateTime.Now;
-            alert.linked_admin = db.users.Where(x => x.ID == adminId).FirstOrDefault();
+            alert.adminID = adminId;
             alert.targets = new List<User>();
             foreach (int id1 in targetIds)
             {
@@ -111,7 +111,7 @@ namespace projeto.Controllers
             db.alerts.Remove(alert);
             db.SaveChanges();
         }
-
+        /*
         public void CreateTask(string type, DateTime deadline, string description, string status, int userId, int serviceId, List<string> coordinates)
         {
             Data.Models.Task task = new Data.Models.Task();

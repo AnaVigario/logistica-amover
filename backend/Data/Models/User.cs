@@ -15,8 +15,9 @@ namespace projeto.Data.Models
         public string type { get; set; }
 
         //FK
-
         //NAV
-        public virtual List<Vehicle> vehicles { get; set; }
+        public virtual List<Vehicle> vehicles { get; set; } // 1 - n
+        public virtual List<Alert> targetedAlerts { get; set; } // 1 - n
+        public virtual List<Alert> managedAlerts { get; set; } // 1 - n
     }
 }

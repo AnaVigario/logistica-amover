@@ -10,9 +10,9 @@ namespace projeto.Data.Models
         public string VID { get; set; } // Vehicle Identification Number
         
         //FK
-        public int ownerID { get; set; }
+        public int ownerID { get; set; } // User n - 1
         
         //NAV
-        public User owner { get; set; }
+        public User owner { get; set; } // User n - 1 navigation
     }
 }
