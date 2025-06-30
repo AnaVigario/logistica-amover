@@ -32,6 +32,10 @@ namespace projeto.Data
                 .WithOne(a => a.admin)
                 .HasForeignKey(a => a.adminID)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Task>()
+                .HasMany(t => t.SubTasks)
+                .WithOne(t => t.ParentTask)
+                .HasForeignKey(t => t.ParentTaskId);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -10,7 +10,7 @@ namespace projeto.Data.Models
         public string type { get; set; }
 
         [Required]
-        public DateTime creation_date { get; set; }
+        public DateTime creationDate { get; set; }
 
         public DateTime deadline { get; set; }
 
@@ -22,9 +22,16 @@ namespace projeto.Data.Models
 
         public List<string> coordinates { get; set; }
 
-        public virtual List<Task> tasks { get; set; } 
-        public virtual User users { get; set; }
-        public virtual Service service { get; set; }
+        //FK
+        public int userID { get; set; } // User n - 1
+        public int parentTaskID { get; set; } // Parent Task n - 1
+
+        //NAV
+        public virtual Task parentTask { get; set; } // Parent Task 1 - n
+        public virtual List<Task> subTasks { get; set; } // n - n
+
+        public virtual User user { get; set; }
+        //public virtual Service service { get; set; }
 
 
     }
