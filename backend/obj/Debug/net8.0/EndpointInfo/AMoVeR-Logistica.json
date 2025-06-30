@@ -346,6 +346,42 @@
   },
   "components": {
     "schemas": {
+      "Alert": {
+        "required": [
+          "description",
+          "timestamp"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "adminID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "admin": {
+            "$ref": "#/components/schemas/User"
+          },
+          "targets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "User": {
         "required": [
           "email",
@@ -379,6 +415,20 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Vehicle"
+            },
+            "nullable": true
+          },
+          "targetedAlerts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alert"
+            },
+            "nullable": true
+          },
+          "managedAlerts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alert"
             },
             "nullable": true
           }

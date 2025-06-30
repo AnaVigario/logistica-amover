@@ -15,7 +15,7 @@ namespace projeto.Data
         //public DbSet<Models.Task> tasks { get; set; }
         //public DbSet<Service> services { get; set; }
         //public DbSet<PerformanceReport> reports { get; set; }
-        //public DbSet<Alert> alerts { get; set; }
+        public DbSet<Alert> alerts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,14 @@ namespace projeto.Data
                 .WithOne(v => v.owner)
                 .HasForeignKey(v => v.ownerID)
                 .OnDelete(DeleteBehavior.Cascade);
-
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.targetedAlerts)
+                .WithMany(a => a.targets);
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.managedAlerts)
+                .WithOne(a => a.admin)
+                .HasForeignKey(a => a.adminID)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }
