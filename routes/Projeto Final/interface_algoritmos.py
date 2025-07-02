@@ -1,19 +1,4 @@
-#!/usr/bin/env python3
-"""interface_algoritmos.py – versão 2.2
-================================================
 
-🔑 NOVO • Suporte pleno a campos opcionais no Excel/JSON
--------------------------------------------------------
-Esta revisão resolve o problema "Nenhum depósito encontrado" no
-`savings.py` porque passa agora o campo **is_depot** (e outros)
-directamente do Excel para o JSON.
-
-✔ Detecta depósito mesmo que a coluna *is_depot* não exista – assume
-  True quando `id == 0 and demand == 0`.
-✔ Copia colunas opcionais *is_depot*, *is_charging_station* e
-  *charger_power_kw* para cada nó, caso existam na folha *nodes*.
-✔ Restante funcionalidade (auto‑build, menu, batch) mantém‑se.
-"""
 from __future__ import annotations
 
 import json
