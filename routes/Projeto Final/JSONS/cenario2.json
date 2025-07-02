@@ -1,0 +1,28 @@
+{
+    "algoritmo": "grasp",
+    "vehicles": [
+        {
+            "capacity": 18,
+            "battery_kwh": 10.0
+        }
+    ],
+    "nodes": [
+        {
+            "id": 0,
+            "x": 0.0,
+            "y": 0.0,
+            "demand": 0,
+            "janela_inicio": "08:00",
+            "janela_fim": "11:30",
+            "is_depot": true
+        },
+        {
+            "id": 1,
+            "x": 2.3,
+            "y": 1.0,
+            "demand": 3,
+            "janela_inicio": "08:00",
+            "janela_fim": "09:00"
+        }
+    ]
+}

@@ -1,0 +1,54 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "x": 0,
+      "y": 0,
+      "is_depot": true
+    },
+    {
+      "id": 1,
+      "x": 5,
+      "y": 6,
+      "demand": 10
+    },
+    {
+      "id": 2,
+      "x": 10,
+      "y": 0,
+      "demand": 5
+    },
+    {
+      "id": 3,
+      "x": 15,
+      "y": 4,
+      "demand": 10
+    },
+    {
+      "id": 4,
+      "x": 7,
+      "y": 8,
+      "demand": 7
+    },
+    {
+      "id": 5,
+      "x": 12,
+      "y": 10,
+      "is_depot": true
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "V1",
+      "capacity": 30,
+      "battery_kwh": 8.0,
+      "start_node": 0
+    },
+    {
+      "id": "V2",
+      "capacity": 30,
+      "battery_kwh": 8.0,
+      "start_node": 5
+    }
+  ]
+}
