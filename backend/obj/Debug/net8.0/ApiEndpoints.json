@@ -1,5 +1,147 @@
 [
   {
+    "ContainingType": "projeto.Controllers.AlertController",
+    "Method": "Post",
+    "RelativePath": "Alert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "description",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ID_admin",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "_ID_users",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "PostAlert"
+  },
+  {
+    "ContainingType": "projeto.Controllers.AlertController",
+    "Method": "Get",
+    "RelativePath": "Alert",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[projeto.Data.Models.Alert, AMoVeR-Logistica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetAlerts"
+  },
+  {
+    "ContainingType": "projeto.Controllers.AlertController",
+    "Method": "Get",
+    "RelativePath": "Alert/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "projeto.Data.Models.Alert",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetAlert"
+  },
+  {
+    "ContainingType": "projeto.Controllers.AlertController",
+    "Method": "Put",
+    "RelativePath": "Alert/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "description",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ID_admin",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "_ID_users",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "PutAlert"
+  },
+  {
+    "ContainingType": "projeto.Controllers.AlertController",
+    "Method": "Delete",
+    "RelativePath": "Alert/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "DeleteAlert"
+  },
+  {
     "ContainingType": "projeto.Controllers.UserController",
     "Method": "Post",
     "RelativePath": "api/User",
@@ -196,5 +338,199 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "projeto.Controllers.RouteController",
+    "Method": "Post",
+    "RelativePath": "Route",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "description",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "PostRoute"
+  },
+  {
+    "ContainingType": "projeto.Controllers.RouteController",
+    "Method": "Get",
+    "RelativePath": "Route",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[projeto.Data.Models.Route, AMoVeR-Logistica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetRoutes"
+  },
+  {
+    "ContainingType": "projeto.Controllers.RouteController",
+    "Method": "Get",
+    "RelativePath": "Route/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "projeto.Data.Models.Route",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetRoute"
+  },
+  {
+    "ContainingType": "projeto.Controllers.RouteController",
+    "Method": "Delete",
+    "RelativePath": "Route/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "DeleteRoute"
+  },
+  {
+    "ContainingType": "projeto.Controllers.RouteController",
+    "Method": "LinkRouteNode",
+    "RelativePath": "Route/{routeId}/node",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "routeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nodeId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "LinkRouteNode"
+  },
+  {
+    "ContainingType": "projeto.Controllers.RouteController",
+    "Method": "UnlinkRouteNode",
+    "RelativePath": "Route/{routeId}/node",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "routeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nodeId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "UnlinkRouteNode"
+  },
+  {
+    "ContainingType": "projeto.Controllers.RouteController",
+    "Method": "PostPoint",
+    "RelativePath": "Route/node",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "_n",
+        "Type": "projeto.Controllers.NodeDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "PostRouteNode"
+  },
+  {
+    "ContainingType": "projeto.Controllers.RouteController",
+    "Method": "GetAllNodes",
+    "RelativePath": "Route/node",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[projeto.Data.Models.LocationNode, AMoVeR-Logistica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetAllNodes"
   }
 ]

@@ -16,6 +16,8 @@ namespace projeto.Data
         //public DbSet<Service> services { get; set; }
         //public DbSet<PerformanceReport> reports { get; set; }
         public DbSet<Alert> alerts { get; set; }
+        public DbSet<Models.Route> routes { get; set; }
+        public DbSet<LocationNode> locationNodes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,7 +25,7 @@ namespace projeto.Data
                 .HasMany(u => u.vehicles)
                 .WithOne(v => v.owner)
                 .HasForeignKey(v => v.ownerID)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.SetNull);
             modelBuilder.Entity<User>()
                 .HasMany(u => u.targetedAlerts)
                 .WithMany(a => a.targets);
@@ -32,11 +34,18 @@ namespace projeto.Data
                 .WithOne(a => a.admin)
                 .HasForeignKey(a => a.adminID)
                 .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Task>()
-                .HasMany(t => t.SubTasks)
-                .WithOne(t => t.ParentTask)
-                .HasForeignKey(t => t.ParentTaskId);
-
+            modelBuilder.Entity<Data.Models.Task>()
+                .HasMany(t => t.subTasks)
+                .WithOne(t => t.parentTask)
+                .HasForeignKey(t => t.parentTaskID);
+            modelBuilder.Entity<Data.Models.Task>()
+                .HasOne(t => t.service)
+                .WithMany(s => s.tasks)
+                .HasForeignKey(t => t.serviceID)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Models.Route>()
+                .HasMany(r => r.nodes)
+                .WithMany(n => n.routes);
             base.OnModelCreating(modelBuilder);
         }
     }

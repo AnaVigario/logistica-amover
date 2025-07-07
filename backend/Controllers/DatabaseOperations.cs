@@ -274,7 +274,150 @@ namespace projeto.Controllers
             {
                 throw new Exception("Erro ao excluir veículo: " + ex.Message);
             }
-        }   
+        }
+
+        public bool CreateRoute(string description)
+        {
+            try
+            {
+                Data.Models.Route route = new Data.Models.Route();
+                route.description = description;
+                db.routes.Add(route);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao criar rota: " + ex.Message);
+            }
+        }
+
+        public bool CreateNode(float lat, float lon, string description)
+        {
+            try
+            {
+                LocationNode node = new LocationNode();
+                node.latitude = lat;
+                node.longintude = lon;
+                node.description = description;
+                db.locationNodes.Add(node);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao criar nó: " + ex.Message);
+            }
+        }
+
+        public bool AddNodeToRoute(int routeId, int nodeId)
+        {
+            try
+            {
+                var route = db.routes.Include(r => r.nodes).FirstOrDefault(r => r.ID == routeId);
+                if (route == null)
+                {
+                    throw new Exception("Rota não encontrada.");
+                }
+                var node = db.locationNodes.FirstOrDefault(n => n.ID == nodeId);
+                if (node == null)
+                {
+                    throw new Exception("Nó não encontrado.");
+                }
+                if (route.nodes.Any(n => n.ID == nodeId))
+                {
+                    throw new Exception("Nó já está associado a esta rota.");
+                }
+                route.nodes.Add(node);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao adicionar nó à rota: " + ex.Message);
+            }
+        }
+
+        public bool RemoveNodeFromRoute(int routeId, int nodeId)
+        {
+            try
+            {
+                var route = db.routes.Include(r => r.nodes).FirstOrDefault(r => r.ID == routeId);
+                if (route == null)
+                {
+                    throw new Exception("Rota não encontrada.");
+                }
+                var node = route.nodes.FirstOrDefault(n => n.ID == nodeId);
+                if (node == null)
+                {
+                    throw new Exception("Nó não encontrado na rota.");
+                }
+                route.nodes.Remove(node);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao remover nó da rota: " + ex.Message);
+            }
+        }
+
+        public List<LocationNode> GetNodes()
+        {
+            try
+            {
+                return db.locationNodes.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter nós: " + ex.Message);
+            }
+        }
+
+        public List<Data.Models.Route> GetRoutes()
+        {
+            try
+            {
+                return db.routes.Include(r => r.nodes).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter rotas: " + ex.Message);
+            }
+        }
+
+        public Data.Models.Route GetRoute(int id)
+        {
+            try
+            {
+                var r = db.routes.Include(r => r.nodes).Where(r => r.ID == id).FirstOrDefault();
+                return (r == null ? throw new Exception("Rota não encontrada.") : r);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter rota: " + ex.Message);
+            }
+        }
+
+        public bool DeleteRoute(int routeID)
+        {
+            try
+            {
+                var route = db.routes.Include(r => r.nodes).FirstOrDefault(r => r.ID == routeID);
+                if (route == null)
+                {
+                    throw new Exception("Rota não encontrada.");
+                }
+                db.routes.Remove(route);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao excluir rota: " + ex.Message);
+            }
+        }
+
         /*
         public void CreateReport(string description)
         {
