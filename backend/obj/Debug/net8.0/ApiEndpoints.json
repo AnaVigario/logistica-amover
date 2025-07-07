@@ -8,19 +8,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "description",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "ID_admin",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "_ID_users",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "_a",
+        "Type": "projeto.Controllers.AlertDTO",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [

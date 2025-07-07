@@ -61,19 +61,28 @@ namespace projeto.Controllers
             return -1;
         }
 
-        public void CreateAlert(string description, int adminId, List<int> targetIds)
+        public void CreateAlert(Alert alert, List<int> _targets)
         {
-            Alert alert = new Alert();
-            alert.description = description;
-            alert.timestamp = DateTime.Now;
-            alert.adminID = adminId;
-            alert.targets = new List<User>();
-            foreach (int id1 in targetIds) 
+            try
             {
-                alert.targets.Add(db.users.Where(x => x.ID == id1).FirstOrDefault());
+                alert.targets = new List<User>();
+                alert.timestamp = DateTime.UtcNow;
+                foreach (int id1 in _targets)
+                {
+                    if (!db.users.Any(x => x.ID == id1))
+                    {
+                        throw new Exception("Usuário com ID " + id1 + " não encontrado.");
+                    } else {
+                        alert.targets.Add(db.users.Where(x => x.ID == id1).FirstOrDefault());
+                    }
+                }
+                db.alerts.Add(alert);
+                db.SaveChanges();
             }
-            db.alerts.Add(alert);
-            db.SaveChanges();
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao criar alerta: " + ex.Message);
+            }
         }
 
         public List<Alert> GetAlerts()
