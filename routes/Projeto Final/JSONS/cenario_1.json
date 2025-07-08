@@ -1,0 +1,35 @@
+{
+    "algoritmo": "tabu_search",
+    "vehicles": [
+        {
+            "capacity": 25,
+            "battery_kwh": 10.0
+        }
+    ],
+    "nodes": [
+        {
+            "id": 0,
+            "x": 0.0,
+            "y": 0.0,
+            "demand": 0,
+            "janela_inicio": "06:30",
+            "janela_fim": "08:00"
+        },
+        {
+            "id": 1,
+            "x": 1.2,
+            "y": 2.1,
+            "demand": 5,
+            "janela_inicio": "06:30",
+            "janela_fim": "08:00"
+        },
+        {
+            "id": 2,
+            "x": 3.5,
+            "y": 1.8,
+            "demand": 4,
+            "janela_inicio": "06:30",
+            "janela_fim": "08:00"
+        }
+    ]
+}

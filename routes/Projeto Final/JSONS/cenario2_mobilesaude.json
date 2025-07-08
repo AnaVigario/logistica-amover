@@ -1,0 +1,77 @@
+{
+  "algorithm": "grasp",
+  "config": {
+    "time_limit": 30,
+    "alpha": 0.3
+  },
+  "nodes": [
+    {
+      "id": 0,
+      "x": 0,
+      "y": 0,
+      "is_depot": true
+    },
+    {
+      "id": 1,
+      "x": 2.0,
+      "y": 3.0,
+      "demand": 1,
+      "time_window": [
+        28800,
+        30600
+      ],
+      "service_time": 300
+    },
+    {
+      "id": 2,
+      "x": 5.0,
+      "y": 8.0,
+      "demand": 1,
+      "time_window": [
+        31200,
+        33600
+      ],
+      "service_time": 300
+    },
+    {
+      "id": 3,
+      "x": 6.0,
+      "y": 1.0,
+      "demand": 1,
+      "time_window": [
+        34200,
+        36000
+      ],
+      "service_time": 300
+    },
+    {
+      "id": 4,
+      "x": 8.0,
+      "y": 6.0,
+      "demand": 1,
+      "time_window": [
+        36000,
+        39600
+      ],
+      "service_time": 300
+    },
+    {
+      "id": 5,
+      "x": 1.0,
+      "y": 9.0,
+      "demand": 1,
+      "time_window": [
+        29700,
+        36000
+      ],
+      "service_time": 300
+    }
+  ],
+  "vehicles": [
+    {
+      "id": 1,
+      "capacity": 10,
+      "battery_kwh": 8
+    }
+  ]
+}

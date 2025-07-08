@@ -1,0 +1,63 @@
+{
+  "algorithm": "tabu_search",
+  "config": {
+    "time_limit": 30,
+    "tabu_tenure": 10
+  },
+  "nodes": [
+    {
+      "id": 0,
+      "x": 0.0,
+      "y": 0.0,
+      "is_depot": true
+    },
+    {
+      "id": 1,
+      "x": 2.0,
+      "y": 3.0,
+      "demand": 4
+    },
+    {
+      "id": 2,
+      "x": 5.0,
+      "y": 8.0,
+      "demand": 6
+    },
+    {
+      "id": 3,
+      "x": 6.0,
+      "y": 1.0,
+      "demand": 3
+    },
+    {
+      "id": 4,
+      "x": 8.0,
+      "y": 6.0,
+      "demand": 5
+    },
+    {
+      "id": 5,
+      "x": 1.0,
+      "y": 9.0,
+      "demand": 2
+    },
+    {
+      "id": 6,
+      "x": 7.0,
+      "y": 4.0,
+      "demand": 8
+    }
+  ],
+  "vehicles": [
+    {
+      "id": 1,
+      "capacity": 10,
+      "battery_kwh": 6
+    },
+    {
+      "id": 2,
+      "capacity": 10,
+      "battery_kwh": 6
+    }
+  ]
+}
