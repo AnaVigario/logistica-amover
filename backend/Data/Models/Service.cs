@@ -20,6 +20,8 @@ namespace projeto.Data.Models
 
         //FK
 
+
+
         //NAV
 
         public virtual User user { get; set; }

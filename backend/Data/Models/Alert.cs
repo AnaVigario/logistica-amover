@@ -17,6 +17,6 @@ namespace projeto.Data.Models
 
         //NAV
         public virtual User admin { get; set; }
-        public virtual List<User> targets { get; set; }
+        public virtual List<User>? targets { get; set; }
     }
 }

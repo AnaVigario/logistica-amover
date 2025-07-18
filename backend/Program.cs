@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using projeto.Controllers;
 using projeto.Data;
+using projeto.Data.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +55,11 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Add services
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.MaxDepth = 64;
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<AMoverContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("CAmover")));

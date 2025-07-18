@@ -17,23 +17,30 @@ namespace projeto.Controllers
         }
 
         [HttpPost(Name = "PostAlert")]
-        public void Post(string description, int ID_admin, string _ID_users) //_ID_users is a string with the ids of the users separated by commas
+        public void Post([FromBody] AlertDTO _a) //_ID_users is a string with the ids of the users separated by commas
         {
-            List<int> ID_users = new List<int>();
-            foreach(string s in _ID_users.Split(',').ToList())
+            try
             {
-                ID_users.Add(Convert.ToInt32(s));
-            };
-            _db.CreateAlert(description, ID_admin, ID_users);
-           
+                Alert a = new Alert
+                {
+                    description = _a.description,
+                    adminID = _a.adminID
+                };
+                _db.CreateAlert(a, _a.targets);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao criar alerta.");
+                throw new Exception("Erro ao criar alerta.");
+            }
             return;
         }
 
         [HttpGet(Name = "GetAlerts")]
         public IEnumerable<Alert> Get()
         {
-            List<Alert> reply = _db.GetAlerts();     
-            return reply; 
+            List<Alert> reply = _db.GetAlerts();
+            return reply;
         }
 
         [HttpGet("{id}", Name = "GetAlert")]
@@ -47,7 +54,7 @@ namespace projeto.Controllers
         public void Put(int id, string description, int ID_admin, string _ID_users)
         {
             List<int> ID_users = new List<int>();
-            foreach(string s in _ID_users.Split(',').ToList())
+            foreach (string s in _ID_users.Split(',').ToList())
             {
                 ID_users.Add(Convert.ToInt32(s));
             };
@@ -61,5 +68,12 @@ namespace projeto.Controllers
             _db.DeleteAlert(id);
             return;
         }
+    }
+
+    public class AlertDTO
+    {
+        public string description { get; set; }
+        public int adminID { get; set; } // User n - 1
+        public List<int> targets { get; set; } // List of User IDs
     }
 }

@@ -25,13 +25,13 @@ namespace projeto.Data.Models
         //FK
         public int userID { get; set; } // User n - 1
         public int parentTaskID { get; set; } // Parent Task n - 1
-
+        public int serviceID { get; set; } // Service n - 1
         //NAV
         public virtual Task parentTask { get; set; } // Parent Task 1 - n
         public virtual List<Task> subTasks { get; set; } // n - n
 
         public virtual User user { get; set; }
-        //public virtual Service service { get; set; }
+        public virtual Service service { get; set; }
 
 
     }

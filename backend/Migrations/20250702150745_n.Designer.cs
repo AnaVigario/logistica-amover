@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using projeto.Data;
@@ -12,9 +13,11 @@ using projeto.Data;
 namespace AMoVeRLogistica.Migrations
 {
     [DbContext(typeof(AMoverContext))]
-    partial class AMoverContextModelSnapshot : ModelSnapshot
+    [Migration("20250702150745_n")]
+    partial class n
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,21 +39,6 @@ namespace AMoVeRLogistica.Migrations
                     b.HasIndex("targetsID");
 
                     b.ToTable("AlertUser");
-                });
-
-            modelBuilder.Entity("LocationNodeRoute", b =>
-                {
-                    b.Property<int>("nodesID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("routesID")
-                        .HasColumnType("integer");
-
-                    b.HasKey("nodesID", "routesID");
-
-                    b.HasIndex("routesID");
-
-                    b.ToTable("LocationNodeRoute");
                 });
 
             modelBuilder.Entity("projeto.Data.Models.Alert", b =>
@@ -78,79 +66,6 @@ namespace AMoVeRLogistica.Migrations
                     b.ToTable("alerts");
                 });
 
-            modelBuilder.Entity("projeto.Data.Models.LocationNode", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<float>("latitude")
-                        .HasColumnType("real");
-
-                    b.Property<float>("longintude")
-                        .HasColumnType("real");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("locationNodes");
-                });
-
-            modelBuilder.Entity("projeto.Data.Models.Route", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("routes");
-                });
-
-            modelBuilder.Entity("projeto.Data.Models.Service", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<DateTime>("date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("userID")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("userID");
-
-                    b.ToTable("Service");
-                });
-
             modelBuilder.Entity("projeto.Data.Models.Task", b =>
                 {
                     b.Property<int>("ID")
@@ -176,9 +91,6 @@ namespace AMoVeRLogistica.Migrations
                     b.Property<int>("parentTaskID")
                         .HasColumnType("integer");
 
-                    b.Property<int>("serviceID")
-                        .HasColumnType("integer");
-
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("text");
@@ -193,8 +105,6 @@ namespace AMoVeRLogistica.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("parentTaskID");
-
-                    b.HasIndex("serviceID");
 
                     b.HasIndex("userID");
 
@@ -267,21 +177,6 @@ namespace AMoVeRLogistica.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LocationNodeRoute", b =>
-                {
-                    b.HasOne("projeto.Data.Models.LocationNode", null)
-                        .WithMany()
-                        .HasForeignKey("nodesID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("projeto.Data.Models.Route", null)
-                        .WithMany()
-                        .HasForeignKey("routesID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("projeto.Data.Models.Alert", b =>
                 {
                     b.HasOne("projeto.Data.Models.User", "admin")
@@ -293,28 +188,11 @@ namespace AMoVeRLogistica.Migrations
                     b.Navigation("admin");
                 });
 
-            modelBuilder.Entity("projeto.Data.Models.Service", b =>
-                {
-                    b.HasOne("projeto.Data.Models.User", "user")
-                        .WithMany()
-                        .HasForeignKey("userID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("user");
-                });
-
             modelBuilder.Entity("projeto.Data.Models.Task", b =>
                 {
                     b.HasOne("projeto.Data.Models.Task", "parentTask")
                         .WithMany("subTasks")
                         .HasForeignKey("parentTaskID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("projeto.Data.Models.Service", "service")
-                        .WithMany("tasks")
-                        .HasForeignKey("serviceID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -325,8 +203,6 @@ namespace AMoVeRLogistica.Migrations
                         .IsRequired();
 
                     b.Navigation("parentTask");
-
-                    b.Navigation("service");
 
                     b.Navigation("user");
                 });
@@ -339,11 +215,6 @@ namespace AMoVeRLogistica.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("owner");
-                });
-
-            modelBuilder.Entity("projeto.Data.Models.Service", b =>
-                {
-                    b.Navigation("tasks");
                 });
 
             modelBuilder.Entity("projeto.Data.Models.Task", b =>
