@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="design_login">#252625</color>
+    <color name="gray_dark">#808080</color>
+    <color name="gray_light">#E0E0E0</color>
+    <color name="green">#CAE0CA</color>
+    <color name="green_2">#DBE4DB</color>
+    <color name="green_3">#E7F6E7</color>
+    <color name="green_500">#13490A</color>
+    <color name="green_700">#474D47</color>
+    <color name="login">#737A73</color>
+    <color name="purple_200">#8FA97D</color>
+    <color name="teal_200">#ADBCB3</color>
+    <color name="teal_700">#C6E0C6</color>
+    <color name="white">#FFFFFFFF</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <string name="app_name">Amover</string>
+    <string name="bem_vindo">Welcome</string>
+    <string name="detalhes">Details</string>
+    <string name="don_t_have_account_sign_up">Don\'t have account? Contact us!</string>
+    <string name="gcm_defaultSenderId" translatable="false">32993365878</string>
+    <string name="google_api_key" translatable="false">AIzaSyAQ1p43aPB4RqZyswSzpuUp4VnzbxHJq4o</string>
+    <string name="google_app_id" translatable="false">1:32993365878:android:f0fd27345d7f342ef13457</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAQ1p43aPB4RqZyswSzpuUp4VnzbxHJq4o</string>
+    <string name="google_storage_bucket" translatable="false">amoverv.firebasestorage.app</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="historico_perfil">Historic</string>
+    <string name="log_stica">Logística</string>
+    <string name="login">Login</string>
+    <string name="login_error">Login Error\n</string>
+    <string name="logout">Logout</string>
+    <string name="map">Map</string>
+    <string name="password">Password</string>
+    <string name="personal_profile">Profile</string>
+    <string name="please_insert_all_required_fields">Please insert all required fields</string>
+    <string name="project_id" translatable="false">amoverv</string>
+    <string name="recover_password">Recover Password</string>
+    <string name="save_login">Save login</string>
+    <string name="tasks">Tasks</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Home</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="username">Username</string>
+    <style name="Theme.Amover" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        
+        <item name="colorPrimary">#5B7C4D</item>
+        <item name="colorPrimaryVariant">@color/gray_light</item>
+        <item name="colorOnPrimary">@color/white</item>
+        
+        <item name="colorSecondary">@color/gray_light</item>
+        <item name="colorSecondaryVariant">#CED3CE</item>
+        <item name="colorOnSecondary">@color/green_3</item>
+        
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowBackground">@color/green_3</item>
+        <item name="android:textColorPrimary">@color/black</item>
+
+        
+    </style>
+</resources>

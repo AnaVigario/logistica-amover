@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@color/gray_light"
+    android:layout_alignParentTop="true"
+    tools:context=".ui.home.HomeFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="@string/bem_vindo"
+        android:textStyle="bold"
+        android:textSize="50sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="10dp">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttondelivery"
+            android:layout_width="385dp"
+            android:layout_height="89dp"
+            android:background="@drawable/button_border"
+            android:drawableStart="@drawable/baseline__list"
+            android:padding="10dp"
+            android:textAlignment="textStart"
+            android:text="@string/tasks"
+            android:textColor="@color/green_500"
+            android:textSize="25sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttondeliverycheck"
+            android:layout_width="385dp"
+            android:layout_height="89dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_border"
+            android:drawableStart="@drawable/baseline_checklist"
+            android:padding="10dp"
+            android:textAlignment="textStart"
+            android:text="@string/historico_perfil"
+            android:textColor="@color/green_500"
+            android:textSize="25sp"/>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonperfil"
+            android:layout_width="385dp"
+            android:layout_height="89dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_border"
+            android:drawableStart="@drawable/baseline_checklist"
+            android:padding="10dp"
+            android:textAlignment="textStart"
+            android:text="@string/personal_profile"
+            android:textColor="@color/green_500"
+            android:textSize="25sp" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonlogout"
+            android:layout_width="385dp"
+            android:layout_height="89dp"
+            android:layout_margin="50dp"
+            android:background="@drawable/button_border"
+            android:drawableStart="@drawable/baseline_exit"
+            android:padding="10dp"
+            android:textAlignment="textStart"
+            android:text="@string/logout"
+            android:textColor="@color/green_500"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

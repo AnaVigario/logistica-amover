@@ -1,0 +1,274 @@
+[
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_baseline__list.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\baseline__list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\layout_fragment_map.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\layout\\fragment_map.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-xxxhdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.example.amover.app-debug-62:/layout_fragment_tasks.xml.flat",
+        "source": "com.example.amover.app-main-64:/layout/fragment_tasks.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_check_out.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\check_out.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_baseline_lock_24.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\baseline_lock_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\layout_fragment_perfil.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\layout\\fragment_perfil.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-hdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-hdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-xhdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\layout_fragment_tasks.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\layout\\fragment_tasks.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\layout_fragment_detail.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\layout\\fragment_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_button_border.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\button_border.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-xxxhdpi_rule.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-xxxhdpi\\rule.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_amover.jpg.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\amover.jpg"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\layout_fragment_home.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-xhdpi_rule.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-xhdpi\\rule.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\layout_fragment_dashboard.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\layout\\fragment_dashboard.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\layout_fragment_confirmation.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\layout\\fragment_confirmation.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-ldpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-ldpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-xxhdpi_rule.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-xxhdpi\\rule.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_baseline_checklist.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\baseline_checklist.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_baseline_arrow_downward_24.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\baseline_arrow_downward_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_ic_notifications_black_24dp.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\ic_notifications_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_baseline_arrow.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\baseline_arrow.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-ldpi_rule.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-ldpi\\rule.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\layout_fragment_tasks_check.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\layout\\fragment_tasks_check.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-mdpi_rule.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-mdpi\\rule.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_delivery.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\delivery.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_logo_verde.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\logo_verde.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_delivery_check.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\delivery_check.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_circle.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\circle.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_av_timer.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\av_timer.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\navigation_mobile_navigation.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\navigation\\mobile_navigation.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\layout_fragment_notifications.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\layout\\fragment_notifications.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_ic_dashboard_black_24dp.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\ic_dashboard_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-mdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-mdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-xxhdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_user.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\user.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_truck_fill.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\truck_fill.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\menu_bottom_nav_menu.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\menu\\bottom_nav_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_button_login.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\button_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_rounded_input.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\rounded_input.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_baseline_arrow_upward_24.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\baseline_arrow_upward_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\layout_activity_splash_scren.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\layout\\activity_splash_scren.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-hdpi_rule.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-hdpi\\rule.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_map_2_line.png.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\map_2_line.png"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_baseline_person_24.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\baseline_person_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_ic_home_black_24dp.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\ic_home_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable-anydpi-v24_rule.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-pngs-57:\\drawable-anydpi-v24\\rule.xml"
+    },
+    {
+        "merged": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-debug-62:\\drawable_baseline_exit.xml.flat",
+        "source": "C:\\Users\\ana_v\\.gradle\\daemon\\8.10.2\\com.example.amover.app-main-64:\\drawable\\baseline_exit.xml"
+    }
+]

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "32993365878",
+    "project_id": "amoverv",
+    "storage_bucket": "amoverv.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32993365878:android:f0fd27345d7f342ef13457",
+        "android_client_info": {
+          "package_name": "com.example.amover"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ1p43aPB4RqZyswSzpuUp4VnzbxHJq4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

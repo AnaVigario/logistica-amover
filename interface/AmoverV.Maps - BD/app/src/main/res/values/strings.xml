@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Amover</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="detalhes">Details</string>
+    <string name="log_stica">Logística</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="save_login">Save login</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_account_sign_up">Don\'t have account? Contact us!</string>
+    <string name="recover_password">Recover Password</string>
+    <string name="map">Map</string>
+    <string name="tasks">Tasks</string>
+    <string name="bem_vindo">Welcome</string>
+    <string name="historico_perfil">Historic</string>
+    <string name="login_error">Login Error\n</string>
+    <string name="please_insert_all_required_fields">Please insert all required fields</string>
+    <string name="personal_profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_maps">MapsActivity</string>
+
+
+</resources>
