@@ -55,11 +55,11 @@ com.example.amover.app-navigation-common-2.8.9-53 C:\Users\ana_v\.gradle\caches\
 com.example.amover.app-drawerlayout-1.1.1-54 C:\Users\ana_v\.gradle\caches\8.10.2\transforms\ebc2ecac2a1f242874fd35f3104a01a7\transformed\drawerlayout-1.1.1\res
 com.example.amover.app-profileinstaller-1.4.0-55 C:\Users\ana_v\.gradle\caches\8.10.2\transforms\f7b32a0a4829af72dd0b9e7e40cdf067\transformed\profileinstaller-1.4.0\res
 com.example.amover.app-constraintlayout-2.2.1-56 C:\Users\ana_v\.gradle\caches\8.10.2\transforms\ff1291b1521999b1b55e30693ad21a41\transformed\constraintlayout-2.2.1\res
-com.example.amover.app-pngs-57 C:\Users\ana_v\AndroidStudioProjects\AmoverV.Maps - BD\app\build\generated\res\pngs\debug
-com.example.amover.app-res-58 C:\Users\ana_v\AndroidStudioProjects\AmoverV.Maps - BD\app\build\generated\res\processDebugGoogleServices
-com.example.amover.app-resValues-59 C:\Users\ana_v\AndroidStudioProjects\AmoverV.Maps - BD\app\build\generated\res\resValues\debug
-com.example.amover.app-packageDebugResources-60 C:\Users\ana_v\AndroidStudioProjects\AmoverV.Maps - BD\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.example.amover.app-packageDebugResources-61 C:\Users\ana_v\AndroidStudioProjects\AmoverV.Maps - BD\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.example.amover.app-debug-62 C:\Users\ana_v\AndroidStudioProjects\AmoverV.Maps - BD\app\build\intermediates\merged_res\debug\mergeDebugResources
-com.example.amover.app-debug-63 C:\Users\ana_v\AndroidStudioProjects\AmoverV.Maps - BD\app\src\debug\res
-com.example.amover.app-main-64 C:\Users\ana_v\AndroidStudioProjects\AmoverV.Maps - BD\app\src\main\res
+com.example.amover.app-pngs-57 D:\App\logistica-amover\AmoverV.Maps - BD_V1\app\build\generated\res\pngs\debug
+com.example.amover.app-res-58 D:\App\logistica-amover\AmoverV.Maps - BD_V1\app\build\generated\res\processDebugGoogleServices
+com.example.amover.app-resValues-59 D:\App\logistica-amover\AmoverV.Maps - BD_V1\app\build\generated\res\resValues\debug
+com.example.amover.app-packageDebugResources-60 D:\App\logistica-amover\AmoverV.Maps - BD_V1\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.example.amover.app-packageDebugResources-61 D:\App\logistica-amover\AmoverV.Maps - BD_V1\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.example.amover.app-debug-62 D:\App\logistica-amover\AmoverV.Maps - BD_V1\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.example.amover.app-debug-63 D:\App\logistica-amover\AmoverV.Maps - BD_V1\app\src\debug\res
+com.example.amover.app-main-64 D:\App\logistica-amover\AmoverV.Maps - BD_V1\app\src\main\res

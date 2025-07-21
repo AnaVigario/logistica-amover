@@ -12,7 +12,7 @@ class TaskAdapter(private var list: List<TaskModel>,
     private val onItemClicked: (TaskModel) -> Unit) :
     RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
-    class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val binding = FragmentDetailBinding.bind(view)
 
         fun bind(task: TaskModel) {
@@ -21,15 +21,13 @@ class TaskAdapter(private var list: List<TaskModel>,
             binding.taskTypeText.text = task.type
             binding.taskNameText.text = task.name
             binding.taskTimewindowText.text = task.timewindow
-            binding.circleTask.setImageResource(R.drawable.circle)
-            binding.arrowImage.setImageResource(R.drawable.baseline_arrow)
+            binding.taskNoteText.text = task.note
             binding.ruleImage.setImageResource(R.drawable.rule)
+            binding.root.setOnClickListener {
+                onItemClicked(task)
+            }
 
 
-        }
-
-        override fun onClick(p0: View?) {
-            TODO("Not yet implemented")
         }
 
     }
@@ -39,11 +37,14 @@ class TaskAdapter(private var list: List<TaskModel>,
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.fragment_detail, parent, false)
         return TaskViewHolder(view)
+
     }
 
     override fun onBindViewHolder(holder: TaskAdapter.TaskViewHolder, position: Int) {
         val taskList = list[position]
         holder.bind(taskList)
+
+
     }
 
     override fun getItemCount(): Int = list.size
@@ -52,6 +53,8 @@ class TaskAdapter(private var list: List<TaskModel>,
         list = newlist
         notifyDataSetChanged()
     }
+
+
 }
 
 

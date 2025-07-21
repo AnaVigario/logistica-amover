@@ -22,8 +22,6 @@ class DetailAdapter (
             binding.taskTypeText.text = task.type
             binding.taskNameText.text = task.name
             binding.taskTimewindowText.text = task.timewindow
-            binding.circleTask.setImageResource(R.drawable.circle)
-            binding.arrowImage.setImageResource(R.drawable.baseline_arrow)
             binding.ruleImage.setImageResource(R.drawable.rule)
 
 

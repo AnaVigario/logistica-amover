@@ -3121,6 +3121,7 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
+drawable button2
 drawable button_border
 drawable button_login
 drawable check_out
@@ -3251,6 +3252,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable photo_camera
 drawable rounded_input
 drawable rule
 drawable test_level_drawable
@@ -3258,6 +3260,8 @@ drawable tooltip_frame_dark
 drawable tooltip_frame_light
 drawable truck_fill
 drawable user
+drawable warning_33dp
+drawable warning_yellow
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -3335,8 +3339,12 @@ id action_navigation_home_to_navigation_notifications
 id action_navigation_home_to_navigation_tasks
 id action_navigation_home_to_perfilFragment
 id action_navigation_home_to_tasksCheckFragment
+id action_navigation_tasks_to_detailFragment
 id action_navigation_tasks_to_navigation_home
 id action_navigation_tasks_to_navigation_home2
+id action_navigation_tasks_to_taskDetailFragment
+id action_taskDetailFragment_to_confirmationFragment
+id action_taskDetailFragment_to_navigation_map
 id action_text
 id actions
 id activity_chooser_view_content
@@ -3354,7 +3362,6 @@ id animateToStart
 id antiClockwise
 id anticipate
 id arc
-id arrow_image
 id asConfigured
 id async
 id auto
@@ -3374,8 +3381,11 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
+id btnComplete
 id btnGroup
+id btnStart
 id btn_in_progress
+id btn_photo
 id buttonLogin
 id buttonPanel
 id buttondelivery
@@ -3399,7 +3409,6 @@ id checkbox_logged
 id checked
 id chronometer
 id circle_center
-id circle_task
 id clear_text
 id clip_horizontal
 id clip_vertical
@@ -3437,6 +3446,7 @@ id design_menu_item_action_area
 id design_menu_item_action_area_stub
 id design_menu_item_text
 id design_navigation_view
+id detailFragment
 id dialog_button
 id dimensions
 id direct
@@ -3517,6 +3527,7 @@ id ignore
 id ignoreRequest
 id image
 id imageViewLogo
+id imageview1
 id immediateStop
 id included
 id indeterminate
@@ -3545,6 +3556,7 @@ id locale
 id ltr
 id m3_side_sheet
 id mainActivity
+id mandatory
 id map_fragment
 id marquee
 id masked
@@ -3606,6 +3618,7 @@ id mtrl_picker_text_input_range_start
 id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
+id name_text
 id nav_controller_view_tag
 id nav_host_fragment_activity_main
 id nav_host_fragment_container
@@ -3667,6 +3680,7 @@ id pathRelative
 id peekHeight
 id percent
 id perfilFragment
+id photo_text
 id pin
 id pooling_container_listener_holder_tag
 id position
@@ -3767,12 +3781,14 @@ id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
 id tag_window_insets_animation_callback
+id taskDetailFragment
 id task_address_text
 id task_id_text
 id task_latitude_text
 id task_longitude_text
 id task_name_text
 id task_note_text
+id task_status_text
 id task_time_text
 id task_timewindow_text
 id task_type_text
@@ -3785,12 +3801,17 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textTop
+id textViewDescricao
+id textViewEstado
+id textViewHoraPrevista
+id textViewLocalização
+id textViewTipo
 id textWatcher
-id text_confirmation
 id text_dashboard
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
+id text_morada
 id text_notifications
 id text_recover
 id text_sign
@@ -3826,6 +3847,8 @@ id up
 id useLogo
 id vertical
 id vertical_only
+id view_2
+id view_confirmation
 id view_offset_helper
 id view_transition
 id view_tree_lifecycle_owner
@@ -3834,6 +3857,7 @@ id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
+id warning_image
 id west
 id wide
 id withText
@@ -3986,6 +4010,7 @@ layout fragment_home
 layout fragment_map
 layout fragment_notifications
 layout fragment_perfil
+layout fragment_task_detail
 layout fragment_tasks
 layout fragment_tasks_check
 layout ime_base_split_test_activity

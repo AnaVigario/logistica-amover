@@ -21,6 +21,25 @@
                     }
                 },
                 {
+                    "source": "D:\\App\\logistica-amover\\AmoverV.Maps - BD_V1\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "102",
+                        "endLines": "14",
+                        "endColumns": "12",
+                        "endOffsets": "814"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "14",
+                        "endColumns": "12",
+                        "endOffsets": "634"
+                    }
+                },
+                {
                     "source": "C:\\Users\\ana_v\\.gradle\\caches\\8.10.2\\transforms\\0455d002e5b56e829ed390409b4c283d\\transformed\\appcompat-1.7.0\\res\\values-night-v8\\values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
@@ -35,25 +54,6 @@
                         "startOffsets": "639,709,793,877,973,1075,1177,4159",
                         "endColumns": "69,83,83,95,101,101,93,88",
                         "endOffsets": "704,788,872,968,1070,1172,1266,4243"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\ana_v\\AndroidStudioProjects\\AmoverV.Maps - BD\\app\\src\\main\\res\\values-night\\themes.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "100",
-                        "endLines": "14",
-                        "endColumns": "12",
-                        "endOffsets": "800"
-                    },
-                    "to": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endLines": "14",
-                        "endColumns": "12",
-                        "endOffsets": "634"
                     }
                 }
             ]

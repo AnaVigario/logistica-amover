@@ -21,8 +21,6 @@ class TasksCheckAdapter( private var checklist: List<TaskModel>) : RecyclerView.
             binding.taskTypeText.text = taskcheck.type
             binding.taskNameText.text = taskcheck.name
             binding.taskTimewindowText.text = taskcheck.timewindow
-            binding.circleTask.setImageResource(R.drawable.circle)
-            binding.arrowImage.setImageResource(R.drawable.baseline_arrow)
             binding.ruleImage.setImageResource(R.drawable.rule)
         }
     }

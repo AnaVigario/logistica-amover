@@ -43,6 +43,8 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "database.db", null
 
     //-------------------------- USER -----------------------------------
 
+
+
     fun updateUser(id: Int, username: String, password: String): Long {
         val db = this.writableDatabase
         val contentValues = ContentValues()
@@ -138,6 +140,47 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "database.db", null
         }
         db.close()
         return taskList
+    }
+
+    fun getTaskById(id: Int): TaskModel {
+        val db = this.readableDatabase
+        val c = db.rawQuery("SELECT * FROM tasks WHERE id=?", null)
+        val taskbyid = ArrayList<TaskModel>()
+        if (c.moveToFirst()) {
+            do {
+                val idIndex = c.getColumnIndex("id")
+                val typeIndex = c.getColumnIndex("type")
+                val addressIndex = c.getColumnIndex("address")
+                val nameIndex = c.getColumnIndex("name")
+                val statusIndex = c.getColumnIndex("status")
+                val timewindowIndex = c.getColumnIndex("timewindow")
+                val timerTaskIndex = c.getColumnIndex("timerTask")
+                val dateTaskIndex = c.getColumnIndex("dateTask")
+                val noteIndex = c.getColumnIndex("note")
+                val imageIndex = c.getColumnIndex("image")
+                val latitudeIndex = c.getColumnIndex("latitude")
+                val longitudeIndex = c.getColumnIndex("longitude")
+                taskbyid.add(
+                    TaskModel(
+                        id = c.getInt(idIndex),
+                        type = c.getString(typeIndex),
+                        address = c.getString(addressIndex),
+                        name = c.getString(nameIndex),
+                        status = c.getString(statusIndex),
+                        timewindow = c.getString(timewindowIndex),
+                        timerTask = c.getString(timerTaskIndex),
+                        dateTask = c.getString(dateTaskIndex),
+                        note = c.getString(noteIndex),
+                        image = c.getString(imageIndex),
+                        latitude = c.getDouble(latitudeIndex),
+                        longitude = c.getDouble(longitudeIndex)
+                    )
+                )
+            } while (c.moveToNext())
+        }
+
+        db.close()
+        return taskbyid[0]
     }
 
     fun addTask(taskModel: TaskModel): Long {
@@ -254,6 +297,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "database.db", null
         db.close()
         return taskcheckList
     }
+
 }
 
 

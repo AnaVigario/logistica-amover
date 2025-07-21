@@ -49,6 +49,12 @@
         <action
             android:id="@+id/action_navigation_tasks_to_navigation_home2"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_tasks_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_navigation_tasks_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_notifications"
@@ -88,4 +94,20 @@
         android:id="@+id/mainActivity"
         android:name="com.example.amover.MainActivity"
         android:label="Home" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.amover.ui.detail.DetailFragment"
+        android:label="DetailFragment" />
+    <fragment
+        android:id="@+id/taskDetailFragment"
+        android:name="com.example.amover.ui.taskdetail.TaskDetailFragment"
+        android:label="fragment_task_detail"
+        tools:layout="@layout/fragment_task_detail" >
+        <action
+            android:id="@+id/action_taskDetailFragment_to_navigation_map"
+            app:destination="@id/navigation_map" />
+        <action
+            android:id="@+id/action_taskDetailFragment_to_confirmationFragment"
+            app:destination="@id/confirmationFragment" />
+    </fragment>
 </navigation>

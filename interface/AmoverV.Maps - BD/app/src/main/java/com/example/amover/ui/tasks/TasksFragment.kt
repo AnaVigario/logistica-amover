@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.amover.R
 import com.example.amover.databinding.FragmentTasksBinding
@@ -44,10 +46,16 @@ class TasksFragment : Fragment() {
         val db = DBHelper(requireContext())
         val taskcheckList = db.getTasks()
 
-        binding.recyclerviewTasks.adapter = TaskAdapter(taskcheckList){
-            val bundle = Bundle()
-            bundle.putInt("id", it.id)
+        binding.recyclerviewTasks.adapter = TaskAdapter(taskcheckList) { task ->
+            val bundle = Bundle().apply {
+                putInt("id", task.id)
+
+            }
+            findNavController().navigate(R.id.action_navigation_tasks_to_taskDetailFragment, bundle)
+            Toast.makeText(requireContext(), "ID: ${task.name}", Toast.LENGTH_SHORT).show()
+
         }
+
     }
 override fun onDestroyView() {
     super.onDestroyView()
