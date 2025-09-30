@@ -13,14 +13,14 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "database.db", null
     val sql = arrayOf(
         "CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)",
         "INSERT INTO users (username, password) VALUES( 'user', 'pass')",
-        "CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, address TEXT, name TEXT, status TEXT, timewindow TEXT, timerTask TEXT, dateTask TEXT, note TEXT, image TEXT, latitude TEXT, longitude TEXT)",
-        "INSERT INTO tasks (type, address, name, status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Recolha','ECT - Polo 1','UTAD','Andamento','No specific time windows','09:00:00','2025-01-02','teste', NULL,'41.28863566712775','-7.739067907230414')",
-        "INSERT INTO tasks (type, address, name, status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Recolha','R. D. António Valente da Fonseca','Neutrão - Centro Radio-diagnóstico','Concluído','No specific time windows','09:15:00','2025-03-13','Envelopes exames', NULL,'41.299445642422675','-7.749621546632743')",
-        "INSERT INTO tasks (type, address, name, status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Entrega','Largo Visconde Almeid Ganat','Farmácia Barreira','Por iniciar','No specific time windows','09:30:00','2025-03-12','Caixa 16Kg', NULL,'41.29858613918125','-7.742791387321814')",
-        "INSERT INTO tasks (type, address, name, status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Recolha','Casa de Mateus, 5000-291','Fundação da Casa de Mateus','Por iniciar','10:00:00-10:30:00','10:00:00','2025-03-11','Envelope', NULL,'41.29691548193833','-7.711944067790135')",
-        "INSERT INTO tasks (type, address, name, status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Recolha','Rua dos Três Lagares, n.º 15, 5000-577','Unidade de Cuidados de Saúde Personalizados (UCSP) de Mateus','Por iniciar','No specific time windows','10:30:00','2025-03-09','Caixa 3Kg', NULL,'41.30063963258702','-7.721785733216758')",
-        "INSERT INTO tasks (type, address, name, status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Entrega','Av. Carvalho Araújo, n.º 4, 5000-657','Câmara Municipal de Vila Real','Por iniciar','No specific time windows','11:00:00','2025-03-10','Envelope', NULL,'41.294394797512076','-7.7460288247800175')",
-        "INSERT INTO tasks (type, address, name, status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Recolha','ECT - Polo 1','UTAD','Andamento','No specific time windows','09:00:00','2025-02-12','teste', NULL,'41.28863566712775','-7.739067907230414')"
+        "CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT, address TEXT, name TEXT, conatcto TEXT status TEXT, timewindow TEXT, timerTask TEXT, dateTask TEXT, note TEXT, image TEXT, latitude TEXT, longitude TEXT)",
+        "INSERT INTO tasks (type, address, name,contacto, status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Recolha','ECT - Polo 1','UTAD','221 000 000','Andamento','No specific time windows','09:00:00','2025-01-02','teste', NULL,'41.28863566712775','-7.739067907230414')",
+        "INSERT INTO tasks (type, address, name, contacto, status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Recolha','R. D. António Valente da Fonseca','Neutrão - Centro Radio-diagnóstico','221 000 001','Concluído','No specific time windows','09:15:00','2025-03-13','Envelopes exames', NULL,'41.299445642422675','-7.749621546632743')",
+        "INSERT INTO tasks (type, address, name,contacto, status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Entrega','Largo Visconde Almeid Ganat','Farmácia Barreira','221 000 002','Por iniciar','No specific time windows','09:30:00','2025-03-12','Caixa 16Kg', NULL,'41.29858613918125','-7.742791387321814')",
+        "INSERT INTO tasks (type, address, name, contacto,status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Recolha','Casa de Mateus, 5000-291','Fundação da Casa de Mateus','221 000 003','Por iniciar','10:00:00-10:30:00','10:00:00','2025-03-11','Envelope', NULL,'41.29691548193833','-7.711944067790135')",
+        "INSERT INTO tasks (type, address, name,contacto, status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Recolha','Rua dos Três Lagares, n.º 15, 5000-577','Unidade de Cuidados de Saúde Personalizados (UCSP) de Mateus','221 000 004','Por iniciar','No specific time windows','10:30:00','2025-03-09','Caixa 3Kg', NULL,'41.30063963258702','-7.721785733216758')",
+        "INSERT INTO tasks (type, address, name,contacto, status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Entrega','Av. Carvalho Araújo, n.º 4, 5000-657','Câmara Municipal de Vila Real','221 000 005','Por iniciar','No specific time windows','11:00:00','2025-03-10','Envelope', NULL,'41.294394797512076','-7.7460288247800175')",
+        "INSERT INTO tasks (type, address, name, contacto,status, timewindow, timerTask, dateTask, note, image, latitude, longitude) VALUES ('Recolha','ECT - Polo 1','UTAD','221 000 006','Andamento','No specific time windows','09:00:00','2025-02-12','teste', NULL,'41.28863566712775','-7.739067907230414')"
 
     )
 
@@ -42,8 +42,6 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "database.db", null
 
 
     //-------------------------- USER -----------------------------------
-
-
 
     fun updateUser(id: Int, username: String, password: String): Long {
         val db = this.writableDatabase
@@ -140,47 +138,6 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "database.db", null
         }
         db.close()
         return taskList
-    }
-
-    fun getTaskById(id: Int): TaskModel {
-        val db = this.readableDatabase
-        val c = db.rawQuery("SELECT * FROM tasks WHERE id=?", null)
-        val taskbyid = ArrayList<TaskModel>()
-        if (c.moveToFirst()) {
-            do {
-                val idIndex = c.getColumnIndex("id")
-                val typeIndex = c.getColumnIndex("type")
-                val addressIndex = c.getColumnIndex("address")
-                val nameIndex = c.getColumnIndex("name")
-                val statusIndex = c.getColumnIndex("status")
-                val timewindowIndex = c.getColumnIndex("timewindow")
-                val timerTaskIndex = c.getColumnIndex("timerTask")
-                val dateTaskIndex = c.getColumnIndex("dateTask")
-                val noteIndex = c.getColumnIndex("note")
-                val imageIndex = c.getColumnIndex("image")
-                val latitudeIndex = c.getColumnIndex("latitude")
-                val longitudeIndex = c.getColumnIndex("longitude")
-                taskbyid.add(
-                    TaskModel(
-                        id = c.getInt(idIndex),
-                        type = c.getString(typeIndex),
-                        address = c.getString(addressIndex),
-                        name = c.getString(nameIndex),
-                        status = c.getString(statusIndex),
-                        timewindow = c.getString(timewindowIndex),
-                        timerTask = c.getString(timerTaskIndex),
-                        dateTask = c.getString(dateTaskIndex),
-                        note = c.getString(noteIndex),
-                        image = c.getString(imageIndex),
-                        latitude = c.getDouble(latitudeIndex),
-                        longitude = c.getDouble(longitudeIndex)
-                    )
-                )
-            } while (c.moveToNext())
-        }
-
-        db.close()
-        return taskbyid[0]
     }
 
     fun addTask(taskModel: TaskModel): Long {
@@ -297,7 +254,6 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "database.db", null
         db.close()
         return taskcheckList
     }
-
 }
 
 

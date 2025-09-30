@@ -5,6 +5,7 @@ data class TaskModel(
     val type: String = "",
     val address: String = "",
     val name: String = "",
+    val contacto: String = "",
     val status: String = "",
     val timewindow: String = "",
     val timerTask: String = "",

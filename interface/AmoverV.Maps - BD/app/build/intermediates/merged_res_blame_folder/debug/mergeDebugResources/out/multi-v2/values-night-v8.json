@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.amover.app-mergeDebugResources-60:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.example.amover.app-mergeDebugResources-3:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ana_v\\.gradle\\caches\\8.10.2\\transforms\\9521bd015fedef906d0ffa4a04f00070\\transformed\\material-1.12.0\\res\\values-night-v8\\values-night-v8.xml",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "D:\\App\\logistica-amover\\AmoverV.Maps - BD_V1\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "source": "C:\\A-MoVeR\\GitHub\\logistica-amover\\interface\\AmoverV.Maps - BD\\app\\src\\main\\res\\values-night\\themes.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

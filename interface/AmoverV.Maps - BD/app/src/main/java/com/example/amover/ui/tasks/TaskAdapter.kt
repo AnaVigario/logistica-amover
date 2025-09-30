@@ -21,13 +21,10 @@ class TaskAdapter(private var list: List<TaskModel>,
             binding.taskTypeText.text = task.type
             binding.taskNameText.text = task.name
             binding.taskTimewindowText.text = task.timewindow
-            binding.taskNoteText.text = task.note
             binding.ruleImage.setImageResource(R.drawable.rule)
             binding.root.setOnClickListener {
                 onItemClicked(task)
             }
-
-
         }
 
     }
@@ -43,8 +40,6 @@ class TaskAdapter(private var list: List<TaskModel>,
     override fun onBindViewHolder(holder: TaskAdapter.TaskViewHolder, position: Int) {
         val taskList = list[position]
         holder.bind(taskList)
-
-
     }
 
     override fun getItemCount(): Int = list.size

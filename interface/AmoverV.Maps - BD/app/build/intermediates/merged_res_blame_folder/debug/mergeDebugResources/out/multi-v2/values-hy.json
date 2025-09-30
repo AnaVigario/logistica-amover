@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.amover.app-mergeDebugResources-60:/values-hy/values-hy.xml",
+            "outputFile": "com.example.amover.app-mergeDebugResources-3:/values-hy/values-hy.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ana_v\\.gradle\\caches\\8.10.2\\transforms\\2417a24242f26ed9e3ac2e12c3d2b0f9\\transformed\\play-services-base-18.5.0\\res\\values-hy\\values.xml",

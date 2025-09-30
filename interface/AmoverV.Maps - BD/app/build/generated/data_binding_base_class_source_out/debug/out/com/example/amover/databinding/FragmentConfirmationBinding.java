@@ -4,12 +4,10 @@ package com.example.amover.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.amover.R;
@@ -19,59 +17,20 @@ import java.lang.String;
 
 public final class FragmentConfirmationBinding implements ViewBinding {
   @NonNull
-  private final RelativeLayout rootView;
+  private final ConstraintLayout rootView;
 
   @NonNull
-  public final Button btnPhoto;
+  public final TextView textConfirmation;
 
-  @NonNull
-  public final ImageView imageview1;
-
-  @NonNull
-  public final TextView mandatory;
-
-  @NonNull
-  public final TextView photoText;
-
-  @NonNull
-  public final TextView taskAddressText;
-
-  @NonNull
-  public final TextView taskNameText;
-
-  @NonNull
-  public final TextView taskTypeText;
-
-  @NonNull
-  public final View view2;
-
-  @NonNull
-  public final View viewConfirmation;
-
-  @NonNull
-  public final ImageView warningImage;
-
-  private FragmentConfirmationBinding(@NonNull RelativeLayout rootView, @NonNull Button btnPhoto,
-      @NonNull ImageView imageview1, @NonNull TextView mandatory, @NonNull TextView photoText,
-      @NonNull TextView taskAddressText, @NonNull TextView taskNameText,
-      @NonNull TextView taskTypeText, @NonNull View view2, @NonNull View viewConfirmation,
-      @NonNull ImageView warningImage) {
+  private FragmentConfirmationBinding(@NonNull ConstraintLayout rootView,
+      @NonNull TextView textConfirmation) {
     this.rootView = rootView;
-    this.btnPhoto = btnPhoto;
-    this.imageview1 = imageview1;
-    this.mandatory = mandatory;
-    this.photoText = photoText;
-    this.taskAddressText = taskAddressText;
-    this.taskNameText = taskNameText;
-    this.taskTypeText = taskTypeText;
-    this.view2 = view2;
-    this.viewConfirmation = viewConfirmation;
-    this.warningImage = warningImage;
+    this.textConfirmation = textConfirmation;
   }
 
   @Override
   @NonNull
-  public RelativeLayout getRoot() {
+  public ConstraintLayout getRoot() {
     return rootView;
   }
 
@@ -96,69 +55,13 @@ public final class FragmentConfirmationBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btn_photo;
-      Button btnPhoto = ViewBindings.findChildViewById(rootView, id);
-      if (btnPhoto == null) {
+      id = R.id.text_confirmation;
+      TextView textConfirmation = ViewBindings.findChildViewById(rootView, id);
+      if (textConfirmation == null) {
         break missingId;
       }
 
-      id = R.id.imageview1;
-      ImageView imageview1 = ViewBindings.findChildViewById(rootView, id);
-      if (imageview1 == null) {
-        break missingId;
-      }
-
-      id = R.id.mandatory;
-      TextView mandatory = ViewBindings.findChildViewById(rootView, id);
-      if (mandatory == null) {
-        break missingId;
-      }
-
-      id = R.id.photo_text;
-      TextView photoText = ViewBindings.findChildViewById(rootView, id);
-      if (photoText == null) {
-        break missingId;
-      }
-
-      id = R.id.task_address_text;
-      TextView taskAddressText = ViewBindings.findChildViewById(rootView, id);
-      if (taskAddressText == null) {
-        break missingId;
-      }
-
-      id = R.id.task_name_text;
-      TextView taskNameText = ViewBindings.findChildViewById(rootView, id);
-      if (taskNameText == null) {
-        break missingId;
-      }
-
-      id = R.id.task_type_text;
-      TextView taskTypeText = ViewBindings.findChildViewById(rootView, id);
-      if (taskTypeText == null) {
-        break missingId;
-      }
-
-      id = R.id.view_2;
-      View view2 = ViewBindings.findChildViewById(rootView, id);
-      if (view2 == null) {
-        break missingId;
-      }
-
-      id = R.id.view_confirmation;
-      View viewConfirmation = ViewBindings.findChildViewById(rootView, id);
-      if (viewConfirmation == null) {
-        break missingId;
-      }
-
-      id = R.id.warning_image;
-      ImageView warningImage = ViewBindings.findChildViewById(rootView, id);
-      if (warningImage == null) {
-        break missingId;
-      }
-
-      return new FragmentConfirmationBinding((RelativeLayout) rootView, btnPhoto, imageview1,
-          mandatory, photoText, taskAddressText, taskNameText, taskTypeText, view2,
-          viewConfirmation, warningImage);
+      return new FragmentConfirmationBinding((ConstraintLayout) rootView, textConfirmation);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

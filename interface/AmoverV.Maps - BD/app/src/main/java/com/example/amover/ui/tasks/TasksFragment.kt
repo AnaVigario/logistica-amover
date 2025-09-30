@@ -49,11 +49,9 @@ class TasksFragment : Fragment() {
         binding.recyclerviewTasks.adapter = TaskAdapter(taskcheckList) { task ->
             val bundle = Bundle().apply {
                 putInt("id", task.id)
-
             }
-            findNavController().navigate(R.id.action_navigation_tasks_to_taskDetailFragment, bundle)
+            findNavController().navigate(R.id.action_navigation_tasks_to_detailFragment, bundle)
             Toast.makeText(requireContext(), "ID: ${task.name}", Toast.LENGTH_SHORT).show()
-
         }
 
     }

@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.databinding.DataBinderMapper;
 import androidx.databinding.DataBindingComponent;
 import androidx.databinding.ViewDataBinding;
+import com.example.amover.databinding.FragmentDetailTaskBindingImpl;
 import com.example.amover.databinding.FragmentTasksBindingImpl;
 import com.example.amover.databinding.FragmentTasksCheckBindingImpl;
 import java.lang.IllegalArgumentException;
@@ -19,13 +20,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DataBinderMapperImpl extends DataBinderMapper {
-  private static final int LAYOUT_FRAGMENTTASKS = 1;
+  private static final int LAYOUT_FRAGMENTDETAILTASK = 1;
 
-  private static final int LAYOUT_FRAGMENTTASKSCHECK = 2;
+  private static final int LAYOUT_FRAGMENTTASKS = 2;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(2);
+  private static final int LAYOUT_FRAGMENTTASKSCHECK = 3;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(3);
 
   static {
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.amover.R.layout.fragment_detail_task, LAYOUT_FRAGMENTDETAILTASK);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.amover.R.layout.fragment_tasks, LAYOUT_FRAGMENTTASKS);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.example.amover.R.layout.fragment_tasks_check, LAYOUT_FRAGMENTTASKSCHECK);
   }
@@ -39,6 +43,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         throw new RuntimeException("view must have a tag");
       }
       switch(localizedLayoutId) {
+        case  LAYOUT_FRAGMENTDETAILTASK: {
+          if ("layout/fragment_detail_task_0".equals(tag)) {
+            return new FragmentDetailTaskBindingImpl(component, view);
+          }
+          throw new IllegalArgumentException("The tag for fragment_detail_task is invalid. Received: " + tag);
+        }
         case  LAYOUT_FRAGMENTTASKS: {
           if ("layout/fragment_tasks_0".equals(tag)) {
             return new FragmentTasksBindingImpl(component, view);
@@ -104,9 +114,10 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(2);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(3);
 
     static {
+      sKeys.put("layout/fragment_detail_task_0", com.example.amover.R.layout.fragment_detail_task);
       sKeys.put("layout/fragment_tasks_0", com.example.amover.R.layout.fragment_tasks);
       sKeys.put("layout/fragment_tasks_check_0", com.example.amover.R.layout.fragment_tasks_check);
     }

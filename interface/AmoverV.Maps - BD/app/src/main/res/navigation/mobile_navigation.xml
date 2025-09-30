@@ -53,8 +53,8 @@
             android:id="@+id/action_navigation_tasks_to_detailFragment"
             app:destination="@id/detailFragment" />
         <action
-            android:id="@+id/action_navigation_tasks_to_taskDetailFragment"
-            app:destination="@id/taskDetailFragment" />
+            android:id="@+id/action_navigation_tasks_to_detailTaskFragment"
+            app:destination="@id/detailTaskFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_notifications"
@@ -99,15 +99,8 @@
         android:name="com.example.amover.ui.detail.DetailFragment"
         android:label="DetailFragment" />
     <fragment
-        android:id="@+id/taskDetailFragment"
-        android:name="com.example.amover.ui.taskdetail.TaskDetailFragment"
-        android:label="fragment_task_detail"
-        tools:layout="@layout/fragment_task_detail" >
-        <action
-            android:id="@+id/action_taskDetailFragment_to_navigation_map"
-            app:destination="@id/navigation_map" />
-        <action
-            android:id="@+id/action_taskDetailFragment_to_confirmationFragment"
-            app:destination="@id/confirmationFragment" />
-    </fragment>
+        android:id="@+id/detailTaskFragment"
+        android:name="com.example.amover.ui.detailtask.DetailTaskFragment"
+        android:label="fragment_detail_task"
+        tools:layout="@layout/fragment_detail_task" />
 </navigation>

@@ -1,54 +1,54 @@
 [
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/activity_login.xml",
-        "source": "com.example.amover.app-main-64:/layout/activity_login.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/activity_login.xml",
+        "source": "com.example.amover.app-main-7:/layout/activity_login.xml"
     },
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/fragment_perfil.xml",
-        "source": "com.example.amover.app-main-64:/layout/fragment_perfil.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/fragment_perfil.xml",
+        "source": "com.example.amover.app-main-7:/layout/fragment_perfil.xml"
     },
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/fragment_map.xml",
-        "source": "com.example.amover.app-main-64:/layout/fragment_map.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/fragment_detail_task.xml",
+        "source": "com.example.amover.app-main-7:/layout/fragment_detail_task.xml"
     },
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/fragment_detail.xml",
-        "source": "com.example.amover.app-main-64:/layout/fragment_detail.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/fragment_dashboard.xml",
+        "source": "com.example.amover.app-main-7:/layout/fragment_dashboard.xml"
     },
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/fragment_task_detail.xml",
-        "source": "com.example.amover.app-main-64:/layout/fragment_task_detail.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/fragment_confirmation.xml",
+        "source": "com.example.amover.app-main-7:/layout/fragment_confirmation.xml"
     },
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/fragment_tasks_check.xml",
-        "source": "com.example.amover.app-main-64:/layout/fragment_tasks_check.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/fragment_detail.xml",
+        "source": "com.example.amover.app-main-7:/layout/fragment_detail.xml"
     },
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/fragment_confirmation.xml",
-        "source": "com.example.amover.app-main-64:/layout/fragment_confirmation.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/fragment_map.xml",
+        "source": "com.example.amover.app-main-7:/layout/fragment_map.xml"
     },
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/activity_splash_scren.xml",
-        "source": "com.example.amover.app-main-64:/layout/activity_splash_scren.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/fragment_notifications.xml",
+        "source": "com.example.amover.app-main-7:/layout/fragment_notifications.xml"
     },
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/fragment_tasks.xml",
-        "source": "com.example.amover.app-main-64:/layout/fragment_tasks.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/activity_main.xml",
+        "source": "com.example.amover.app-main-7:/layout/activity_main.xml"
     },
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/fragment_home.xml",
-        "source": "com.example.amover.app-main-64:/layout/fragment_home.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/activity_splash_scren.xml",
+        "source": "com.example.amover.app-main-7:/layout/activity_splash_scren.xml"
     },
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/fragment_dashboard.xml",
-        "source": "com.example.amover.app-main-64:/layout/fragment_dashboard.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/fragment_tasks.xml",
+        "source": "com.example.amover.app-main-7:/layout/fragment_tasks.xml"
     },
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/activity_main.xml",
-        "source": "com.example.amover.app-main-64:/layout/activity_main.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/fragment_home.xml",
+        "source": "com.example.amover.app-main-7:/layout/fragment_home.xml"
     },
     {
-        "merged": "com.example.amover.app-mergeDebugResources-61:/layout/fragment_notifications.xml",
-        "source": "com.example.amover.app-main-64:/layout/fragment_notifications.xml"
+        "merged": "com.example.amover.app-mergeDebugResources-4:/layout/fragment_tasks_check.xml",
+        "source": "com.example.amover.app-main-7:/layout/fragment_tasks_check.xml"
     }
 ]
