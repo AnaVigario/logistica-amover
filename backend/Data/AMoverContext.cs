@@ -12,6 +12,7 @@ namespace projeto.Data
 
         public DbSet<User> users { get; set; }
         public DbSet<Vehicle> vehicles { get; set; }
+        public DbSet<Company> companies { get; set; }
         //public DbSet<Models.Task> tasks { get; set; }
         //public DbSet<Service> services { get; set; }
         //public DbSet<PerformanceReport> reports { get; set; }
@@ -46,6 +47,11 @@ namespace projeto.Data
             modelBuilder.Entity<Models.Route>()
                 .HasMany(r => r.nodes)
                 .WithMany(n => n.routes);
+            modelBuilder.Entity<Company>()
+                .HasMany(c => c.users)
+                .WithOne(u => u.company)
+                .HasForeignKey(u => u.companyID)
+                .OnDelete(DeleteBehavior.SetNull);
             base.OnModelCreating(modelBuilder);
         }
     }

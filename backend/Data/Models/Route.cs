@@ -23,9 +23,11 @@ namespace projeto.Data.Models
         public float longintude { get; set; }
         [Required]
         public string description { get; set; }
+
         //FK
 
         //NAV
+
         [JsonIgnore]
         public virtual List<Route> routes { get; set; }
     }

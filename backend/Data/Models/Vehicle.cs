@@ -11,8 +11,10 @@ namespace projeto.Data.Models
         
         //FK
         public int? ownerID { get; set; } // User n - 1
-        
+        //public int? companyID { get; set; } // Company n - 1
+
         //NAV
         public User owner { get; set; } // User n - 1 navigation
+        //public Company company { get; set; } // Company n - 1 navigation
     }
 }

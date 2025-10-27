@@ -87,17 +87,28 @@ namespace projeto.Controllers
 
         public List<Alert> GetAlerts()
         {
-            List<Alert> alerts = db.alerts.Include(y => y.targets).ToList();
-            if (alerts != null)
+            try
             {
-                return alerts;
+                List<Alert> targets = db.alerts.ToList();
+                return targets;
             }
-            return null;
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter alertas: " + ex.Message);
+            }
         }
 
         public Alert GetAlert(int id)
         {
-            return db.alerts.Where(x => x.ID == id).FirstOrDefault();
+            try
+            {
+                var target = db.alerts.Where(x => x.ID == id).FirstOrDefault();
+                return target;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter alerta: " + ex.Message);
+            }
         }
 
         public void EditAlert(int id, string description, int adminId, List<int> targetIds)
@@ -227,6 +238,10 @@ namespace projeto.Controllers
             try
             {
                 var target = db.vehicles.Where(x => x.VID == VID).FirstOrDefault();
+                if(target == null)
+                {
+                    throw new Exception("Veículo não encontrado.");
+                }
                 return target;
             }
             catch (Exception ex)
