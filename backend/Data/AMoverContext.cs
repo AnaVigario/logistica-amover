@@ -19,6 +19,7 @@ namespace projeto.Data
         public DbSet<Alert> alerts { get; set; }
         public DbSet<Models.Route> routes { get; set; }
         public DbSet<LocationNode> locationNodes { get; set; }
+        public DbSet<Client> clients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +44,11 @@ namespace projeto.Data
                 .HasOne(t => t.service)
                 .WithMany(s => s.tasks)
                 .HasForeignKey(t => t.serviceID)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Data.Models.Task>()
+                .HasOne(t => t.client)
+                .WithMany(c => c.tasks)
+                .HasForeignKey(t => t.clientID)
                 .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Models.Route>()
                 .HasMany(r => r.nodes)
