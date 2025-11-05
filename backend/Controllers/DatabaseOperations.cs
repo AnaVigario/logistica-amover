@@ -316,14 +316,14 @@ namespace projeto.Controllers
             }
         }
 
-        public bool CreateNode(float lat, float lon, string description)
+        public bool CreateNode(float lat, float lon, string address)
         {
             try
             {
                 LocationNode node = new LocationNode();
                 node.latitude = lat;
                 node.longintude = lon;
-                node.description = description;
+                node.address = address;
                 db.locationNodes.Add(node);
                 db.SaveChanges();
                 return true;

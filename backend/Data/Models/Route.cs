@@ -22,7 +22,7 @@ namespace projeto.Data.Models
         [Required]
         public float longintude { get; set; }
         [Required]
-        public string description { get; set; }
+        public string address { get; set; }
 
         //FK
 

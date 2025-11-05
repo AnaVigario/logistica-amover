@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oCiuNz+osi4=",
+  "dgSpecHash": "xkUTc1p8h5U=",
   "success": true,
-  "projectFilePath": "F:\\GitRepos\\logistica-amover\\backend\\AMoVeR-Logistica.csproj",
+  "projectFilePath": "F:\\Git\\Pub\\logistica-amover\\backend\\AMoVeR-Logistica.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\xvrol\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\xvrol\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\GitRepos\\logistica-amover\\backend\\AMoVeR-Logistica.csproj": {}
+    "F:\\Git\\Pub\\logistica-amover\\backend\\AMoVeR-Logistica.csproj": {}
   },
   "projects": {
-    "F:\\GitRepos\\logistica-amover\\backend\\AMoVeR-Logistica.csproj": {
+    "F:\\Git\\Pub\\logistica-amover\\backend\\AMoVeR-Logistica.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\GitRepos\\logistica-amover\\backend\\AMoVeR-Logistica.csproj",
+        "projectUniqueName": "F:\\Git\\Pub\\logistica-amover\\backend\\AMoVeR-Logistica.csproj",
         "projectName": "AMoVeR-Logistica",
-        "projectPath": "F:\\GitRepos\\logistica-amover\\backend\\AMoVeR-Logistica.csproj",
+        "projectPath": "F:\\Git\\Pub\\logistica-amover\\backend\\AMoVeR-Logistica.csproj",
         "packagesPath": "C:\\Users\\xvrol\\.nuget\\packages\\",
-        "outputPath": "F:\\GitRepos\\logistica-amover\\backend\\obj\\",
+        "outputPath": "F:\\Git\\Pub\\logistica-amover\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
