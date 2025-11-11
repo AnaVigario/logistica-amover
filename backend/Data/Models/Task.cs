@@ -14,6 +14,9 @@ namespace projeto.Data.Models
 
         public DateTime deadline { get; set; }
 
+        public DateTime? availableTimeStart { get; set; }
+        public DateTime? availableTimeEnds { get; set; }
+
         [Required]
         public string description { get; set; }
 
