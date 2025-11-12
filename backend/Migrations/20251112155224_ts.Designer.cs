@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using projeto.Data;
@@ -11,9 +12,11 @@ using projeto.Data;
 namespace AMoVeRLogistica.Migrations
 {
     [DbContext(typeof(AMoverContext))]
-    partial class AMoverContextModelSnapshot : ModelSnapshot
+    [Migration("20251112155224_ts")]
+    partial class ts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -211,11 +214,11 @@ namespace AMoVeRLogistica.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
 
-                    b.Property<TimeSpan?>("availableTimeEnds")
-                        .HasColumnType("interval");
+                    b.Property<DateTime?>("availableTimeEnds")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<TimeSpan?>("availableTimeStart")
-                        .HasColumnType("interval");
+                    b.Property<DateTime?>("availableTimeStart")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("clientID")
                         .HasColumnType("integer");

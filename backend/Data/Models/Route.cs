@@ -24,6 +24,9 @@ namespace projeto.Data.Models
         [Required]
         public string address { get; set; }
 
+        public TimeSpan? availableTimeStart { get; set; }
+        public TimeSpan? availableTimeEnds { get; set; }
+
         //FK
 
         //NAV
