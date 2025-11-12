@@ -50,6 +50,9 @@ namespace projeto.Data
                 .WithMany(c => c.tasks)
                 .HasForeignKey(t => t.clientID)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Data.Models.Task>()
+                .Property(t => t.recurrence)
+                .HasConversion<string>();
             modelBuilder.Entity<Models.Route>()
                 .HasMany(r => r.nodes)
                 .WithMany(n => n.routes);

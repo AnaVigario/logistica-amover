@@ -1,6 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace projeto.Data.Models
 {
+    public enum RecurrenceType
+    {
+        None,
+        Daily,
+        Weekly
+    }
+
     public class Task
     {
         [Key]
@@ -10,12 +17,13 @@ namespace projeto.Data.Models
         public string type { get; set; }
 
         [Required]
-        public DateTime creationDate { get; set; }
+        public DateTime creationDate { get; set; } = DateTime.Now;
 
-        public DateTime deadline { get; set; }
+        public DateTime? deadline { get; set; }
 
         public TimeSpan? availableTimeStart { get; set; }
         public TimeSpan? availableTimeEnds { get; set; }
+        public RecurrenceType recurrence { get; set; }
 
         [Required]
         public string description { get; set; }
