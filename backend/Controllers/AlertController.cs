@@ -39,15 +39,31 @@ namespace projeto.Controllers
         [HttpGet(Name = "GetAlerts")]
         public IEnumerable<Alert> Get()
         {
-            List<Alert> reply = _db.GetAlerts();
-            return reply;
+            try
+            {
+                List<Alert> reply = _db.GetAlerts();
+                return reply;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching alerts");
+                throw new Exception("Error fetching alerts", ex);
+            }
         }
 
         [HttpGet("{id}", Name = "GetAlert")]
         public Alert Get(int id)
         {
-            Alert reply = _db.GetAlert(id);
-            return reply;
+            try
+            {
+                Alert reply = _db.GetAlert(id);
+                return reply;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching alert with ID {id}", id);
+                throw new Exception($"Error fetching alert with ID {id}", ex);
+            }
         }
 
         [HttpPut("{id}", Name = "PutAlert")]
