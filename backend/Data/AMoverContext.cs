@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using projeto.Data.Models;
+using Task = projeto.Data.Models.Task;
 
 namespace projeto.Data
 {
@@ -13,8 +14,8 @@ namespace projeto.Data
         public DbSet<User> users { get; set; }
         public DbSet<Vehicle> vehicles { get; set; }
         public DbSet<Company> companies { get; set; }
-        //public DbSet<Models.Task> tasks { get; set; }
-        //public DbSet<Service> services { get; set; }
+        public DbSet<Task> tasks { get; set; }
+        public DbSet<Service> services { get; set; }
         //public DbSet<PerformanceReport> reports { get; set; }
         public DbSet<Alert> alerts { get; set; }
         public DbSet<Models.Route> routes { get; set; }
@@ -38,21 +39,21 @@ namespace projeto.Data
                 .WithOne(a => a.admin)
                 .HasForeignKey(a => a.adminID)
                 .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Data.Models.Task>()
+            modelBuilder.Entity<Task>()
                 .HasMany(t => t.subTasks)
                 .WithOne(t => t.parentTask)
                 .HasForeignKey(t => t.parentTaskID);
-            modelBuilder.Entity<Data.Models.Task>()
+            modelBuilder.Entity<Task>()
                 .HasOne(t => t.service)
                 .WithMany(s => s.tasks)
                 .HasForeignKey(t => t.serviceID)
                 .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Data.Models.Task>()
+            modelBuilder.Entity<Task>()
                 .HasOne(t => t.client)
                 .WithMany(c => c.tasks)
                 .HasForeignKey(t => t.clientID)
                 .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Data.Models.Task>()
+            modelBuilder.Entity<Task>()
                 .Property(t => t.recurrence)
                 .HasConversion<string>();
             modelBuilder.Entity<Models.Route>()
@@ -63,6 +64,11 @@ namespace projeto.Data
                 .WithOne(u => u.company)
                 .HasForeignKey(u => u.companyID)
                 .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Company>()
+                .HasMany(s => s.services)
+                .WithOne(u => u.company)
+                .HasForeignKey(u => u.companyID)
+                .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
         }
     }

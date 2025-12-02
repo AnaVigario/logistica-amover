@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using projeto.Data.Models;
+using projeto.Services;
 
 namespace projeto.Controllers
 {
@@ -7,10 +8,10 @@ namespace projeto.Controllers
     [Route("[controller]")]
     public class AlertController : ControllerBase
     {
-        private readonly DatabaseOperations _db;
+        private readonly AlertServices _db;
         private readonly ILogger<AlertController> _logger;
 
-        public AlertController(ILogger<AlertController> logger, DatabaseOperations db)
+        public AlertController(ILogger<AlertController> logger, AlertServices db)
         {
             _logger = logger;
             _db = db;
@@ -56,7 +57,7 @@ namespace projeto.Controllers
         {
             try
             {
-                Alert reply = _db.GetAlert(id);
+                Alert reply = _db.GetAlertByID(id);
                 return reply;
             }
             catch (Exception ex)

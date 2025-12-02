@@ -9,7 +9,6 @@
   <ItemGroup>
     <Compile Remove="Controllers\ReportController.cs" />
     <Compile Remove="Controllers\ServiceController.cs" />
-    <Compile Remove="Controllers\TaskController.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,55 +1,100 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using projeto.Data.Models;
+using projeto.Services;
+using Task = projeto.Data.Models.Task;
+
 namespace projeto.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class TaskController : ControllerBase
     {
-        private readonly DatabaseOperations _db;
+        private readonly TaskServices _db;
         private readonly ILogger<TaskController> _logger;
 
-        public TaskController(ILogger<TaskController> logger, DatabaseOperations db)
+        public TaskController(ILogger<TaskController> logger, TaskServices db)
         {
             _logger = logger;
             _db = db;
         }
 
         [HttpPost(Name = "PostTask")]
-        public void Post(string type, DateTime deadline, string description, string status, int ID, int service, string coordinates) //coordinates is a string with the coordinates separated by |
+        public IActionResult Post([FromBody] TaskDTO _t)
         {
-            List<string> listCoordenadas = coordinates.Split('|').ToList();
-            _db.CreateTask(type, deadline, description, status,ID ,service, listCoordenadas);
-            return;
+            try
+            {
+                Task t = new Task
+                {
+                    type = _t.Type,
+                    description = _t.Description,
+                    serviceID = _t.ServiceID,
+                    clientID = _t.ClientID
+                };
+                _db.CreateTask(t, _t.ServiceID, _t.ClientID);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro a criar tarefa.");
+                return StatusCode(500, "Erro interno do servidor.");
+            }
+            return Ok(new { message = "Tarefa criada com sucesso." });
         }
-
+        /*
         [HttpGet(Name = "GetTasks")]
-        public IEnumerable<Data.Models.Task> Get()
+        public ActionResult<IEnumerable<Task>> Get()
         {
-            List<Data.Models.Task> reply = _db.GetTasks();
-            return reply;
+            try
+            {
+                List<Task> targets = _db.GetTasks();
+                if (targets == null || targets.Count == 0)
+                {
+                    return NotFound("Nenhuma tarefa encontrada.");
+                }
+                return Ok(targets);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao obter tarefas.");
+                return StatusCode(500, "Erro interno do servidor.");
+            }
         }
 
         [HttpGet("{id}", Name = "GetTask")]
-        public Data.Models.Task Get(int id)
+        public ActionResult<Task> Get(int id)
         {
-            Data.Models.Task reply = _db.GetTask(id);
-            return reply;
-        }
-
-        [HttpPut("{id}", Name = "PutTask")]
-        public void Put(int id, string type, DateTime deadline, string description, string status, int ID, int service, string coordinates)
-        {
-            List<string> listCoordenadas = coordinates.Split('|').ToList();
-            _db.EditTask(id, type, deadline, description, status, ID, service, listCoordenadas);
-            return;
+            try
+            {
+                var target = _db.GetTaskByID(id);
+                return target == null ? NotFound("Nenhuma tarefa encontrada com o ID expecificado") : Ok(target);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao obter tarefa com ID {ID}", ID);
+                return StatusCode(500, "Erro interno do servidor.");
+            }
         }
 
         [HttpDelete("{id}", Name = "DeleteTask")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _db.DeleteTask(id);
-            return;
+            try
+            {
+                return _db.DeleteTask(id) ? Ok(new { message = "Tarefa eliminada com sucesso." }) : NotFound("Tarefa não encontrada.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao eliminar tarefa com ID {id}", id);
+                return StatusCode(500, "Erro interno do servidor.");
+            }
+        }
+        */
+
+        public class TaskDTO
+        {
+            public string Type { get; set; } = "";
+            public string Description { get; set; } = "";
+            public int ServiceID { get; set; } 
+            public int ClientID { get; set; }
         }
     }
 }

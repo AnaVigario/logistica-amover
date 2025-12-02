@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using projeto.Data.Models;
+using projeto.Services;
 
 namespace projeto.Controllers
 {
@@ -10,10 +11,10 @@ namespace projeto.Controllers
     [Route("api/[controller]")]
     public class VehicleController : ControllerBase
     {
-        private readonly DatabaseOperations _db;
+        private readonly VehicleServices _db;
         private readonly ILogger<VehicleController> _logger;
 
-        public VehicleController(ILogger<VehicleController> logger, DatabaseOperations db)
+        public VehicleController(ILogger<VehicleController> logger, VehicleServices db)
         {
             _logger = logger;
             _db = db;
@@ -28,7 +29,9 @@ namespace projeto.Controllers
             {
                 Vehicle v = new Vehicle
                 {
-                    VID = _v.VID
+                    VID = _v.VID,
+                    batteryCapacity = _v.batteryCapacity,
+                    cargoCapacity = _v.cargoCapacity
                 };
                 _db.CreateVehicle(v);
             }
@@ -62,11 +65,11 @@ namespace projeto.Controllers
 
 
         [HttpGet("{VID}")]
-        public ActionResult<User> Get(int VID)
+        public ActionResult<Vehicle> Get(int VID)
         {
             try
             {
-                var target = _db.GetVehicle(VID.ToString());
+                var target = _db.GetVehicleByID(VID.ToString());
                 return target == null ? NotFound("Nenhum veículo encontrado com o VID expecificado") : Ok(target);
             }
             catch (Exception ex)
@@ -86,7 +89,9 @@ namespace projeto.Controllers
                 Vehicle v = new Vehicle
                 {
                     ID = id,
-                    VID = vehicle.VID
+                    VID = vehicle.VID,
+                    batteryCapacity = vehicle.batteryCapacity,
+                    cargoCapacity = vehicle.cargoCapacity
                 };
                 return _db.EditVehicle(v) ? Ok(new { message = "Veículo atualizado com sucesso." }) : NotFound("Veículo não encontrado.");
             }
@@ -117,5 +122,7 @@ namespace projeto.Controllers
     public class VehicleDTO
     {
         public string VID { get; set; } = ""; 
+        public float batteryCapacity { get; set; } = 0;
+        public float cargoCapacity { get; set; } = 0;
     }
 }

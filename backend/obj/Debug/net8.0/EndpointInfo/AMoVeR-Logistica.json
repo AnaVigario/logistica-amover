@@ -181,55 +181,26 @@
         }
       }
     },
-<<<<<<< HEAD
-    "/api/Message/{vin}": {
-      "post": {
-        "tags": [
-          "Message"
-        ],
-        "parameters": [
-          {
-            "name": "vin",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-=======
     "/Company": {
       "post": {
         "tags": [
           "Company"
->>>>>>> 4490a590a6649d514c3ba30375277c91284b692d
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-<<<<<<< HEAD
-                "$ref": "#/components/schemas/MessageDTO"
-=======
                 "$ref": "#/components/schemas/CompanyDTO"
->>>>>>> 4490a590a6649d514c3ba30375277c91284b692d
               }
             },
             "text/json": {
               "schema": {
-<<<<<<< HEAD
-                "$ref": "#/components/schemas/MessageDTO"
-=======
                 "$ref": "#/components/schemas/CompanyDTO"
->>>>>>> 4490a590a6649d514c3ba30375277c91284b692d
               }
             },
             "application/*+json": {
               "schema": {
-<<<<<<< HEAD
-                "$ref": "#/components/schemas/MessageDTO"
-=======
                 "$ref": "#/components/schemas/CompanyDTO"
->>>>>>> 4490a590a6649d514c3ba30375277c91284b692d
               }
             }
           }
@@ -239,8 +210,6 @@
             "description": "Success"
           }
         }
-<<<<<<< HEAD
-=======
       },
       "get": {
         "tags": [
@@ -295,64 +264,45 @@
             "description": "Success"
           }
         }
->>>>>>> 4490a590a6649d514c3ba30375277c91284b692d
       }
     },
-    "/Route": {
+    "/api/Message/{vin}": {
       "post": {
         "tags": [
-          "Route"
+          "Message"
         ],
-        "operationId": "PostRoute",
         "parameters": [
           {
-            "name": "description",
-            "in": "query",
+            "name": "vin",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string"
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageDTO"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Route"
-        ],
-        "operationId": "GetRoutes",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Route"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Route"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Route"
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -387,163 +337,33 @@
             "description": "Success"
           }
         }
-      },
-      "get": {
-        "tags": [
-          "Route"
-        ],
-        "operationId": "GetAllNodes",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/LocationNode"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/LocationNode"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/LocationNode"
-                  }
-                }
-              }
-            }
-          }
-        }
       }
     },
-    "/Route/{routeId}/node": {
+    "/Task": {
       "post": {
         "tags": [
-          "Route"
+          "Task"
         ],
-        "operationId": "LinkRouteNode",
-        "parameters": [
-          {
-            "name": "routeId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "nodeId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Route"
-        ],
-        "operationId": "UnlinkRouteNode",
-        "parameters": [
-          {
-            "name": "routeId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "nodeId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/Route/{id}": {
-      "get": {
-        "tags": [
-          "Route"
-        ],
-        "operationId": "GetRoute",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Route"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Route"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Route"
-                }
+        "operationId": "PostTask",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDTO"
               }
             }
           }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Route"
-        ],
-        "operationId": "DeleteRoute",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
+        },
         "responses": {
           "200": {
             "description": "Success"
@@ -808,17 +628,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/Vehicle"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/Vehicle"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/Vehicle"
                 }
               }
             }
@@ -950,6 +770,50 @@
         },
         "additionalProperties": false
       },
+      "Client": {
+        "required": [
+          "address",
+          "email",
+          "name",
+          "nif",
+          "phone"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "nif": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "address": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "phone": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "email": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Company": {
         "required": [
           "description",
@@ -975,6 +839,13 @@
               "$ref": "#/components/schemas/User"
             },
             "nullable": true
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Service"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -995,7 +866,7 @@
       },
       "LocationNode": {
         "required": [
-          "description",
+          "address",
           "latitude",
           "longintude"
         ],
@@ -1013,9 +884,15 @@
             "type": "number",
             "format": "float"
           },
-          "description": {
+          "address": {
             "minLength": 1,
             "type": "string"
+          },
+          "availableTimeStart": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "availableTimeEnds": {
+            "$ref": "#/components/schemas/TimeSpan"
           }
         },
         "additionalProperties": false
@@ -1045,12 +922,21 @@
             "type": "number",
             "format": "float"
           },
-          "description": {
+          "address": {
             "type": "string",
             "nullable": true
           }
         },
         "additionalProperties": false
+      },
+      "RecurrenceType": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "Route": {
         "type": "object",
@@ -1073,12 +959,241 @@
         },
         "additionalProperties": false
       },
+      "Service": {
+        "required": [
+          "category",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "companyID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "company": {
+            "$ref": "#/components/schemas/Company"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Task": {
+        "required": [
+          "creationDate",
+          "description",
+          "status",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "availableTimeStart": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "availableTimeEnds": {
+            "$ref": "#/components/schemas/TimeSpan"
+          },
+          "recurrence": {
+            "$ref": "#/components/schemas/RecurrenceType"
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "routeID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "userID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "parentTaskID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "serviceID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "clientID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parentTask": {
+            "$ref": "#/components/schemas/Task"
+          },
+          "subTasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            },
+            "nullable": true
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "service": {
+            "$ref": "#/components/schemas/Service"
+          },
+          "client": {
+            "$ref": "#/components/schemas/Client"
+          },
+          "route": {
+            "$ref": "#/components/schemas/Route"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskDTO": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "clientID": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TimeSpan": {
+        "type": "object",
+        "properties": {
+          "ticks": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "days": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "hours": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "milliseconds": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "microseconds": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "nanoseconds": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "minutes": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "seconds": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "totalDays": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalHours": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalMilliseconds": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalMicroseconds": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalNanoseconds": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalMinutes": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "totalSeconds": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
       "User": {
         "required": [
           "email",
           "name",
           "password",
-          "type"
+          "role"
         ],
         "type": "object",
         "properties": {
@@ -1098,7 +1213,7 @@
             "minLength": 1,
             "type": "string"
           },
-          "type": {
+          "role": {
             "minLength": 1,
             "type": "string"
           },
@@ -1170,6 +1285,14 @@
             "minLength": 1,
             "type": "string"
           },
+          "batteryCapacity": {
+            "type": "number",
+            "format": "float"
+          },
+          "cargoCapacity": {
+            "type": "number",
+            "format": "float"
+          },
           "ownerID": {
             "type": "integer",
             "format": "int32",
@@ -1187,6 +1310,14 @@
           "vid": {
             "type": "string",
             "nullable": true
+          },
+          "batteryCapacity": {
+            "type": "number",
+            "format": "float"
+          },
+          "cargoCapacity": {
+            "type": "number",
+            "format": "float"
           }
         },
         "additionalProperties": false

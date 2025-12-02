@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using projeto.Authentication;
 using projeto.Data.Models;
+using projeto.Services;
 
 namespace projeto.Controllers
 {
@@ -8,13 +9,15 @@ namespace projeto.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
-        private readonly DatabaseOperations _db;
+        private readonly VehicleServices _vdb;
+        private readonly MessageServices _mdb;
         private readonly ILogger<MessageController> _logger;
 
-        public MessageController(ILogger<MessageController> logger, DatabaseOperations db)
+        public MessageController(ILogger<MessageController> logger, VehicleServices vdb, MessageServices mdb)
         {
             _logger = logger;
-            _db = db;
+            _vdb = vdb;
+            _mdb = mdb;
         }
 
         [HttpPost("{vin}")]
@@ -24,7 +27,7 @@ namespace projeto.Controllers
             try
             {
                 // 1. Verificar se o VIN existe
-                var vehicle = _db.GetVehicle(vin);
+                var vehicle = _vdb.GetVehicleByID(vin);
                 if (vehicle == null)
                 {
                     return BadRequest(new
@@ -51,7 +54,7 @@ namespace projeto.Controllers
                     Timestamp = DateTime.UtcNow,
                     Status = "accepted"
                 };
-                _db.CreateMessageLog(log);
+                _mdb.CreateMessageLog(log);
 
                 // 4. Retornar sucesso
                 return Ok(new

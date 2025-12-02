@@ -66,9 +66,14 @@ builder.Services.AddDbContext<AMoverContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("SBAmover")));
 builder.Services.AddScoped<DatabaseOperations>();
 builder.Services.AddScoped<CompanyServices>();
+builder.Services.AddScoped<AlertServices>();
+builder.Services.AddScoped<VehicleServices>();
+builder.Services.AddScoped<MessageServices>();
+builder.Services.AddScoped<UserServices>();
+builder.Services.AddScoped<TaskServices>();
 
 var app = builder.Build();
-
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 // Configure pipeline HTTP
 if (app.Environment.IsDevelopment())
 {

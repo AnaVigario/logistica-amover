@@ -18,6 +18,6 @@ namespace projeto.Data.Models
 
         //NAV
         public virtual List<User> users { get; set; }
-        //public virtual List<Service> services { get; set; }
+        public virtual List<Service>? services { get; set; }
     }
 }

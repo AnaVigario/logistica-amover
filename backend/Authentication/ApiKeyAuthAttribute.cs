@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using projeto.Controllers;
+using projeto.Services;
 
 namespace projeto.Authentication
 {
@@ -22,7 +23,7 @@ namespace projeto.Authentication
                 return;
             }
 
-            var dbOperations = context.HttpContext.RequestServices.GetRequiredService<DatabaseOperations>();
+            var dbOperations = context.HttpContext.RequestServices.GetRequiredService<MessageServices>();
             var apiKey = dbOperations.GetApiKey(extractedApiKey);
 
             if (apiKey == null)

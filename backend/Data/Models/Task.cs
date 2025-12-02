@@ -29,7 +29,7 @@ namespace projeto.Data.Models
         public string description { get; set; }
 
         [Required]
-        public string status { get; set; }
+        public string status { get; set; } = "Unassigned";
 
         //FK
         public int? routeID { get; set; } // Route n - 1

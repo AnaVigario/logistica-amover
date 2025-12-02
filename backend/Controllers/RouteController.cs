@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using projeto.Data.Models;
+using projeto.Services;
 
 namespace projeto.Controllers
 {
@@ -8,14 +9,16 @@ namespace projeto.Controllers
     public class RouteController : ControllerBase
     {
         private readonly DatabaseOperations _db;
+        private readonly NodeServices _nodedb;
         private readonly ILogger<RouteController> _logger;
 
-        public RouteController(ILogger<RouteController> logger, DatabaseOperations db)
+        public RouteController(ILogger<RouteController> logger, DatabaseOperations db, NodeServices nodedb)
         {
             _logger = logger;
             _db = db;
+            _nodedb = nodedb;
         }
-
+        /*
         [HttpPost(Name = "PostRoute")]
         public void Post(string description)
         {
@@ -30,13 +33,13 @@ namespace projeto.Controllers
             }
             return;
         }
-
+        */
         [HttpPost("node", Name = "PostRouteNode")]
         public void PostPoint([FromBody] NodeDTO _n)
         {
             try
             {
-                _db.CreateNode(_n.latitude, _n.longintude, _n.description);
+                _nodedb.CreateNode(_n.latitude, _n.longintude, _n.address);
             }
             catch (Exception ex)
             {
@@ -44,7 +47,7 @@ namespace projeto.Controllers
                 throw new Exception("Error adding point to route", ex);
             }
         }
-
+        /*
         [HttpPost("{routeId}/node", Name = "LinkRouteNode")]
         public void LinkRouteNode(int routeId, int nodeId)
         {
@@ -103,22 +106,8 @@ namespace projeto.Controllers
                 throw new Exception($"Error retrieving route with ID {id}", ex);
             }
         }
-
-        [HttpGet("node", Name = "GetAllNodes")]
-        public List<LocationNode> GetAllNodes()
-        {
-            try
-            {
-                List<LocationNode> reply = _db.GetNodes();
-                return reply;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error retrieving all nodes");
-                throw new Exception("Error retrieving all nodes", ex);
-            }
-        }
-
+        */
+        /*
         [HttpDelete("{id}", Name = "DeleteRoute")]
         public void Delete(int id)
         {
@@ -132,11 +121,12 @@ namespace projeto.Controllers
                 throw new Exception($"Error deleting route with ID {id}", ex);
             }
         }
+        */
     }
     public class NodeDTO
     {
-        public float latitude { get; set; }
-        public float longintude { get; set; }
-        public string description { get; set; }
+        public float latitude { get; set; } = 0;
+        public float longintude { get; set; } = 0;
+        public string address { get; set; } = "";
     }
 }

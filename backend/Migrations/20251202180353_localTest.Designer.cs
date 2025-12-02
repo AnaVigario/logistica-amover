@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using projeto.Data;
@@ -11,9 +12,11 @@ using projeto.Data;
 namespace AMoVeRLogistica.Migrations
 {
     [DbContext(typeof(AMoverContext))]
-    partial class AMoverContextModelSnapshot : ModelSnapshot
+    [Migration("20251202180353_localTest")]
+    partial class localTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,7 +259,7 @@ namespace AMoVeRLogistica.Migrations
 
                     b.HasIndex("companyID");
 
-                    b.ToTable("services");
+                    b.ToTable("Service");
                 });
 
             modelBuilder.Entity("projeto.Data.Models.Task", b =>
@@ -322,7 +325,7 @@ namespace AMoVeRLogistica.Migrations
 
                     b.HasIndex("userID");
 
-                    b.ToTable("tasks");
+                    b.ToTable("Task");
                 });
 
             modelBuilder.Entity("projeto.Data.Models.User", b =>
@@ -348,7 +351,7 @@ namespace AMoVeRLogistica.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("role")
+                    b.Property<string>("type")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -431,7 +434,7 @@ namespace AMoVeRLogistica.Migrations
             modelBuilder.Entity("projeto.Data.Models.Service", b =>
                 {
                     b.HasOne("projeto.Data.Models.Company", "company")
-                        .WithMany("services")
+                        .WithMany()
                         .HasForeignKey("companyID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -503,8 +506,6 @@ namespace AMoVeRLogistica.Migrations
 
             modelBuilder.Entity("projeto.Data.Models.Company", b =>
                 {
-                    b.Navigation("services");
-
                     b.Navigation("users");
                 });
 

@@ -18,6 +18,6 @@ namespace projeto.Data.Models
 
         //NAV
         public virtual Company company { get; set; }
-        public virtual List<Task> tasks { get; set; }
+        public virtual List<Task>? tasks { get; set; }
     }
 }

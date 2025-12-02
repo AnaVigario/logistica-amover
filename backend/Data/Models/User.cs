@@ -12,7 +12,7 @@ namespace projeto.Data.Models
         [Required]
         public string password { get; set; }
         [Required]
-        public string type { get; set; }
+        public string role { get; set; }
 
         //FK
 
