@@ -132,6 +132,27 @@
     "EndpointName": "DeleteAlert"
   },
   {
+    "ContainingType": "projeto.Controllers.MessageController",
+    "Method": "Post",
+    "RelativePath": "api/Message/{vin}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vin",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "messageDto",
+        "Type": "projeto.Controllers.MessageDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "projeto.Controllers.UserController",
     "Method": "Post",
     "RelativePath": "api/User",

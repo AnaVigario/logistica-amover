@@ -18,6 +18,8 @@ namespace projeto.Data
         public DbSet<Alert> alerts { get; set; }
         public DbSet<Models.Route> routes { get; set; }
         public DbSet<LocationNode> locationNodes { get; set; }
+        public DbSet<ApiKey> apiKeys { get; set; }
+        public DbSet<MessageLog> messageLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

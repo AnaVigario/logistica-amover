@@ -443,5 +443,15 @@ namespace projeto.Controllers
         }
 
         */
+        public ApiKey GetApiKey(string key)
+        {
+            return db.apiKeys.FirstOrDefault(k => k.Key == key && k.IsActive);
+        }
+
+        public void CreateMessageLog(MessageLog log)
+        {
+            db.messageLogs.Add(log);
+            db.SaveChanges();
+        }
     }
 }
