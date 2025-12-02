@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using projeto.Controllers;
 using projeto.Data;
 using projeto.Data.Models;
+using projeto.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,8 +63,9 @@ builder.Services.AddControllers()
     });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<AMoverContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("CAmover")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("SBAmover")));
 builder.Services.AddScoped<DatabaseOperations>();
+builder.Services.AddScoped<CompanyServices>();
 
 var app = builder.Build();
 

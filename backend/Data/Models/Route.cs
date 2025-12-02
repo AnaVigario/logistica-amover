@@ -22,10 +22,15 @@ namespace projeto.Data.Models
         [Required]
         public float longintude { get; set; }
         [Required]
-        public string description { get; set; }
+        public string address { get; set; }
+
+        public TimeSpan? availableTimeStart { get; set; }
+        public TimeSpan? availableTimeEnds { get; set; }
+
         //FK
 
         //NAV
+
         [JsonIgnore]
         public virtual List<Route> routes { get; set; }
     }

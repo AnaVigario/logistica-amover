@@ -12,6 +12,7 @@ namespace projeto.Data
 
         public DbSet<User> users { get; set; }
         public DbSet<Vehicle> vehicles { get; set; }
+        public DbSet<Company> companies { get; set; }
         //public DbSet<Models.Task> tasks { get; set; }
         //public DbSet<Service> services { get; set; }
         //public DbSet<PerformanceReport> reports { get; set; }
@@ -20,6 +21,7 @@ namespace projeto.Data
         public DbSet<LocationNode> locationNodes { get; set; }
         public DbSet<ApiKey> apiKeys { get; set; }
         public DbSet<MessageLog> messageLogs { get; set; }
+        public DbSet<Client> clients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,9 +47,22 @@ namespace projeto.Data
                 .WithMany(s => s.tasks)
                 .HasForeignKey(t => t.serviceID)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Data.Models.Task>()
+                .HasOne(t => t.client)
+                .WithMany(c => c.tasks)
+                .HasForeignKey(t => t.clientID)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Data.Models.Task>()
+                .Property(t => t.recurrence)
+                .HasConversion<string>();
             modelBuilder.Entity<Models.Route>()
                 .HasMany(r => r.nodes)
                 .WithMany(n => n.routes);
+            modelBuilder.Entity<Company>()
+                .HasMany(c => c.users)
+                .WithOne(u => u.company)
+                .HasForeignKey(u => u.companyID)
+                .OnDelete(DeleteBehavior.SetNull);
             base.OnModelCreating(modelBuilder);
         }
     }

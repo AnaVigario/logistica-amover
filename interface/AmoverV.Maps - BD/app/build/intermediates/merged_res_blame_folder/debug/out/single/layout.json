@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "com.example.amover.app-mergeDebugResources-53:/layout/fragment_detail.xml",
+        "source": "com.example.amover.app-main-56:/layout/fragment_detail.xml"
+    },
+    {
+        "merged": "com.example.amover.app-mergeDebugResources-53:/layout/fragment_home.xml",
+        "source": "com.example.amover.app-main-56:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.example.amover.app-mergeDebugResources-53:/layout/fragment_dashboard.xml",
+        "source": "com.example.amover.app-main-56:/layout/fragment_dashboard.xml"
+    },
+    {
+        "merged": "com.example.amover.app-mergeDebugResources-53:/layout/activity_main.xml",
+        "source": "com.example.amover.app-main-56:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.amover.app-mergeDebugResources-53:/layout/fragment_tasks.xml",
+        "source": "com.example.amover.app-main-56:/layout/fragment_tasks.xml"
+    },
+    {
+        "merged": "com.example.amover.app-mergeDebugResources-53:/layout/fragment_perfil.xml",
+        "source": "com.example.amover.app-main-56:/layout/fragment_perfil.xml"
+    },
+    {
+        "merged": "com.example.amover.app-mergeDebugResources-53:/layout/fragment_tasks_check.xml",
+        "source": "com.example.amover.app-main-56:/layout/fragment_tasks_check.xml"
+    },
+    {
+        "merged": "com.example.amover.app-mergeDebugResources-53:/layout/fragment_map.xml",
+        "source": "com.example.amover.app-main-56:/layout/fragment_map.xml"
+    },
+    {
+        "merged": "com.example.amover.app-mergeDebugResources-53:/layout/activity_splash_scren.xml",
+        "source": "com.example.amover.app-main-56:/layout/activity_splash_scren.xml"
+    },
+    {
+        "merged": "com.example.amover.app-mergeDebugResources-53:/layout/activity_login.xml",
+        "source": "com.example.amover.app-main-56:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.example.amover.app-mergeDebugResources-53:/layout/fragment_notifications.xml",
+        "source": "com.example.amover.app-main-56:/layout/fragment_notifications.xml"
+    },
+    {
+        "merged": "com.example.amover.app-mergeDebugResources-53:/layout/fragment_confirmation.xml",
+        "source": "com.example.amover.app-main-56:/layout/fragment_confirmation.xml"
+    }
+]

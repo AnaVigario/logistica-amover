@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\evilh\\Desktop\\logistica-amover\\backend\\AMoVeR-Logistica.csproj": {}
   },
   "projects": {
@@ -12,12 +13,29 @@
         "projectPath": "C:\\Users\\evilh\\Desktop\\logistica-amover\\backend\\AMoVeR-Logistica.csproj",
         "packagesPath": "C:\\Users\\evilh\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\evilh\\Desktop\\logistica-amover\\backend\\obj\\",
+=======
+    "F:\\Git\\Pub\\logistica-amover\\backend\\AMoVeR-Logistica.csproj": {}
+  },
+  "projects": {
+    "F:\\Git\\Pub\\logistica-amover\\backend\\AMoVeR-Logistica.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\Git\\Pub\\logistica-amover\\backend\\AMoVeR-Logistica.csproj",
+        "projectName": "AMoVeR-Logistica",
+        "projectPath": "F:\\Git\\Pub\\logistica-amover\\backend\\AMoVeR-Logistica.csproj",
+        "packagesPath": "C:\\Users\\xvrol\\.nuget\\packages\\",
+        "outputPath": "F:\\Git\\Pub\\logistica-amover\\backend\\obj\\",
+>>>>>>> 4490a590a6649d514c3ba30375277c91284b692d
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\evilh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\xvrol\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 4490a590a6649d514c3ba30375277c91284b692d
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +44,10 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+<<<<<<< HEAD
           "C:\\Program Files\\dotnet\\library-packs": {},
+=======
+>>>>>>> 4490a590a6649d514c3ba30375277c91284b692d
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,7 +66,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -133,7 +154,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+>>>>>>> 4490a590a6649d514c3ba30375277c91284b692d
         }
       }
     }

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.confirmation.ConfirmationFragment"
+    >
+
+
+    <TextView
+        android:id="@+id/task_type_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:textSize="18sp"
+        android:text="Recolha" />
+
+
+    <TextView
+        android:id="@+id/task_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_below= "@id/task_type_text"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:text="UTAD" />
+
+    <TextView
+        android:id="@+id/task_address_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/task_name_text"
+        android:layout_marginStart="25dp"
+        android:textSize="18sp"
+        android:text=" Rua das Pedrinhas, 2710-321" />
+
+    <View
+        android:id="@+id/view_confirmation"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_below="@id/task_address_text"/>
+
+    <ImageView
+        android:id="@+id/warning_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_below="@id/view_confirmation"
+        android:src="@drawable/warning_yellow" />
+
+
+    <TextView
+        android:id="@+id/mandatory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_confirmation"
+        android:layout_alignLeft = "@id/warning_image"
+        android:layout_marginStart="40dp"
+        android:textSize="20sp"
+        android:text="Mandatory proof" />
+
+    <View
+        android:id="@+id/view_2"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_below="@id/warning_image"/>
+
+    <TextView
+        android:id="@+id/photo_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_2"
+        android:layout_marginStart="25dp"
+        android:textSize="20sp"
+        android:text="Photo" />
+
+    <Button
+        android:id="@+id/btn_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_below="@id/photo_text"
+        android:background="@drawable/button2"
+        android:drawableLeft="@drawable/photo_camera"
+        android:drawablePadding="8dp"
+        />
+
+    <ImageView
+        android:id="@+id/imageview1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_photo"
+        android:padding="60dp"
+        />
+    <TextView
+        android:id="@+id/barcode_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageview1"
+        android:layout_marginStart="25dp"
+        android:textSize="20sp"
+        android:text="Code" />
+
+    <Button
+        android:id="@+id/btn_barcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_below="@id/barcode_text"
+        android:background="@drawable/button2"
+        android:drawableLeft="@drawable/barcodegray"
+        android:drawablePadding="8dp"
+        />
+
+    <ImageView
+        android:id="@+id/imageview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_barcode"
+        android:padding="60dp"
+        />
+
+    <TextView
+        android:id="@+id/assinatura_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageview2"
+        android:layout_marginStart="25dp"
+        android:textSize="20sp"
+        android:text="Assinatura" />
+
+    <EditText
+        android:id="@+id/edit_assinatura"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/assinatura_text"
+        android:textSize="8sp"
+
+        />
+
+
+
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.amover.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_dashboard"
+            app:destination="@id/navigation_notifications" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_notifications"
+            app:destination="@id/navigation_notifications" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_tasks"
+            app:destination="@id/navigation_tasks" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_map"
+            app:destination="@id/navigation_map" />
+        <action
+            android:id="@+id/action_navigation_home_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_dashboard2"
+            app:destination="@id/navigation_dashboard" />
+        <action
+            android:id="@+id/action_navigation_home_to_confirmationFragment"
+            app:destination="@id/confirmationFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_tasksCheckFragment"
+            app:destination="@id/tasksCheckFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_tasks"
+        android:name="com.example.amover.ui.tasks.TasksFragment"
+        android:label="Tarefas"
+        tools:layout="@layout/fragment_tasks" >
+        <action
+            android:id="@+id/action_navigation_tasks_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.amover.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="com.example.amover.ui.map.MapFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_map"
+        tools:ignore="DuplicateIds" />
+
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.amover.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/confirmationFragment"
+        android:name="com.example.amover.ui.confirmation.ConfirmationFragment"
+        android:label="Confirmação"
+        tools:layout="@layout/fragment_confirmation" />
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="com.example.amover.ui.perfil.PerfilFragment"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/tasksCheckFragment"
+        android:name="com.example.amover.ui.taskscheck.TasksCheckFragment"
+        android:label="Histórico" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.amover.MainActivity"
+        android:label="Home" />
+</navigation>

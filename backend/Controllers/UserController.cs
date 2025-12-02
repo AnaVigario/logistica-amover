@@ -21,7 +21,7 @@ namespace projeto.Controllers
         
         [Authorize]
         [HttpPost]
-        public IActionResult Post([FromBody] UserDto user)
+        public IActionResult Post([FromBody] UserDTO user)
         {
             _db.CreateUser(user.Name, user.Email, user.Password, user.Role);
             return Ok(new { message = "Utilizador criado com sucesso." });
@@ -49,7 +49,7 @@ namespace projeto.Controllers
         
         [Authorize]
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] UserDto user)
+        public IActionResult Put(int id, [FromBody] UserDTO user)
         {
             _db.EditUser(id, user.Name, user.Email, user.Password, user.Role);
             return Ok(new { message = "Utilizador atualizado com sucesso." });
@@ -65,7 +65,7 @@ namespace projeto.Controllers
         }
     }
 
-    public class UserDto
+    public class UserDTO
     {
         public string Name { get; set; } = "";
         public string Email { get; set; } = "";
