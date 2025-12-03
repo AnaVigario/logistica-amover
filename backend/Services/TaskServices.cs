@@ -34,5 +34,29 @@ namespace projeto.Services
             }
         }
 
+        public List<Task> GetTasks()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task GetTaskByID(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteTask(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AddTaskNode(int taskID, int nodeID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RemoveTaskNode(int taskID, int nodeID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

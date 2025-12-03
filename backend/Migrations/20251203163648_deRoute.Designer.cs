@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using projeto.Data;
@@ -11,9 +12,11 @@ using projeto.Data;
 namespace AMoVeRLogistica.Migrations
 {
     [DbContext(typeof(AMoverContext))]
-    partial class AMoverContextModelSnapshot : ModelSnapshot
+    [Migration("20251203163648_deRoute")]
+    partial class deRoute
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,21 +38,6 @@ namespace AMoVeRLogistica.Migrations
                     b.HasIndex("targetsID");
 
                     b.ToTable("AlertUser");
-                });
-
-            modelBuilder.Entity("LocationNodeTask", b =>
-                {
-                    b.Property<int>("NodesID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("tasksID")
-                        .HasColumnType("integer");
-
-                    b.HasKey("NodesID", "tasksID");
-
-                    b.HasIndex("tasksID");
-
-                    b.ToTable("LocationNodeTask");
                 });
 
             modelBuilder.Entity("projeto.Data.Models.Alert", b =>
@@ -269,6 +257,9 @@ namespace AMoVeRLogistica.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("parentTaskID")
+                        .HasColumnType("integer");
+
                     b.Property<string>("recurrence")
                         .IsRequired()
                         .HasColumnType("text");
@@ -290,6 +281,8 @@ namespace AMoVeRLogistica.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("clientID");
+
+                    b.HasIndex("parentTaskID");
 
                     b.HasIndex("serviceID");
 
@@ -375,21 +368,6 @@ namespace AMoVeRLogistica.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LocationNodeTask", b =>
-                {
-                    b.HasOne("projeto.Data.Models.LocationNode", null)
-                        .WithMany()
-                        .HasForeignKey("NodesID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("projeto.Data.Models.Task", null)
-                        .WithMany()
-                        .HasForeignKey("tasksID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("projeto.Data.Models.Alert", b =>
                 {
                     b.HasOne("projeto.Data.Models.User", "admin")
@@ -420,6 +398,10 @@ namespace AMoVeRLogistica.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("projeto.Data.Models.Task", "parentTask")
+                        .WithMany("subTasks")
+                        .HasForeignKey("parentTaskID");
+
                     b.HasOne("projeto.Data.Models.Service", "service")
                         .WithMany("tasks")
                         .HasForeignKey("serviceID")
@@ -431,6 +413,8 @@ namespace AMoVeRLogistica.Migrations
                         .HasForeignKey("userID");
 
                     b.Navigation("client");
+
+                    b.Navigation("parentTask");
 
                     b.Navigation("service");
 
@@ -472,6 +456,11 @@ namespace AMoVeRLogistica.Migrations
             modelBuilder.Entity("projeto.Data.Models.Service", b =>
                 {
                     b.Navigation("tasks");
+                });
+
+            modelBuilder.Entity("projeto.Data.Models.Task", b =>
+                {
+                    b.Navigation("subTasks");
                 });
 
             modelBuilder.Entity("projeto.Data.Models.User", b =>

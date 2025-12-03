@@ -113,12 +113,12 @@ namespace projeto.Controllers
         
 
         
-
+        /*
         public bool CreateRoute(string description)
         {
             try
             {
-                Data.Models.Route route = new Data.Models.Route();
+                Data.Models.LocationNode route = new Data.Models.LocationNode();
                 route.description = description;
                 db.routes.Add(route);
                 db.SaveChanges();
@@ -184,7 +184,7 @@ namespace projeto.Controllers
 
         
 
-        public List<Data.Models.Route> GetRoutes()
+        public List<Data.Models.LocationNode> GetRoutes()
         {
             try
             {
@@ -196,7 +196,7 @@ namespace projeto.Controllers
             }
         }
 
-        public Data.Models.Route GetRoute(int id)
+        public Data.Models.LocationNode GetRoute(int id)
         {
             try
             {
@@ -228,7 +228,7 @@ namespace projeto.Controllers
             }
         }
 
-        /*
+        
         public void CreateReport(string description)
         {
             PerformanceReport relatorioDesempenho = new PerformanceReport();

@@ -67,18 +67,6 @@ namespace projeto.Controllers
             }
         }
 
-        [HttpPut("{id}", Name = "PutAlert")]
-        public void Put(int id, string description, int ID_admin, string _ID_users)
-        {
-            List<int> ID_users = new List<int>();
-            foreach (string s in _ID_users.Split(',').ToList())
-            {
-                ID_users.Add(Convert.ToInt32(s));
-            };
-            _db.EditAlert(id, description, ID_admin, ID_users);
-            return;
-        }
-
         [HttpDelete("{id}", Name = "DeleteAlert")]
         public void Delete(int id)
         {

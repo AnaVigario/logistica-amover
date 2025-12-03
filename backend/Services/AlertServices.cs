@@ -61,30 +61,6 @@ namespace projeto.Services
             }
         }
 
-        public void EditAlert(int id, string description, int adminId, List<int> targetIds)
-        {
-            try
-            {
-                Alert alert = _context.alerts.Where(x => x.ID == id).FirstOrDefault();
-                alert.description = description;
-                alert.timestamp = DateTime.Now;
-                alert.adminID = adminId;
-                alert.targets = new List<User>();
-
-                foreach (int id1 in targetIds)
-                {
-                    var user = _context.users.Where(x => x.ID == id1).FirstOrDefault();
-                    if (user != null) { alert.targets.Add(user); };
-                }
-                _context.SaveChanges();
-            }
-            catch
-            (Exception ex)
-            {
-                throw new Exception("Erro ao editar alerta: " + ex.Message);
-            }
-        }
-
         public void DeleteAlert(int alertId)
         {
             Alert alert = _context.alerts.Where(x => x.ID == alertId).FirstOrDefault();

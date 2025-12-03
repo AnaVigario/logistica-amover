@@ -3,68 +3,32 @@
   "WorkspaceRootPath": "F:\\Git\\Pub\\logistica-amover\\backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\services\\taskservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:services\\taskservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\controllers\\routecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:controllers\\routecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\data\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:data\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\data\\models\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:data\\models\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\services\\companyservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:services\\companyservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\services\\alertservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:services\\alertservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\controllers\\alertcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:controllers\\alertcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\services\\alertservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:services\\alertservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\data\\amovercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:data\\amovercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\controllers\\vehiclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:controllers\\vehiclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\Git\\Pub\\logistica-amover\\backend\\Migrations\\20251203203558_taskNodes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20251203203558_taskNodes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\data\\models\\locationnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:data\\models\\locationnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\data\\models\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:data\\models\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\controllers\\databaseoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:controllers\\databaseoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\services\\nodeservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:services\\nodeservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\services\\vehicleservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:services\\vehicleservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\services\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:services\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|f:\\git\\pub\\logistica-amover\\backend\\data\\models\\vehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4DDE2304-6C53-430A-A2E1-3CFAAD847C12}|AMoVeR-Logistica.csproj|solutionrelative:data\\models\\vehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 205,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -118,106 +82,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAAEgAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T20:49:51.356Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "User.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Data\\Models\\User.cs",
-              "RelativeDocumentMoniker": "Data\\Models\\User.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Data\\Models\\User.cs",
-              "RelativeToolTip": "Data\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T20:45:51.078Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AlertController.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\AlertController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AlertController.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\AlertController.cs",
-              "RelativeToolTip": "Controllers\\AlertController.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T19:51:56.467Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "TaskServices.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Services\\TaskServices.cs",
-              "RelativeDocumentMoniker": "Services\\TaskServices.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Services\\TaskServices.cs",
-              "RelativeToolTip": "Services\\TaskServices.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBwAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T19:51:25.102Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
               "Title": "AlertServices.cs",
               "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Services\\AlertServices.cs",
               "RelativeDocumentMoniker": "Services\\AlertServices.cs",
               "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Services\\AlertServices.cs",
               "RelativeToolTip": "Services\\AlertServices.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwD0AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAowD0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T18:31:08.862Z",
+              "WhenOpened": "2025-12-03T20:56:31.529Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "NodeServices.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Services\\NodeServices.cs",
-              "RelativeDocumentMoniker": "Services\\NodeServices.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Services\\NodeServices.cs",
-              "RelativeToolTip": "Services\\NodeServices.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAADwvyEAAAAPAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "AlertController.cs",
+              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\AlertController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AlertController.cs",
+              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\AlertController.cs",
+              "RelativeToolTip": "Controllers\\AlertController.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAwwEgAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T19:32:11.265Z",
+              "WhenOpened": "2025-12-03T20:55:59.798Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CompanyServices.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Services\\CompanyServices.cs",
-              "RelativeDocumentMoniker": "Services\\CompanyServices.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Services\\CompanyServices.cs",
-              "RelativeToolTip": "Services\\CompanyServices.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "20251203203558_taskNodes.cs",
+              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Migrations\\20251203203558_taskNodes.cs",
+              "RelativeDocumentMoniker": "Migrations\\20251203203558_taskNodes.cs",
+              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Migrations\\20251203203558_taskNodes.cs",
+              "RelativeToolTip": "Migrations\\20251203203558_taskNodes.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T19:30:21.502Z",
+              "WhenOpened": "2025-12-03T20:35:58.792Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "VehicleController.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\VehicleController.cs",
-              "RelativeDocumentMoniker": "Controllers\\VehicleController.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\VehicleController.cs",
-              "RelativeToolTip": "Controllers\\VehicleController.cs",
-              "ViewState": "AgIAAGQAAAAAAAAAAAAcwEUAAAAMAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "AMoverContext.cs",
+              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Data\\AMoverContext.cs",
+              "RelativeDocumentMoniker": "Data\\AMoverContext.cs",
+              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Data\\AMoverContext.cs",
+              "RelativeToolTip": "Data\\AMoverContext.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAA7wDwAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T19:15:55.386Z",
+              "WhenOpened": "2025-12-03T20:35:12.07Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LocationNode.cs",
+              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Data\\Models\\LocationNode.cs",
+              "RelativeDocumentMoniker": "Data\\Models\\LocationNode.cs",
+              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Data\\Models\\LocationNode.cs",
+              "RelativeToolTip": "Data\\Models\\LocationNode.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACMAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-03T20:34:54.898Z",
               "EditorCaption": ""
             },
             {
@@ -228,103 +153,22 @@
               "RelativeDocumentMoniker": "Data\\Models\\Task.cs",
               "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Data\\Models\\Task.cs",
               "RelativeToolTip": "Data\\Models\\Task.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAA4wCwAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAIwC0AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T19:31:27.344Z",
+              "WhenOpened": "2025-12-03T20:33:59.556Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Vehicle.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Data\\Models\\Vehicle.cs",
-              "RelativeDocumentMoniker": "Data\\Models\\Vehicle.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Data\\Models\\Vehicle.cs",
-              "RelativeToolTip": "Data\\Models\\Vehicle.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T18:55:40.912Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "VehicleServices.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Services\\VehicleServices.cs",
-              "RelativeDocumentMoniker": "Services\\VehicleServices.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Services\\VehicleServices.cs",
-              "RelativeToolTip": "Services\\VehicleServices.cs",
-              "ViewState": "AgIAADsAAAAAAAAAAAAIwAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T18:39:08.278Z"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TaskController.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\TaskController.cs",
-              "RelativeDocumentMoniker": "Controllers\\TaskController.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\TaskController.cs",
-              "RelativeToolTip": "Controllers\\TaskController.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAUwC8AAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T19:53:36.956Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "RouteController.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\RouteController.cs",
-              "RelativeDocumentMoniker": "Controllers\\RouteController.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\RouteController.cs",
-              "RelativeToolTip": "Controllers\\RouteController.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAgwHEAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T19:19:48.901Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 6,
               "Title": "UserController.cs",
               "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
               "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\UserController.cs",
               "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAcwHgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAmwAEAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T18:51:57.896Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "UserServices.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Services\\UserServices.cs",
-              "RelativeDocumentMoniker": "Services\\UserServices.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Services\\UserServices.cs",
-              "RelativeToolTip": "Services\\UserServices.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAlwFwAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T19:09:10.379Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "DatabaseOperations.cs",
-              "DocumentMoniker": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\DatabaseOperations.cs",
-              "RelativeDocumentMoniker": "Controllers\\DatabaseOperations.cs",
-              "ToolTip": "F:\\Git\\Pub\\logistica-amover\\backend\\Controllers\\DatabaseOperations.cs",
-              "RelativeToolTip": "Controllers\\DatabaseOperations.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwLgAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T18:39:26.268Z",
+              "WhenOpened": "2025-12-03T19:13:49.289Z",
               "EditorCaption": ""
             }
           ]

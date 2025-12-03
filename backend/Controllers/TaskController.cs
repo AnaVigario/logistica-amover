@@ -39,7 +39,7 @@ namespace projeto.Controllers
             }
             return Ok(new { message = "Tarefa criada com sucesso." });
         }
-        /*
+        
         [HttpGet(Name = "GetTasks")]
         public ActionResult<IEnumerable<Task>> Get()
         {
@@ -69,7 +69,7 @@ namespace projeto.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao obter tarefa com ID {ID}", ID);
+                _logger.LogError(ex, "Erro ao obter tarefa com ID {ID}", id);
                 return StatusCode(500, "Erro interno do servidor.");
             }
         }
@@ -87,7 +87,34 @@ namespace projeto.Controllers
                 return StatusCode(500, "Erro interno do servidor.");
             }
         }
-        */
+
+        [HttpPost("{id}/location", Name = "AddTaskNode")]
+        public IActionResult SetNode(int id, [FromBody] int nodeID)
+        {
+            try
+            {
+                return _db.AddTaskNode(id, nodeID) ? Ok(new { message = "Nó adicionado à tarefa com sucesso." }) : NotFound("Tarefa ou nó não encontrado.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao adicionar nó à tarefa com ID {id}", id);
+                return StatusCode(500, "Erro interno do servidor.");
+            }
+        }
+
+        [HttpDelete("{id}/location", Name = "RemoveTaskNode")]
+        public IActionResult RemoveNode(int id, [FromBody] int nodeID)
+        {
+            try
+            {
+                return _db.RemoveTaskNode(id, nodeID) ? Ok(new { message = "Nó removido da tarefa com sucesso." }) : NotFound("Tarefa ou nó não encontrado.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao remover nó da tarefa com ID {id}", id);
+                return StatusCode(500, "Erro interno do servidor.");
+            }
+        }
 
         public class TaskDTO
         {

@@ -71,6 +71,7 @@ builder.Services.AddScoped<VehicleServices>();
 builder.Services.AddScoped<MessageServices>();
 builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<TaskServices>();
+builder.Services.AddScoped<UserTaskServices>();
 
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using projeto.Data;
@@ -11,9 +12,11 @@ using projeto.Data;
 namespace AMoVeRLogistica.Migrations
 {
     [DbContext(typeof(AMoverContext))]
-    partial class AMoverContextModelSnapshot : ModelSnapshot
+    [Migration("20251203163900_deRoute2")]
+    partial class deRoute2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,21 +38,6 @@ namespace AMoVeRLogistica.Migrations
                     b.HasIndex("targetsID");
 
                     b.ToTable("AlertUser");
-                });
-
-            modelBuilder.Entity("LocationNodeTask", b =>
-                {
-                    b.Property<int>("NodesID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("tasksID")
-                        .HasColumnType("integer");
-
-                    b.HasKey("NodesID", "tasksID");
-
-                    b.HasIndex("tasksID");
-
-                    b.ToTable("LocationNodeTask");
                 });
 
             modelBuilder.Entity("projeto.Data.Models.Alert", b =>
@@ -371,21 +359,6 @@ namespace AMoVeRLogistica.Migrations
                     b.HasOne("projeto.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("targetsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("LocationNodeTask", b =>
-                {
-                    b.HasOne("projeto.Data.Models.LocationNode", null)
-                        .WithMany()
-                        .HasForeignKey("NodesID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("projeto.Data.Models.Task", null)
-                        .WithMany()
-                        .HasForeignKey("tasksID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

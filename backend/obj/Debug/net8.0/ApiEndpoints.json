@@ -191,13 +191,13 @@
   {
     "ContainingType": "projeto.Controllers.UserController",
     "Method": "Get",
-    "RelativePath": "api/User/{id}",
+    "RelativePath": "api/User/{userID}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "userID",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -217,13 +217,13 @@
   {
     "ContainingType": "projeto.Controllers.UserController",
     "Method": "Put",
-    "RelativePath": "api/User/{id}",
+    "RelativePath": "api/User/{userID}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "userID",
         "Type": "System.Int32",
         "IsRequired": true
       },
@@ -238,15 +238,83 @@
   {
     "ContainingType": "projeto.Controllers.UserController",
     "Method": "Delete",
-    "RelativePath": "api/User/{id}",
+    "RelativePath": "api/User/{userID}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "userID",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projeto.Controllers.UserController",
+    "Method": "PostTask",
+    "RelativePath": "api/User/{userID}/tasks",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "taskID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "projeto.Controllers.UserController",
+    "Method": "GetTasks",
+    "RelativePath": "api/User/{userID}/tasks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[projeto.Data.Models.Task, AMoVeR-Logistica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "projeto.Controllers.UserController",
+    "Method": "DeleteTask",
+    "RelativePath": "api/User/{userID}/tasks",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "taskID",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -447,5 +515,114 @@
     ],
     "ReturnTypes": [],
     "EndpointName": "PostTask"
+  },
+  {
+    "ContainingType": "projeto.Controllers.TaskController",
+    "Method": "Get",
+    "RelativePath": "Task",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[projeto.Data.Models.Task, AMoVeR-Logistica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetTasks"
+  },
+  {
+    "ContainingType": "projeto.Controllers.TaskController",
+    "Method": "Get",
+    "RelativePath": "Task/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "projeto.Data.Models.Task",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetTask"
+  },
+  {
+    "ContainingType": "projeto.Controllers.TaskController",
+    "Method": "Delete",
+    "RelativePath": "Task/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "DeleteTask"
+  },
+  {
+    "ContainingType": "projeto.Controllers.TaskController",
+    "Method": "SetNode",
+    "RelativePath": "Task/{id}/location",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nodeID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "AddTaskNode"
+  },
+  {
+    "ContainingType": "projeto.Controllers.TaskController",
+    "Method": "RemoveNode",
+    "RelativePath": "Task/{id}/location",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nodeID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "RemoveTaskNode"
   }
 ]

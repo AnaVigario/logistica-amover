@@ -18,7 +18,7 @@ namespace projeto.Data
         public DbSet<Service> services { get; set; }
         //public DbSet<PerformanceReport> reports { get; set; }
         public DbSet<Alert> alerts { get; set; }
-        public DbSet<Models.Route> routes { get; set; }
+        public DbSet<Models.LocationNode> routes { get; set; }
         public DbSet<LocationNode> locationNodes { get; set; }
         public DbSet<ApiKey> apiKeys { get; set; }
         public DbSet<MessageLog> messageLogs { get; set; }
@@ -39,10 +39,10 @@ namespace projeto.Data
                 .WithOne(a => a.admin)
                 .HasForeignKey(a => a.adminID)
                 .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Task>()
-                .HasMany(t => t.subTasks)
-                .WithOne(t => t.parentTask)
-                .HasForeignKey(t => t.parentTaskID);
+            //modelBuilder.Entity<Task>()
+            //    .HasMany(t => t.subTasks)
+            //    .WithOne(t => t.parentTask)
+            //    .HasForeignKey(t => t.parentTaskID);
             modelBuilder.Entity<Task>()
                 .HasOne(t => t.service)
                 .WithMany(s => s.tasks)
@@ -56,9 +56,12 @@ namespace projeto.Data
             modelBuilder.Entity<Task>()
                 .Property(t => t.recurrence)
                 .HasConversion<string>();
-            modelBuilder.Entity<Models.Route>()
-                .HasMany(r => r.nodes)
-                .WithMany(n => n.routes);
+            modelBuilder.Entity<Task>()
+                .HasMany(t => t.Nodes)
+                .WithMany(n => n.tasks);
+            //modelBuilder.Entity<Models.LocationNode>()
+            //    .HasMany(r => r.nodes)
+            //    .WithMany(n => n.routes);
             modelBuilder.Entity<Company>()
                 .HasMany(c => c.users)
                 .WithOne(u => u.company)
