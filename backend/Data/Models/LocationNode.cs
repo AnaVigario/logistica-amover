@@ -3,18 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace projeto.Data.Models
 {
-    /*
-    public class Route
-    {
-        [Key]
-        public int ID { get; set; }
-        public string description { get; set; }
-
-        //NAV
-        public virtual List<LocationNode> nodes { get; set; }
-
-    }
-    */
     public class LocationNode
     {
         [Key]

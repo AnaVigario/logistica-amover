@@ -19,7 +19,8 @@ namespace projeto.Data.Models
         public int? companyID { get; set; }
 
         //NAV
-
+        public virtual List<Task>? tasks { get; set; }
+        public virtual List<Plan>? plans { get; set; } // 1 - n
         public virtual Company company { get; set; }
         public virtual List<Vehicle> vehicles { get; set; } // 1 - n
         public virtual List<Alert> targetedAlerts { get; set; } // 1 - n

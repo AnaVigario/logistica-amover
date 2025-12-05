@@ -72,44 +72,6 @@
   },
   {
     "ContainingType": "projeto.Controllers.AlertController",
-    "Method": "Put",
-    "RelativePath": "Alert/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "description",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "ID_admin",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "_ID_users",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "PutAlert"
-  },
-  {
-    "ContainingType": "projeto.Controllers.AlertController",
     "Method": "Delete",
     "RelativePath": "Alert/{id}",
     "HttpMethod": "DELETE",

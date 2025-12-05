@@ -34,6 +34,7 @@ namespace projeto.Data.Models
         //FK
         //public int? routeID { get; set; } // Route n - 1
         public int? userID { get; set; } // User n - 1
+        public int? planID { get; set; } // Plan n - 1
         //public int? parentTaskID { get; set; } // Parent Task n - 1
         public int serviceID { get; set; } // Service n - 1
         public int clientID { get; set; } // Client n - 1
@@ -42,6 +43,7 @@ namespace projeto.Data.Models
         //public virtual List<Task> subTasks { get; set; } // n - n
         //public virtual List<LocationNode> nodes { get; set; }
         public virtual User user { get; set; }
+        public virtual Plan plan { get; set; }
         public virtual Service service { get; set; }
         public virtual Client client { get; set; }
         public virtual List<LocationNode>? Nodes { get; set; }

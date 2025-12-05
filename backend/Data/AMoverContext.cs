@@ -39,6 +39,21 @@ namespace projeto.Data
                 .WithOne(a => a.admin)
                 .HasForeignKey(a => a.adminID)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.plans)
+                .WithOne(p => p.user)
+                .HasForeignKey(p => p.userID)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.tasks)
+                .WithOne(t => t.user)
+                .HasForeignKey(t => t.userID)
+                .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Plan>()
+                .HasMany(p => p.tasks)
+                .WithOne(t => t.plan)
+                .HasForeignKey(t => t.planID)
+                .OnDelete(DeleteBehavior.SetNull);
             //modelBuilder.Entity<Task>()
             //    .HasMany(t => t.subTasks)
             //    .WithOne(t => t.parentTask)

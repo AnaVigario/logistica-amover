@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using projeto.Data;
@@ -11,9 +12,11 @@ using projeto.Data;
 namespace AMoVeRLogistica.Migrations
 {
     [DbContext(typeof(AMoverContext))]
-    partial class AMoverContextModelSnapshot : ModelSnapshot
+    [Migration("20251205165359_planUser")]
+    partial class planUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -290,9 +293,6 @@ namespace AMoVeRLogistica.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("planID")
-                        .HasColumnType("integer");
-
                     b.Property<string>("recurrence")
                         .IsRequired()
                         .HasColumnType("text");
@@ -314,8 +314,6 @@ namespace AMoVeRLogistica.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("clientID");
-
-                    b.HasIndex("planID");
 
                     b.HasIndex("serviceID");
 
@@ -457,11 +455,6 @@ namespace AMoVeRLogistica.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("projeto.Data.Models.Plan", "plan")
-                        .WithMany("tasks")
-                        .HasForeignKey("planID")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("projeto.Data.Models.Service", "service")
                         .WithMany("tasks")
                         .HasForeignKey("serviceID")
@@ -469,13 +462,10 @@ namespace AMoVeRLogistica.Migrations
                         .IsRequired();
 
                     b.HasOne("projeto.Data.Models.User", "user")
-                        .WithMany("tasks")
-                        .HasForeignKey("userID")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .WithMany()
+                        .HasForeignKey("userID");
 
                     b.Navigation("client");
-
-                    b.Navigation("plan");
 
                     b.Navigation("service");
 
@@ -514,11 +504,6 @@ namespace AMoVeRLogistica.Migrations
                     b.Navigation("users");
                 });
 
-            modelBuilder.Entity("projeto.Data.Models.Plan", b =>
-                {
-                    b.Navigation("tasks");
-                });
-
             modelBuilder.Entity("projeto.Data.Models.Service", b =>
                 {
                     b.Navigation("tasks");
@@ -529,8 +514,6 @@ namespace AMoVeRLogistica.Migrations
                     b.Navigation("managedAlerts");
 
                     b.Navigation("plans");
-
-                    b.Navigation("tasks");
 
                     b.Navigation("vehicles");
                 });
