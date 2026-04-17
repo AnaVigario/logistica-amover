@@ -33,12 +33,13 @@ Our group consists of:
 <br>
 
 * Prof. Tiago Pinto(coordinator)
-* Ana Vigário*
 * Beatriz Teixeira
 * David Dias
 * Gonçalo Penelas
 * João Ferreira
-* Nuno Oliveira*
-* Rodrigo Fernandes*
-
 * Soraia Fernandes
+
+Ex-members:
+* Ana Vigário
+* Nuno Oliveira
+* Rodrigo Fernandes
