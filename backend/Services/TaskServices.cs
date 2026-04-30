@@ -1,4 +1,5 @@
-﻿using projeto.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using projeto.Data;
 using projeto.Data.Models;
 using Task = projeto.Data.Models.Task;
 
@@ -7,6 +8,7 @@ namespace projeto.Services
     public class TaskServices
     {
         private readonly AMoverContext _context;
+
         public TaskServices(AMoverContext context)
         {
             _context = context;
@@ -20,11 +22,15 @@ namespace projeto.Services
                 var service = _context.services.Find(sID);
                 if (service == null)
                     throw new Exception("Serviço não encontrado.");
+
                 t.service = service;
+
                 var client = _context.clients.Find(cID);
                 if (client == null)
                     throw new Exception("Cliente não encontrado.");
+
                 t.client = client;
+
                 _context.tasks.Add(t);
                 _context.SaveChanges();
             }
@@ -36,27 +42,85 @@ namespace projeto.Services
 
         public List<Task> GetTasks()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var list = _context.tasks
+                    .Include(t => t.user)
+                    .Include(t => t.service)
+                    .Include(t => t.client)
+                    .Include(t => t.Nodes)
+                    .Include(t => t.plan)
+                    .ToList();
+
+                return list ?? new List<Task>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro na BD: {ex.Message}");
+                throw;
+            }
         }
 
-        public Task GetTaskByID(int id)
+        public Task? GetTaskByID(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _context.tasks
+                    .Include(t => t.user)
+                    .Include(t => t.service)
+                    .Include(t => t.client)
+                    .Include(t => t.Nodes)
+                    .Include(t => t.plan)
+                    .FirstOrDefault(t => t.ID == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao procurar tarefa: " + ex.Message);
+            }
         }
 
         public bool DeleteTask(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var target = _context.tasks.Find(id);
+                if (target == null) return false;
+
+                _context.tasks.Remove(target);
+                return _context.SaveChanges() > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao eliminar tarefa: " + ex.Message);
+            }
         }
 
         public bool AddTaskNode(int taskID, int nodeID)
         {
-            throw new NotImplementedException();
+            var task = _context.tasks.Include(t => t.Nodes).FirstOrDefault(t => t.ID == taskID);
+            var node = _context.locationNodes.Find(nodeID);
+
+            if (task == null || node == null) return false;
+
+            task.Nodes ??= new List<LocationNode>();
+            if (!task.Nodes.Any(n => n.ID == nodeID))
+            {
+                task.Nodes.Add(node);
+                return _context.SaveChanges() > 0;
+            }
+            return true;
         }
 
         public bool RemoveTaskNode(int taskID, int nodeID)
         {
-            throw new NotImplementedException();
+            var task = _context.tasks.Include(t => t.Nodes).FirstOrDefault(t => t.ID == taskID);
+            if (task == null || task.Nodes == null) return false;
+
+            var node = task.Nodes.FirstOrDefault(n => n.ID == nodeID);
+            if (node == null) return false;
+
+            task.Nodes.Remove(node);
+            return _context.SaveChanges() > 0;
         }
     }
 }

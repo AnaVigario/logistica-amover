@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using projeto.Data.Models;
 using projeto.Services;
 using Task = projeto.Data.Models.Task;
 
 namespace projeto.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class TaskController : ControllerBase
     {
         private readonly TaskServices _db;
@@ -18,7 +20,7 @@ namespace projeto.Controllers
             _db = db;
         }
 
-        [HttpPost(Name = "PostTask")]
+        [HttpPost]
         public IActionResult Post([FromBody] TaskDTO _t)
         {
             try
@@ -28,19 +30,21 @@ namespace projeto.Controllers
                     type = _t.Type,
                     description = _t.Description,
                     serviceID = _t.ServiceID,
-                    clientID = _t.ClientID
+                    clientID = _t.ClientID,
+                    status = "Unassigned",
+                    creationDate = DateTime.UtcNow
                 };
                 _db.CreateTask(t, _t.ServiceID, _t.ClientID);
+                return Ok(new { message = "Tarefa criada com sucesso." });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro a criar tarefa.");
                 return StatusCode(500, "Erro interno do servidor.");
             }
-            return Ok(new { message = "Tarefa criada com sucesso." });
         }
-        
-        [HttpGet(Name = "GetTasks")]
+
+        [HttpGet]
         public ActionResult<IEnumerable<Task>> Get()
         {
             try
@@ -59,13 +63,13 @@ namespace projeto.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "GetTask")]
+        [HttpGet("{id}")]
         public ActionResult<Task> Get(int id)
         {
             try
             {
                 var target = _db.GetTaskByID(id);
-                return target == null ? NotFound("Nenhuma tarefa encontrada com o ID expecificado") : Ok(target);
+                return target == null ? NotFound("Nenhuma tarefa encontrada com o ID especificado") : Ok(target);
             }
             catch (Exception ex)
             {
@@ -74,7 +78,7 @@ namespace projeto.Controllers
             }
         }
 
-        [HttpDelete("{id}", Name = "DeleteTask")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             try
@@ -88,31 +92,31 @@ namespace projeto.Controllers
             }
         }
 
-        [HttpPost("{id}/location", Name = "AddTaskNode")]
-        public IActionResult SetNode(int id, [FromBody] int nodeID)
+        [HttpPost("{id}/node/{nodeID}")]
+        public IActionResult SetNode(int id, int nodeID)
         {
             try
             {
-                return _db.AddTaskNode(id, nodeID) ? Ok(new { message = "Nó adicionado à tarefa com sucesso." }) : NotFound("Tarefa ou nó não encontrado.");
+                return _db.AddTaskNode(id, nodeID) ? Ok(new { message = "Nó adicionado com sucesso." }) : NotFound("Tarefa ou nó não encontrado.");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao adicionar nó à tarefa com ID {id}", id);
-                return StatusCode(500, "Erro interno do servidor.");
+                _logger.LogError(ex, "Erro ao adicionar nó.");
+                return StatusCode(500, "Erro interno.");
             }
         }
 
-        [HttpDelete("{id}/location", Name = "RemoveTaskNode")]
-        public IActionResult RemoveNode(int id, [FromBody] int nodeID)
+        [HttpDelete("{id}/node/{nodeID}")]
+        public IActionResult RemoveNode(int id, int nodeID)
         {
             try
             {
-                return _db.RemoveTaskNode(id, nodeID) ? Ok(new { message = "Nó removido da tarefa com sucesso." }) : NotFound("Tarefa ou nó não encontrado.");
+                return _db.RemoveTaskNode(id, nodeID) ? Ok(new { message = "Nó removido com sucesso." }) : NotFound("Tarefa ou nó não encontrado.");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao remover nó da tarefa com ID {id}", id);
-                return StatusCode(500, "Erro interno do servidor.");
+                _logger.LogError(ex, "Erro ao remover nó.");
+                return StatusCode(500, "Erro interno.");
             }
         }
 
@@ -120,7 +124,7 @@ namespace projeto.Controllers
         {
             public string Type { get; set; } = "";
             public string Description { get; set; } = "";
-            public int ServiceID { get; set; } 
+            public int ServiceID { get; set; }
             public int ClientID { get; set; }
         }
     }

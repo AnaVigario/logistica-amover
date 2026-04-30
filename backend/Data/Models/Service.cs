@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace projeto.Data.Models
 {
+
+    using System.Text.Json.Serialization;
     public class Service
     {
         [Key]
@@ -18,6 +20,7 @@ namespace projeto.Data.Models
 
         //NAV
         public virtual Company company { get; set; }
+        [JsonIgnore]
         public virtual List<Task>? tasks { get; set; }
     }
 }

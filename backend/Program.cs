@@ -7,6 +7,9 @@ using projeto.Controllers;
 using projeto.Data;
 using projeto.Data.Models;
 using projeto.Services;
+using System.IdentityModel.Tokens.Jwt;
+
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +25,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidAudience = "amover-api",
             ValidateIssuer = true,
-            ValidIssuer = "http://localhost:8080/realms/amover-realm"
+            ValidIssuer = "http://localhost:8080/realms/amover-realm",
+            RoleClaimType = "role"
         };
     });
 
@@ -55,12 +59,16 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+
 // Add services
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.MaxDepth = 64;
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+
     });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<AMoverContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("SBAmover")));
@@ -72,6 +80,7 @@ builder.Services.AddScoped<MessageServices>();
 builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<TaskServices>();
 builder.Services.AddScoped<UserTaskServices>();
+builder.Services.AddScoped<NodeServices>();
 
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

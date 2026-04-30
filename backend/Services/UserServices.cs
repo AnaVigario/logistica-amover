@@ -1,5 +1,6 @@
 ﻿using projeto.Data;
 using projeto.Data.Models;
+using Microsoft.EntityFrameworkCore; // Adicionado para suporte a consultas mais complexas
 
 namespace projeto.Services
 {
@@ -11,21 +12,38 @@ namespace projeto.Services
             _context = context;
         }
 
-        public void CreateUser(User u)
+        public User? GetUserByEmail(string email)
         {
             try
             {
+                return _context.users.FirstOrDefault(u => u.email == email);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao procurar utilizador por email: " + ex.Message);
+            }
+        }
+
+        public void CreateUser(User u, int companyID)
+        {
+            try
+            {
+                // 1. Associamos o ID da empresa ao objeto utilizador
+                u.companyID = companyID;
+
+                // 2. Verificamos se o email já existe
                 if (_context.users.Any(x => x.email == u.email))
                 {
                     throw new Exception("Já existe um utilizador com este email.");
                 }
+
+                _context.users.Add(u);
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro ao verificar utilizador: " + ex.Message);
+                throw new Exception("Erro ao criar utilizador: " + ex.Message);
             }
-            _context.users.Add(u);
-            _context.SaveChanges();
         }
 
         public List<User> GetUsers()
@@ -44,7 +62,7 @@ namespace projeto.Services
         {
             try
             {
-                var target = _context.users.Where(x => x.ID == id).FirstOrDefault();
+                var target = _context.users.FirstOrDefault(x => x.ID == id);
                 if (target == null)
                 {
                     throw new Exception("Utilizador não encontrado.");
@@ -61,7 +79,7 @@ namespace projeto.Services
         {
             try
             {
-                var target = _context.users.Where(x => x.ID == u.ID).FirstOrDefault();
+                var target = _context.users.FirstOrDefault(x => x.ID == u.ID);
                 if (target == null)
                 {
                     return false;
@@ -83,7 +101,7 @@ namespace projeto.Services
         {
             try
             {
-                var target = _context.users.Where(x => x.ID == userId).FirstOrDefault();
+                var target = _context.users.FirstOrDefault(x => x.ID == userId);
                 if (target == null)
                 {
                     return false;

@@ -1,6 +1,6 @@
-﻿using projeto.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using projeto.Data;
 using projeto.Data.Models;
-using System.Threading.Tasks;
 using Task = projeto.Data.Models.Task;
 
 namespace projeto.Services
@@ -8,6 +8,7 @@ namespace projeto.Services
     public class UserTaskServices
     {
         private readonly AMoverContext _context;
+
         public UserTaskServices(AMoverContext context)
         {
             _context = context;
@@ -18,17 +19,20 @@ namespace projeto.Services
             try
             {
                 var targetUser = _context.users.Find(userID);
-                if (targetUser == null)
-                    throw new Exception("Usuário não encontrado.");
                 var targetTask = _context.tasks.Find(taskID);
-                if (targetTask == null)
-                    throw new Exception("Tarefa não encontrada.");
-                targetTask.user = targetUser;
+
+                if (targetUser == null) throw new Exception("Utilizador não encontrado.");
+                if (targetTask == null) throw new Exception("Tarefa não encontrada.");
+
+                // Associamos o ID e aproveitamos para atualizar o status
+                targetTask.userID = userID;
+                targetTask.status = "Assigned"; // Fica melhor para mostrar no vídeo
+
                 _context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro ao adicionar tarefa ao usuário: " + ex.Message);
+                throw new Exception("Erro ao associar tarefa: " + ex.Message);
             }
         }
 
@@ -36,21 +40,19 @@ namespace projeto.Services
         {
             try
             {
-                var targetUser = _context.users.Find(userID);
-                if (targetUser == null)
-                    throw new Exception("Usuário não encontrado.");
-                var targetTask = _context.tasks.Find(taskID);
-                if (targetTask == null)
-                    throw new Exception("Tarefa não encontrada.");
-                if (targetTask.userID != userID)
-                    throw new Exception("A tarefa não está atribuída a este usuário.");
-                targetTask.userID = null;
-                _context.SaveChanges();
+                var targetTask = _context.tasks.FirstOrDefault(t => t.ID == taskID && t.userID == userID);
 
+                if (targetTask == null)
+                    throw new Exception("Tarefa não encontrada ou não pertence a este utilizador.");
+
+                targetTask.userID = null;
+                targetTask.status = "Unassigned"; // Volta ao estado inicial
+
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro ao remover tarefa do usuário: " + ex.Message);
+                throw new Exception("Erro ao remover tarefa: " + ex.Message);
             }
         }
 
@@ -58,15 +60,16 @@ namespace projeto.Services
         {
             try
             {
-                var targetUser = _context.users.Find(userID);
-                if (targetUser == null)
-                    throw new Exception("Usuário não encontrado.");
-                var tasks = _context.tasks.Where(t => t.userID == userID).ToList();
-                return tasks;
+                // Usamos o Include para que o vídeo mostre o nome do cliente e serviço
+                return _context.tasks
+                    .Include(t => t.service)
+                    .Include(t => t.client)
+                    .Where(t => t.userID == userID)
+                    .ToList();
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro ao obter tarefas do usuário: " + ex.Message);
+                throw new Exception("Erro ao obter tarefas: " + ex.Message);
             }
         }
     }
