@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "AMoVeR API",
-    "version": "v1"
+    "version": "v2"
   },
   "paths": {
     "/Alert": {
@@ -295,11 +295,12 @@
         }
       }
     },
-    "/api/Task": {
+    "/Task": {
       "post": {
         "tags": [
           "Task"
         ],
+        "operationId": "PostTask",
         "requestBody": {
           "content": {
             "application/json": {
@@ -329,6 +330,7 @@
         "tags": [
           "Task"
         ],
+        "operationId": "GetTasks",
         "responses": {
           "200": {
             "description": "Success",
@@ -362,11 +364,12 @@
         }
       }
     },
-    "/api/Task/{id}": {
+    "/Task/{id}": {
       "get": {
         "tags": [
           "Task"
         ],
+        "operationId": "GetTask",
         "parameters": [
           {
             "name": "id",
@@ -405,6 +408,7 @@
         "tags": [
           "Task"
         ],
+        "operationId": "DeleteTask",
         "parameters": [
           {
             "name": "id",
@@ -423,11 +427,12 @@
         }
       }
     },
-    "/api/Task/{id}/node/{nodeID}": {
+    "/Task/{id}/location": {
       "post": {
         "tags": [
           "Task"
         ],
+        "operationId": "AddTaskNode",
         "parameters": [
           {
             "name": "id",
@@ -437,17 +442,30 @@
               "type": "integer",
               "format": "int32"
             }
-          },
-          {
-            "name": "nodeID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success"
@@ -458,6 +476,7 @@
         "tags": [
           "Task"
         ],
+        "operationId": "RemoveTaskNode",
         "parameters": [
           {
             "name": "id",
@@ -467,17 +486,30 @@
               "type": "integer",
               "format": "int32"
             }
-          },
-          {
-            "name": "nodeID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success"
@@ -653,7 +685,7 @@
         }
       }
     },
-    "/api/User/{userID}/task/{taskID}": {
+    "/api/User/{userID}/tasks": {
       "post": {
         "tags": [
           "User"
@@ -667,55 +699,36 @@
               "type": "integer",
               "format": "int32"
             }
-          },
-          {
-            "name": "taskID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success"
           }
         }
       },
-      "delete": {
-        "tags": [
-          "User"
-        ],
-        "parameters": [
-          {
-            "name": "userID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "taskID",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/User/{userID}/tasks": {
       "get": {
         "tags": [
           "User"
@@ -760,6 +773,35 @@
                 }
               }
             }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "taskID",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -1222,16 +1264,21 @@
           },
           "company": {
             "$ref": "#/components/schemas/Company"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Task"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
       },
       "Task": {
         "required": [
-          "clientID",
           "creationDate",
           "description",
-          "serviceID",
           "status",
           "type"
         ],
@@ -1506,10 +1553,6 @@
           "role": {
             "type": "string",
             "nullable": true
-          },
-          "companyID": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false

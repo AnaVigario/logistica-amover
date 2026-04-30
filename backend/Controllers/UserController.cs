@@ -22,8 +22,8 @@ namespace projeto.Controllers
             _taskdb = taskdb;
         }
 
-        
-        [Authorize]
+        // --- CRUD DE UTILIZADOR ---
+
         [HttpPost]
         public IActionResult Post([FromBody] UserDTO user)
         {
@@ -34,19 +34,20 @@ namespace projeto.Controllers
                     name = user.Name,
                     email = user.Email,
                     password = user.Password,
-                    role = user.Role
+                    role = user.Role ?? "user"
                 };
-                _db.CreateUser(u);
+
+                // Passa o CompanyID para o serviço conforme a alteração no UserServices
+                _db.CreateUser(u, user.CompanyID);
+                return Ok(new { message = "Utilizador criado com sucesso." });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao criar utilizador.");
-                return StatusCode(500, "Erro interno do servidor.");
+                return StatusCode(500, "Erro interno: " + ex.Message);
             }
-            return Ok(new { message = "Utilizador criado com sucesso." });
         }
 
-       
         [HttpGet]
         public ActionResult<IEnumerable<User>> Get()
         {
@@ -59,30 +60,28 @@ namespace projeto.Controllers
                 }
                 return Ok(targets);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 _logger.LogError(ex, "Erro ao obter utilizadores.");
                 return StatusCode(500, "Erro interno do servidor.");
             }
         }
 
-       
         [HttpGet("{userID}")]
         public ActionResult<User> Get(int userID)
         {
             try
             {
                 var target = _db.GetUserByID(userID);
-                return target == null ? NotFound("Nenhum utilizador encontrado com o userID especificado") : Ok(target);
+                return target == null ? NotFound("Utilizador não encontrado") : Ok(target);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao obter utilizador com ID {userID}", userID);
-                return StatusCode(500, "Erro interno do servidor.");
+                _logger.LogError(ex, "Erro ao obter utilizador.");
+                return StatusCode(500, "Erro interno.");
             }
         }
 
-        
-        [Authorize]
         [HttpPut("{userID}")]
         public IActionResult Put(int userID, [FromBody] UserDTO user)
         {
@@ -94,48 +93,48 @@ namespace projeto.Controllers
                     name = user.Name,
                     email = user.Email,
                     password = user.Password,
-                    role = user.Role
+                    role = user.Role ?? "user"
                 };
                 return _db.EditUser(u) ? Ok(new { message = "Utilizador atualizado com sucesso." }) : NotFound("Utilizador não encontrado.");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao atualizar utilizador com ID {userID}", userID);
-                return StatusCode(500, "Erro interno do servidor.");
+                _logger.LogError(ex, "Erro ao atualizar utilizador.");
+                return StatusCode(500, "Erro interno.");
             }
         }
 
-        
-        [Authorize]
         [HttpDelete("{userID}")]
         public IActionResult Delete(int userID)
         {
             try
-            { 
+            {
                 return _db.DeleteUser(userID) ? Ok(new { message = "Utilizador eliminado com sucesso." }) : NotFound("Utilizador não encontrado.");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao eliminar utilizador com ID {userID}", userID);
-                return StatusCode(500, "Erro interno do servidor.");
+                _logger.LogError(ex, "Erro ao eliminar utilizador.");
+                return StatusCode(500, "Erro interno.");
             }
         }
 
-        [HttpPost("{userID}/tasks")]
-        public IActionResult PostTask(int userID, [FromBody] int taskID)
+        // --- ASSOCIAÇÃO DE TAREFAS (Igual à lógica de Nodes no URL) ---
+
+        [HttpPost("{userID}/task/{taskID}")]
+        public IActionResult PostTask(int userID, int taskID)
         {
             try
             {
+                // Agora os IDs vêm diretamente do URL, sem necessidade de JSON body
                 _taskdb.AddTaskToUser(userID, taskID);
+                return Ok(new { message = "Tarefa associada com sucesso." });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao adicionar tarefa a utilizador.");
-                return StatusCode(500, "Erro interno do servidor.");
+                _logger.LogError(ex, "Erro ao adicionar tarefa.");
+                return StatusCode(500, ex.Message);
             }
-            return Ok(new { message = "Tarefa associada com sucesso." });
         }
-
 
         [HttpGet("{userID}/tasks")]
         public ActionResult<List<Task>> GetTasks(int userID)
@@ -143,38 +142,39 @@ namespace projeto.Controllers
             try
             {
                 var target = _taskdb.GetTasksByUser(userID);
-                return target == null ? NotFound("O utilizador não possui tarefas associadas") : Ok(target);
+                return target == null ? NotFound("O utilizador não possui tarefas") : Ok(target);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao obter tarefas do utilizador com ID {userID}", userID);
-                return StatusCode(500, "Erro interno do servidor.");
+                _logger.LogError(ex, "Erro ao obter tarefas.");
+                return StatusCode(500, "Erro interno.");
             }
         }
 
-
-        [Authorize]
-        [HttpDelete("{userID}/tasks")]
+        [HttpDelete("{userID}/task/{taskID}")]
         public IActionResult DeleteTask(int userID, int taskID)
         {
             try
             {
                 _taskdb.RemoveTaskFromUser(userID, taskID);
+                return Ok(new { message = "Tarefa removida com sucesso." });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao eliminar utilizador com ID {id}", userID);
-                return StatusCode(500, "Erro interno do servidor.");
+                _logger.LogError(ex, "Erro ao eliminar tarefa.");
+                return StatusCode(500, "Erro interno.");
             }
-            return Ok(new { message = "Tarefa removida com sucesso." });
         }
-    }
 
-    public class UserDTO
-    {
-        public string Name { get; set; } = "";
-        public string Email { get; set; } = "";
-        public string Password { get; set; } = "";
-        public string Role { get; set; } = "";
+        // --- DTOs ---
+
+        public class UserDTO
+        {
+            public string Name { get; set; } = "";
+            public string Email { get; set; } = "";
+            public string Password { get; set; } = "";
+            public string Role { get; set; } = "user";
+            public int CompanyID { get; set; }
+        }
     }
 }
