@@ -1,10 +1,10 @@
-export type UserRole = 'admin' | 'manager' | 'motorista' | 'user';
+export type UserRole = 'manager' | 'admin';
 
 export interface User {
-  id: string;
+  id: string;      // <-- adicionar isto!
   name: string;
   email: string;
-  role: UserRole;
+  role: "admin" | "manager";
 }
 
 

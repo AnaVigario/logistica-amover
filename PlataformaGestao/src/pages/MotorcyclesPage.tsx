@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
-import { apiClient } from '../api/client';
+import { supabase } from '../supabaseClient';
 import { X , AlertCircle} from "lucide-react";
-import { useAuth } from '../context/AuthContext';
 
 
 const MotorcyclesPage: React.FC = () => {
-  const { dbUser, role, companyId } = useAuth();
-  const isManager = role === 'manager';
-  const isAdmin = role === 'admin';
-
   const [dbMotorcycles, setDbMotorcycles] = useState<any[]>([]);
   const [assignments, setAssignments] = useState<any[]>([]);
   const [dbDrivers, setDbDrivers] = useState<any[]>([]);
-  const [companies, setCompanies] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedMotoMenu, setSelectedMotoMenu] = useState<any>(null);
 
@@ -38,152 +32,199 @@ const [maintenanceReason, setMaintenanceReason] = useState("");
   status: 'Disponível',
   battery_capacity: null as number | null,
   cargo_capacity: null as number | null,
-  company_id: isManager ? companyId : (null as number | null),
 });
 
 
 
   useEffect(() => {
     async function loadData() {
-      try {
-        const { data: motos } = await apiClient.get('/api/Vehicle');
-        if (motos) {
-          const filteredMotos = isManager
-            ? motos.filter((m: any) => m.companyID === companyId || m.company_id === companyId)
-            : motos;
-          setDbMotorcycles(filteredMotos);
-        }
+      // 1 - MOTAS
+      const { data: motos, error: err1 } = await supabase
+        .from('vehicles')
+        .select('*');
 
-        const { data: driversData } = await apiClient.get('/api/User');
-        if (driversData) {
-          let onlyDrivers = driversData.filter((u: any) => {
-            const role = (u.role || u.Role || "").toLowerCase();
-            return role === "driver" || role === "motorista";
-          });
-          if (isManager) {
-            onlyDrivers = onlyDrivers.filter((d: any) => (d.companyID || d.company_id) === companyId);
-          }
-          setDbDrivers(onlyDrivers);
-        }
+      if (!err1 && motos) setDbMotorcycles(motos);
 
-        const { data: companiesData } = await apiClient.get('/api/Company');
-        if (companiesData) setCompanies(companiesData);
-      } catch (error) {
-        console.error(error);
-      }
+      const { data: assigns, error: err2 } = await supabase
+        .from('motorcycle_assignments')
+        .select('*')
+        .is('enddate', null);
+
+      if (!err2 && assigns) setAssignments(assigns);
+
+      // 3 - DRIVERS
+      const { data: driversData, error: err3 } = await supabase
+        .from('drivers')
+        .select('*');
+
+      if (!err3 && driversData) setDbDrivers(driversData);
+
       setLoading(false);
     }
 
     loadData();
-  }, [isManager, companyId]);
+  }, []);
 
-  // Obter assignment ativo para uma mota (agora usamos o ownerID)
-  const getActiveAssignment = (motorcycleId: number) => {
-    const moto = dbMotorcycles.find(m => m.id === motorcycleId);
-    if (!moto || !moto.ownerID) return null;
-    const driver = dbDrivers.find(d => d.id === moto.ownerID);
-    return driver ? { driverid: driver.id, name: driver.name } : null;
-  };
+  // Obter assignment ativo para uma mota
+  const getActiveAssignment = (motorcycleId: number) =>
+    assignments.find((a) => a.motorcycleid === motorcycleId && a.enddate === null) || null;
 
   const openAssignModal = (moto: any) => {
     setSelectedMotoForAssignment(moto);
     setShowAssignModal(true);
   };
 
-  // Drivers disponíveis = sem mota associada e da mesma empresa da mota
-  const availableDrivers = selectedMotoForAssignment
-    ? dbDrivers.filter(
-        (d) =>
-          (d.companyID || d.company_id) === (selectedMotoForAssignment.companyID || selectedMotoForAssignment.company_id) &&
-          !dbMotorcycles.some((m) => m.ownerID === d.id)
-      )
-    : [];
+  // Drivers disponíveis = sem assignment ativo
+  const availableDrivers = dbDrivers.filter(
+  (d) =>
+    d.status === "active" &&
+    !assignments.some((a) => a.driverid === d.id && a.enddate === null)
+);
 
 
  
   const assignMotorcycle = async (moto: any, driver: any) => {
-    try {
-      await apiClient.put(`/api/Vehicle/${moto.id}`, {
-        ...moto,
-        status: 'Em uso',         
-        ownerID: driver.id,
-      });
+    // 1) criar registo em motorcycle_assignments
+    const { data, error } = await supabase
+      .from('motorcycle_assignments')
+      .insert({
+        motorcycleid: moto.id,
+        driverid: driver.id,
+        startdate: new Date().toISOString(),
+        enddate: null,
+      })
+      .select();
 
-      setDbMotorcycles((prev) =>
-        prev.map((m) =>
-          m.id === moto.id
-            ? { ...m, status: 'Em uso', ownerID: driver.id }
-            : m
-        )
-      );
-
-      setShowAssignModal(false);
-      setSelectedMotoForAssignment(null);
-    } catch (error) {
+    if (error || !data) {
       console.error(error);
       alert('Erro ao atribuir mota.');
+      return;
     }
+
+    const newAssignment = data[0];
+
+    // 2) atualizar status da mota na TABELA motorcycles
+    const { error: updError } = await supabase
+      .from('vehicles')
+      .update({
+        status: 'Em uso',         
+        assigneddriverid: driver.id,
+      })
+      .eq('id', moto.id);
+
+    if (updError) {
+      console.error(updError);
+      alert('Assignment criado, mas falhou ao atualizar o estado da mota.');
+      return;
+    }
+
+    // 3) atualizar estado local
+    setAssignments((prev) => [...prev, newAssignment]);
+    setDbMotorcycles((prev) =>
+      prev.map((m) =>
+        m.id === moto.id
+          ? { ...m, status: 'Em uso', assigneddriverid: driver.id }
+          : m
+      )
+    );
+
+    setShowAssignModal(false);
+    setSelectedMotoForAssignment(null);
   };
 
 
   const unassignMotorcycle = async (motoId: number) => {
-    try {
-      const moto = dbMotorcycles.find(m => m.id === motoId);
-      if (!moto) return;
-      await apiClient.put(`/api/Vehicle/${motoId}`, {
-        ...moto,
-        status: 'Disponível',
-        ownerID: null,
-      });
+    // 1) procurar assignment ativa
+    const active = assignments.find(
+      (a) => a.motorcycleid === motoId && a.enddate === null
+    );
 
-      setDbMotorcycles((prev) =>
-        prev.map((m) =>
-          m.id === motoId ? { ...m, status: 'Disponível', ownerID: null } : m
-        )
-      );
-    } catch (error) {
+    if (!active) {
+      console.warn('Não existe assign ativo para esta mota.');
+      return;
+    }
+
+    // 2) fechar assignment na BD
+    const { error } = await supabase
+      .from('motorcycle_assignments')
+      .update({ enddate: new Date().toISOString() })
+      .eq('id', active.id);
+
+    if (error) {
       console.error('Erro ao desatribuir:', error);
       alert('Erro ao desatribuir.');
+      return;
     }
+
+    // 3) voltar mota a Disponível na tabela motorcycles
+    const { error: updError } = await supabase
+      .from('vehicles')
+      .update({
+        status: 'Disponível',
+        assigneddriverid: null,
+      })
+      .eq('id', motoId);
+
+    if (updError) {
+      console.error('Erro ao atualizar mota:', updError);
+      alert('Assignment fechado, mas falhou ao atualizar o estado da mota.');
+      return;
+    }
+
+    // 4) atualizar estado local
+    setAssignments((prev) => prev.filter((a) => a.id !== active.id));
+    setDbMotorcycles((prev) =>
+      prev.map((m) =>
+        m.id === motoId ? { ...m, status: 'Disponível', assigneddriverid: null } : m
+      )
+    );
   };
 
  
   const addMotorcycle = async () => {
-    if (!newVehicle.name || !newVehicle.matricula || !newVehicle.marca || !newVehicle.modelo) {
-      alert('Preenche os campos obrigatórios (Nome, Marca, Modelo, Matrícula)!');
+    if (!newVehicle.matricula || !newVehicle.marca || !newVehicle.modelo) {
+      alert('Preenche todos os campos!');
       return;
     }
 
-    try {
-      const { data } = await apiClient.post('/api/Vehicle', {
-        name: newVehicle.name,
-        brand: newVehicle.marca,
-        model: newVehicle.modelo,
-        vid: newVehicle.matricula,
-        status: 'Disponível',
-        ownerID: null,
-        batteryCapacity: newVehicle.battery_capacity,
-        cargoCapacity: newVehicle.cargo_capacity,
-        companyID: newVehicle.company_id,
-      });
+    const { data, error } = await supabase
+      .from('vehicles')
+      .insert([
+  {
+    name: newVehicle.name,
+    marca: newVehicle.marca,
+    modelo: newVehicle.modelo,
+    matricula: newVehicle.matricula,
+    status: 'Disponível',
+    assigneddriverid: null,
+    maintenancereason: null,
+    maintenancedate: null,
+    battery_capacity: newVehicle.battery_capacity,
+    cargo_capacity: newVehicle.cargo_capacity,
+  },
+])
+.select()
+.single();
 
-      setDbMotorcycles((prev) => [...prev, data]);
-      setShowAddModal(false);
 
-      setNewVehicle({
-        matricula: '',
-        name: '',
-        marca: '',
-        modelo: '',
-        status: 'Disponível',
-        battery_capacity: null as number | null,
-        cargo_capacity: null as number | null,
-        company_id: isManager ? companyId : null,
-      });
-    } catch (error) {
+    if (error || !data) {
       console.error(error);
       alert('Erro ao guardar a mota.');
+      return;
     }
+
+    setDbMotorcycles((prev) => [...prev, data]);
+    setShowAddModal(false);
+
+    setNewVehicle({
+     matricula: '',
+  name: '',
+  marca: '',
+  modelo: '',
+  status: 'Disponível',
+  battery_capacity: null as number | null,
+  cargo_capacity: null as number | null,
+    });
   };
 
   const getStatusColor = (status: string) => {
@@ -205,32 +246,32 @@ const [maintenanceReason, setMaintenanceReason] = useState("");
 const updateMotorcycle = async () => {
   if (!selectedMotoForEdit) return;
 
-  try {
-    await apiClient.put(`/api/Vehicle/${selectedMotoForEdit.id}`, {
-      ...selectedMotoForEdit,
+  const { error } = await supabase
+    .from("vehicles")
+    .update({
       name: selectedMotoForEdit.name,
-      brand: selectedMotoForEdit.marca,
-      model: selectedMotoForEdit.modelo,
-      vid: selectedMotoForEdit.matricula,
-      batteryCapacity: selectedMotoForEdit.battery_capacity,
-      cargoCapacity: selectedMotoForEdit.cargo_capacity,
-      status: selectedMotoForEdit.status,
-      ownerID: selectedMotoForEdit.ownerID,
-      companyID: selectedMotoForEdit.company_id || selectedMotoForEdit.companyID,
-    });
+      marca: selectedMotoForEdit.marca,
+      modelo: selectedMotoForEdit.modelo,
+      matricula: selectedMotoForEdit.matricula,
+      battery_capacity: selectedMotoForEdit.battery_capacity,
+      cargo_capacity: selectedMotoForEdit.cargo_capacity,
+    })
+    .eq("id", selectedMotoForEdit.id);
 
-    setDbMotorcycles(prev =>
-      prev.map(m =>
-        m.id === selectedMotoForEdit.id ? selectedMotoForEdit : m
-      )
-    );
-
-    setShowEditModal(false);
-    setSelectedMotoForEdit(null);
-  } catch (error) {
+  if (error) {
     console.error(error);
     alert("Erro ao atualizar mota.");
+    return;
   }
+
+  setDbMotorcycles(prev =>
+    prev.map(m =>
+      m.id === selectedMotoForEdit.id ? selectedMotoForEdit : m
+    )
+  );
+
+  setShowEditModal(false);
+  setSelectedMotoForEdit(null);
 };
 const deleteMotorcycle = async (moto: any) => {
   if (moto.status === "Em uso") {
@@ -240,40 +281,50 @@ const deleteMotorcycle = async (moto: any) => {
 
   if (!confirm("Tens a certeza que queres apagar esta mota?")) return;
 
-  try {
-    await apiClient.delete(`/api/Vehicle/${moto.id}`);
-    setDbMotorcycles(prev => prev.filter(m => m.id !== moto.id));
-  } catch (error) {
+  const { error } = await supabase
+    .from("vehicles")
+    .delete()
+    .eq("id", moto.id);
+
+  if (error) {
     console.error(error);
     alert("Erro ao apagar mota.");
+    return;
   }
+
+  setDbMotorcycles(prev => prev.filter(m => m.id !== moto.id));
 };
 async function confirmSendToMaintenance() {
   if (!selectedMotoForMaintenance || !maintenanceReason) return;
 
-  try {
-    await apiClient.put(`/api/Vehicle/${selectedMotoForMaintenance.id}`, {
-      ...selectedMotoForMaintenance,
-      status: "Manutenção", 
-      ownerID: null
-    });
+  // criar registo maintenance
+  await supabase.from("maintenance").insert({
+    motorcycleid: selectedMotoForMaintenance.id,
+    description: maintenanceReason,
+    date: new Date().toISOString(),
+    resolved: false,
+  });
 
-    setDbMotorcycles((prev) =>
-      prev.map((m) =>
-        m.id === selectedMotoForMaintenance.id
-          ? { ...m, status: "Manutenção", ownerID: null }
-          : m
-      )
-    );
+  // atualizar mota
+  await supabase
+    .from("vehicles")
+    .update({ status: "Manutenção", assigneddriverid: null })
+    .eq("id", selectedMotoForMaintenance.id);
 
-    setSelectedMotoForMaintenance(null);
-    setMaintenanceReason("");
-  } catch (error) {
-    console.error(error);
-    alert("Erro ao enviar para manutenção");
-  }
+  // atualizar UI local
+  setDbMotorcycles((prev) =>
+    prev.map((m) =>
+      m.id === selectedMotoForMaintenance.id
+        ? { ...m, status: "Manutenção", assigneddriverid: null }
+        : m
+    )
+  );
+
+  setSelectedMotoForMaintenance(null);
+  setMaintenanceReason("");
 }
 
+  
 return (
   
  <div className="flex flex-col h-full bg-background dark:bg-transparent p-6">
@@ -326,10 +377,10 @@ return (
 
             {/* INFO */}
             <h3 className="text-lg font-semibold">{moto.name}</h3>
-            <p>{moto.brand} {moto.model}</p>
+            <p>{moto.marca} {moto.modelo}</p>
 
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              Matrícula: {moto.vid}
+              Matrícula: {moto.matricula}
             </p>
 
             {driverName && (
@@ -458,32 +509,6 @@ return (
         placeholder="Capacidade carga"
       />
 
-      {isAdmin && (
-        <select
-          className="w-full border p-2 rounded"
-          value={selectedMotoForEdit.company_id || selectedMotoForEdit.companyID || ""}
-          onChange={(e) =>
-            setSelectedMotoForEdit({
-              ...selectedMotoForEdit,
-              company_id: e.target.value ? Number(e.target.value) : null,
-              companyID: e.target.value ? Number(e.target.value) : null,
-            })
-          }
-        >
-          <option value="">Selecionar empresa</option>
-          {companies.map((company) => (
-            <option key={company.id} value={company.id}>
-              {company.name}
-            </option>
-          ))}
-        </select>
-      )}
-      {isManager && (
-        <p className="text-sm text-gray-600 dark:text-gray-300">
-          Empresa: {companies.find((c) => c.id === (selectedMotoForEdit.company_id || selectedMotoForEdit.companyID))?.name || (selectedMotoForEdit.company_id || selectedMotoForEdit.companyID)}
-        </p>
-      )}
-
       <div className="flex gap-3 pt-2">
         <button
           className="flex-1 bg-gray-200 py-2 rounded"
@@ -523,15 +548,7 @@ return (
       <button
         className="w-full border p-3 rounded hover:bg-gray-100 dark:bg-gray-700"
         onClick={() => {
-          setSelectedMotoForEdit({
-            ...selectedMotoMenu,
-            marca: selectedMotoMenu.brand,
-            modelo: selectedMotoMenu.model,
-            matricula: selectedMotoMenu.vid,
-            battery_capacity: selectedMotoMenu.batteryCapacity,
-            cargo_capacity: selectedMotoMenu.cargoCapacity,
-            company_id: selectedMotoMenu.companyID,
-          });
+          setSelectedMotoForEdit(selectedMotoMenu);
           setSelectedMotoMenu(null);
         }}
       >
@@ -582,7 +599,7 @@ return (
                 </span>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
+              <div className="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
                 <h4 className="font-medium">
                   {selectedMotoForMaintenance.name}
                 </h4>
@@ -635,7 +652,7 @@ return (
 
       <input
         className="w-full border p-2 rounded"
-        placeholder="Nome *"
+        placeholder="Nome"
         value={newVehicle.name}
         onChange={(e) =>
           setNewVehicle({ ...newVehicle, name: e.target.value })
@@ -644,7 +661,7 @@ return (
 
       <input
         className="w-full border p-2 rounded"
-        placeholder="Marca *"
+        placeholder="Marca"
         value={newVehicle.marca}
         onChange={(e) =>
           setNewVehicle({ ...newVehicle, marca: e.target.value })
@@ -653,7 +670,7 @@ return (
 
       <input
         className="w-full border p-2 rounded"
-        placeholder="Modelo *"
+        placeholder="Modelo"
         value={newVehicle.modelo}
         onChange={(e) =>
           setNewVehicle({ ...newVehicle, modelo: e.target.value })
@@ -662,7 +679,7 @@ return (
 
       <input
         className="w-full border p-2 rounded"
-        placeholder="Matrícula *"
+        placeholder="Matrícula"
         value={newVehicle.matricula}
         onChange={(e) =>
           setNewVehicle({ ...newVehicle, matricula: e.target.value })
@@ -699,31 +716,6 @@ return (
         }
       />
 
-      {isAdmin && (
-        <select
-          className="w-full border p-2 rounded"
-          value={newVehicle.company_id || ""}
-          onChange={(e) =>
-            setNewVehicle({
-              ...newVehicle,
-              company_id: e.target.value ? Number(e.target.value) : null,
-            })
-          }
-        >
-          <option value="">Selecionar empresa</option>
-          {companies.map((company) => (
-            <option key={company.id} value={company.id}>
-              {company.name}
-            </option>
-          ))}
-        </select>
-      )}
-      {isManager && (
-        <p className="text-sm text-gray-600 dark:text-gray-300">
-          Empresa: {companies.find((c) => c.id === companyId)?.name || companyId}
-        </p>
-      )}
-
       <div className="flex gap-3 pt-2">
         <button
           className="flex-1 bg-gray-200 py-2 rounded"
@@ -750,13 +742,9 @@ return (
         Atribuir "{selectedMotoForAssignment.name}"
       </h3>
 
-      {!selectedMotoForAssignment.companyID && !selectedMotoForAssignment.company_id ? (
-        <p className="text-center text-red-600">
-          A mota precisa de estar associada a uma empresa antes de atribuir um condutor.
-        </p>
-      ) : availableDrivers.length === 0 ? (
+      {availableDrivers.length === 0 ? (
         <p className="text-center text-gray-600 dark:text-gray-300">
-          Nenhum condutor disponível nesta empresa
+          Nenhum condutor disponível
         </p>
       ) : (
         <div className="space-y-3">
@@ -792,5 +780,8 @@ return (
 
   </div>
 );
+
+  
 };
+
 export default MotorcyclesPage;

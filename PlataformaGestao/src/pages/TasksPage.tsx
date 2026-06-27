@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 import { MapPin, Clock, AlertCircle, Plus, X, Filter, Calendar, ChevronUp, ChevronDown } from 'lucide-react';
-import { apiClient } from '../api/client';
-import { useAuth } from '../context/AuthContext';
+import { supabase } from '../supabaseClient';
 type RecurrenceType = "Pontual" | "Diária" | "Semanal" | "Mensal";
 function formatDateYYYYMMDD(date: Date) {
   const y = date.getFullYear();
@@ -59,8 +58,6 @@ interface Service {
 }
 
 const TasksPage: React.FC<TasksPageProps> = ({ onOpenAssignment }) => {
-  const { role, companyId } = useAuth();
-  const isManager = role === "manager";
   const [tasks, setTasks] = useState<Task[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
   const [services, setServices] = useState<Service[]>([]);
@@ -81,7 +78,7 @@ const [selectedCompany, setSelectedCompany] = useState<string>("");
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null); 
   const [selectedPriority, setSelectedPriority] = useState<'ALTA' | 'MÉDIA' | 'BAIXA' | 'ALL'>('ALL');
   const [selectedDate, setSelectedDate] = useState('');
-  const [expandedDates, setExpandedDates] = useState<Set<string>>(new Set());
+  const [collapsedDates, setCollapsedDates] = useState<Set<string>>(new Set());
 
 
 const [newTask, setNewTask] = useState<{
@@ -152,14 +149,26 @@ const filteredClients = clients.filter(c => {
   BAIXA: 1,
 };
 
-  const visibleTasks = useMemo(() => {
-    if (searchTaskName) {
-      return tasks.filter((t) =>
-        t.title?.toLowerCase().includes(searchTaskName.toLowerCase())
-      );
-    }
-    return tasks; // TEMPORARY FIX: show all tasks
-  }, [tasks, searchTaskName]);
+const visibleTasks = useMemo(() => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  if (searchTaskName) {
+    return tasks.filter((t) =>
+      t.title?.toLowerCase().includes(searchTaskName.toLowerCase())
+    );
+  }
+
+  const future = tasks.filter(
+    (t) => new Date(t.date) >= today
+  );
+
+  const past = tasks.filter(
+    (t) => new Date(t.date) < today
+  );
+
+  return showPastTasks ? past : future;
+}, [tasks, showPastTasks, searchTaskName]);
 
 {/*function generateRecurringDates(
   startDate: string,
@@ -228,72 +237,55 @@ function resetTaskForm() {
     loadClients();
     loadServices();
     loadCompanies();
+
   }, []);
 
-  useEffect(() => {
-    if (isManager && companyId && !selectedCompany) {
-      setSelectedCompany(String(companyId));
-    }
-  }, [isManager, companyId, selectedCompany]);
-
   async function loadTasks() {
-    try {
-      const { data } = await apiClient.get('/api/Task');
-      console.log('TASKS DATA:', data);
-      if (data) {
-        const mappedTasks = data.map((t: any) => ({
-          id: t.id || t.ID,
-          title: t.type || t.description || 'Sem título',
-          date: t.creationDate ? t.creationDate.split('T')[0] : (t.deadline ? t.deadline.split('T')[0] : new Date().toISOString().split('T')[0]),
-          priority: t.priority || 'MÉDIA',
-          time: t.availableTimeStart || '',
-          clientid: t.clientID || t.clientId,
-          company_id: t.companyID || t.companyId || null,
-          serviceid: t.serviceID || t.serviceId,
-          recurrence: t.recurrence || 'Pontual',
-          status: t.status === 'Unassigned' ? 'POR CONCLUIR' : 'CONCLUÍDO',
-          notes: t.description || '',
-          instructions: t.instructions || '',
-          street: t.street || '',
-          door_number: t.door_number || '',
-          floor: t.floor || '',
-          postal_code: t.postal_code || '',
-          city: t.city || ''
-        }));
-        console.log('MAPPED TASKS:', mappedTasks);
-        setTasks(mappedTasks);
-      }
-    } catch (error) {
-      console.error('ERRO AO CARREGAR TASKS:', error);
-    }
-  }
+    const { data, error } = await supabase
+      .from('tasks')
+      .select('*')
+      .order('date', { ascending: true });
 
-  async function loadCompanies() {
-    try {
-      const { data } = await apiClient.get("/api/Company");
-      setCompanies(data || []);
-    } catch (error) {
-      console.error(error);
+    if (!error && data) {
+      setTasks(data as Task[]);
     }
   }
+async function loadCompanies() {
+  const { data } = await supabase
+    .from("companies")
+    .select("*")
+    .order("name");
+
+  setCompanies(data || []);
+}
 
   async function loadClients() {
-    try {
-      const { data } = await apiClient.get('/api/Client');
-      if (data) setClients(data as Client[]);
-    } catch (e) {
-      console.error(e);
-    }
+    const { data, error } = await supabase
+      .from('clients')
+      .select(`
+  id,
+  name,
+  nif,
+  street,
+  door_number,
+  floor,
+  postal_code,
+  city
+`)
+
+      .order('name', { ascending: true });
+
+    if (!error && data) setClients(data as Client[]);
   }
 
-  async function loadServices() {
-    try {
-      const { data } = await apiClient.get("/api/Service");
-      if (data) setServices(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+async function loadServices() {
+  const { data, error } = await supabase
+    .from("services")
+    .select("id, description, company_id")   
+    .order("description");
+
+  if (!error && data) setServices(data);
+}
 
 async function handleAddClientFromTask() {
   if (!newClient.name || !newClient.nif) {
@@ -301,8 +293,9 @@ async function handleAddClientFromTask() {
     return;
   }
 
-  try {
-    const { data } = await apiClient.post("/api/Client", {
+  const { data, error } = await supabase
+    .from("clients")
+    .insert([{
       name: newClient.name,
       nif: newClient.nif,
       phone: newClient.phone,
@@ -312,99 +305,125 @@ async function handleAddClientFromTask() {
       floor: newClient.floor || null,
       postal_code: newClient.postal_code,
       city: newClient.city,
-    });
+    }])
+    .select()
+    .single();
 
-    setClients(prev => [...prev, data]);
-
-    setNewTask(prev => ({
-      ...prev,
-      clientid: String(data.id)
-    }));
-
-    setClientSearch(`${data.name} — ${data.nif}`);
-
-    setNewClient({
-      name: "",
-      nif: "",
-      phone: "",
-      email: "",
-      street: "",
-      door_number: "",
-      floor: "",
-      postal_code: "",
-      city: "",
-    });
-
-    setShowNewClientModal(false);
-  } catch (error) {
-    console.error(error);
+  if (error || !data) {
     alert("Erro ao adicionar cliente.");
+    return;
   }
+
+  setClients(prev => [...prev, data]);
+
+  setNewTask(prev => ({
+    ...prev,
+    clientid: String(data.id)
+  }));
+
+  setClientSearch(`${data.name} — ${data.nif}`);
+
+  setNewClient({
+    name: "",
+    nif: "",
+    phone: "",
+    email: "",
+    street: "",
+    door_number: "",
+    floor: "",
+    postal_code: "",
+    city: "",
+  });
+
+  setShowNewClientModal(false);
 }
 
 
 async function handleUpdateTask() {
   if (!editingTaskId) return;
 
-  try {
-    await apiClient.put(`/api/Task/${editingTaskId}`, {
-      id: editingTaskId,
-      type: newTask.title || "Sem título",
-      description: newTask.notes || "Sem descrição",
-      serviceID: newTask.serviceid ? Number(newTask.serviceid) : 1,
-      clientID: newTask.clientid ? Number(newTask.clientid) : 1,
-      status: "Unassigned",
-      deadline: newTask.date ? new Date(newTask.date).toISOString() : null,
-      creationDate: new Date().toISOString(),
+  const { error } = await supabase
+    .from("tasks")
+    .update({
+      date: newTask.date,
+      priority: newTask.priority,
+      time: newTask.time,
+      clientid: newTask.clientid ? Number(newTask.clientid) : null,
+      serviceid: newTask.serviceid ? Number(newTask.serviceid) : null,
+      recurrence: newTask.recurrence,
+      notes: newTask.notes,
+      start_time: newTask.start_time,
+end_time: newTask.end_time,
+      instructions: newTask.instructions,
       street: newTask.street || null,
       door_number: newTask.door_number || null,
       floor: newTask.floor || null,
       postal_code: newTask.postal_code || null,
       city: newTask.city || null,
-      instructions: newTask.instructions || null,
-      notes: newTask.notes || null,
-      priority: newTask.priority || null
-    });
+    })
+    .eq("id", editingTaskId);
 
-    setShowNewTaskForm(false);
-    setEditingTaskId(null);
-    resetTaskForm();
-    loadTasks();
-  } catch (error) {
-    console.error("Erro ao atualizar tarefa:", error);
-    alert("Erro ao atualizar tarefa");
-  }
-}
-
-async function handleAddTask() {
-  if (!newTask.title || !newTask.clientid || !newTask.serviceid) {
-    alert("Por favor preencha os campos obrigatórios (Título, Cliente, Serviço).");
+  if (error) {
+    alert("Erro ao editar tarefa");
     return;
   }
 
-  try {
-    const { data } = await apiClient.post("/api/Task", {
-      Type: newTask.title,
-      Description: newTask.notes || "Sem descrição",
-      ServiceID: Number(newTask.serviceid),
-      ClientID: Number(newTask.clientid),
-      street: newTask.street || null,
-      door_number: newTask.door_number || null,
-      floor: newTask.floor || null,
-      postal_code: newTask.postal_code || null,
-      city: newTask.city || null,
-      instructions: newTask.instructions || null,
-      notes: newTask.notes || null,
-      priority: newTask.priority || null
-    });
+  setShowNewTaskForm(false);
+  setEditingTaskId(null);
+  resetTaskForm();
+  loadTasks();
+}
 
-    setShowNewTaskForm(false);
-    resetTaskForm();
-    loadTasks();
-  } catch (error) {
-    console.error("Erro ao criar tarefa:", error);
-    alert("Erro ao criar tarefa");
+
+async function handleAddTask() {
+  if (!newTask.date) {
+    alert("Seleciona uma data");
+    return;
   }
+
+  const baseTask = {
+    title: "",
+    priority: newTask.priority,
+    time: newTask.time,
+    clientid: newTask.clientid ? Number(newTask.clientid) : null,
+    serviceid: newTask.serviceid ? Number(newTask.serviceid) : null,
+    status: "POR CONCLUIR" as const,
+    recurrence: newTask.recurrence,
+      start_time: newTask.start_time,
+  end_time: newTask.end_time,
+    recurrence_type:
+      newTask.recurrence === "Pontual" ? null : newTask.recurrence,
+    notes: newTask.notes,
+    instructions: newTask.instructions,
+    street: newTask.street || null,
+    door_number: newTask.door_number || null,
+    floor: newTask.floor || null,
+    postal_code: newTask.postal_code || null,
+    city: newTask.city || null,
+  };
+
+  const { data, error } = await supabase
+    .from("tasks")
+    .insert({
+      ...baseTask,
+      date: newTask.date,
+    })
+    .select()
+    .single();
+
+  if (error || !data) {
+    alert("Erro ao criar tarefa");
+    return;
+  }
+
+  await supabase
+    .from("tasks")
+    .update({ title: `Tarefa-${data.id}` })
+    .eq("id", data.id);
+
+  setShowNewTaskForm(false);
+  resetTaskForm();
+  loadTasks();
 }
 
 
@@ -412,7 +431,8 @@ async function handleAddTask() {
   const matchPrio =
     selectedPriority === "ALL" || task.priority === selectedPriority;
 
-  const matchDate = true; // TEMPORARY FIX: remove date filter
+  const matchDate =
+    !selectedDate || task.date === selectedDate;
 
   return matchPrio && matchDate;
 });
@@ -441,9 +461,9 @@ async function handleAddTask() {
   };
 
   function toggleDate(date: string) {
-    const newSet = new Set(expandedDates);
+    const newSet = new Set(collapsedDates);
     newSet.has(date) ? newSet.delete(date) : newSet.add(date);
-    setExpandedDates(newSet);
+    setCollapsedDates(newSet);
   }
 
   return (
@@ -496,17 +516,17 @@ async function handleAddTask() {
         className="w-full bg-white dark:bg-gray-800 px-4 py-2 rounded font-semibold flex justify-between items-center"
       >
         {d}
-        {expandedDates.has(d) ? <ChevronUp /> : <ChevronDown />}
+        {collapsedDates.has(d) ? <ChevronDown /> : <ChevronUp />}
       </button>
 
-      {expandedDates.has(d) &&
+      {!collapsedDates.has(d) &&
         grouped[d].map((task) => {
           const client = clients.find(c => c.id === task.clientid);
 
           return (
             <div
               key={task.id}
-              className="bg-white dark:bg-gray-800 p-4 mt-2 rounded shadow cursor-pointer hover:bg-gray-50 dark:bg-gray-700/50"
+              className="bg-white dark:bg-gray-800 p-4 mt-2 rounded shadow cursor-pointer hover:bg-gray-50 dark:bg-gray-700"
               onClick={() => setSelectedTask(task)}
             >
               {/* TÍTULO + PRIORIDADE */}
@@ -526,7 +546,7 @@ async function handleAddTask() {
   {task.street
     ? `${task.street} ${task.door_number || ""}${task.floor ? `, ${task.floor}` : ""} · ${task.city}`
     : client
-      ? client.address
+      ? `${client.street} ${client.door_number}${client.floor ? `, ${client.floor}` : ""} · ${client.city}`
       : ""}
 </p>
 
@@ -715,7 +735,7 @@ async function handleAddTask() {
     Morada
   </label>
 
-  <div className="bg-gray-50 dark:bg-gray-700/50 border rounded-lg p-3 space-y-2">
+  <div className="bg-gray-50 dark:bg-gray-700 border rounded-lg p-3 space-y-2">
 
     <input
       className="w-full border p-2 rounded"
@@ -772,13 +792,12 @@ async function handleAddTask() {
 
         {/* EMPRESA */}
         <select
-          className="w-full border p-2 rounded disabled:bg-gray-100 dark:bg-gray-700 disabled:text-gray-500 dark:text-gray-400"
+          className="w-full border p-2 rounded"
           value={selectedCompany}
           onChange={(e) => {
             setSelectedCompany(e.target.value);
             setNewTask({ ...newTask, serviceid: "" });
           }}
-          disabled={isManager}
         >
           <option value="">Selecionar empresa</option>
           {companies.map((c) => (
@@ -1036,13 +1055,14 @@ async function handleAddTask() {
           onClick={async () => {
             if (!confirm("Eliminar esta tarefa?")) return;
 
-            try {
-              await apiClient.delete(`/api/Task/${selectedTask.id}`);
+            const { error } = await supabase
+              .from("tasks")
+              .delete()
+              .eq("id", selectedTask.id);
+
+            if (!error) {
               setSelectedTask(null);
               loadTasks();
-            } catch (error) {
-              console.error(error);
-              alert("Erro ao eliminar tarefa");
             }
           }}
         >

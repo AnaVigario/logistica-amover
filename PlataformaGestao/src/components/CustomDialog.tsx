@@ -22,30 +22,30 @@ const CustomDialog: React.FC<CustomDialogProps> = ({
       case 'success':
         return {
           icon: '✓',
-          bgColor: 'bg-white',
-          borderColor: 'border-gray-200',
-          titleColor: 'text-gray-900',
-          messageColor: 'text-gray-600',
+          bgColor: 'bg-white dark:bg-gray-800',
+          borderColor: 'border-gray-200 dark:border-gray-700',
+          titleColor: 'text-gray-900 dark:text-white',
+          messageColor: 'text-gray-600 dark:text-gray-300',
           buttonBg: 'bg-black hover:bg-gray-800 text-white',
           iconBg: 'bg-green-100 text-green-600'
         };
       case 'error':
         return {
           icon: '✕',
-          bgColor: 'bg-white',
-          borderColor: 'border-gray-200',
-          titleColor: 'text-gray-900',
-          messageColor: 'text-gray-600',
+          bgColor: 'bg-white dark:bg-gray-800',
+          borderColor: 'border-gray-200 dark:border-gray-700',
+          titleColor: 'text-gray-900 dark:text-white',
+          messageColor: 'text-gray-600 dark:text-gray-300',
           buttonBg: 'bg-red-600 hover:bg-red-700 text-white',
           iconBg: 'bg-red-100 text-red-600'
         };
       default:
         return {
           icon: 'ℹ',
-          bgColor: 'bg-white',
-          borderColor: 'border-gray-200',
-          titleColor: 'text-gray-900',
-          messageColor: 'text-gray-600',
+          bgColor: 'bg-white dark:bg-gray-800',
+          borderColor: 'border-gray-200 dark:border-gray-700',
+          titleColor: 'text-gray-900 dark:text-white',
+          messageColor: 'text-gray-600 dark:text-gray-300',
           buttonBg: 'bg-blue-600 hover:bg-blue-700 text-white',
           iconBg: 'bg-blue-100 text-blue-600'
         };

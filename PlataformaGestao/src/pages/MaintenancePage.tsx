@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Search, AlertCircle, X, CheckCircle } from "lucide-react";
-import { apiClient } from "../api/client";
+import { supabase } from "../supabaseClient";
 
 interface Motorcycle {
   id: number;
   name: string;
-  vid: string;
+  matricula: string;
   status: string;
 }
 
@@ -29,21 +29,18 @@ const MaintenancePage: React.FC = () => {
 
   // ------------------- LOAD DATA -------------------
   async function loadMotorcycles() {
-    try {
-      const { data } = await apiClient.get("/api/Vehicle");
-      setMotorcycles(data || []);
-    } catch (error) {
-      console.error(error);
-    }
+    const { data } = await supabase
+      .from("vehicles")
+      .select("id, name, matricula, status");
+    setMotorcycles(data || []);
   }
 
   async function loadMaintenance() {
-    try {
-      const { data } = await apiClient.get("/api/Vehicle/maintenance?resolved=false");
-      setMaintenance(data || []);
-    } catch (error) {
-      console.error(error);
-    }
+    const { data } = await supabase
+      .from("maintenance")
+      .select("*")
+      .eq("resolved", false);
+    setMaintenance(data || []);
   }
 
   useEffect(() => {
@@ -55,19 +52,17 @@ const MaintenancePage: React.FC = () => {
   async function handleMaintenanceSubmit() {
     if (!selectedMoto || !maintenanceReason) return;
 
-    try {
-      await apiClient.post("/api/Vehicle/maintenance", {
-        motorcycleid: selectedMoto.id,
-        description: maintenanceReason,
-        date: new Date().toISOString(),
-        resolved: false
-      });
+    await supabase.from("maintenance").insert({
+      motorcycleid: selectedMoto.id,
+      description: maintenanceReason,
+      date: new Date().toISOString(),
+      resolved: false
+    });
 
-      await apiClient.patch(`/api/Vehicle/${selectedMoto.id}/status`, { status: "Manutenção" });
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao enviar para manutenção");
-    }
+    await supabase
+      .from("vehicles")
+      .update({ status: "Manutenção" })
+      .eq("id", selectedMoto.id);
 
     setSelectedMoto(null);
     setMaintenanceReason("");
@@ -76,35 +71,37 @@ const MaintenancePage: React.FC = () => {
   }
 
   async function handleRemoveFromMaintenance() {
-    if (!selectedMotoForRemoval) return;
+  if (!selectedMotoForRemoval) return;
 
-    try {
-      const maint = getMaintenanceDetails(selectedMotoForRemoval.id);
-      if (maint) {
-        await apiClient.put(`/api/Vehicle/maintenance/resolve/${maint.id}`, {
-          resolved: true
-        });
-      }
+  // 1️⃣ Atualizar manutenção existente → resolved = true
+  await supabase
+    .from("maintenance")
+    .update({ resolved: true })
+    .eq("motorcycleid", selectedMotoForRemoval.id)
+    .eq("resolved", false);
 
-      // 2️⃣ Atualizar status da mota para "Disponível"
-      await apiClient.patch(`/api/Vehicle/${selectedMotoForRemoval.id}/status`, { status: "Disponível" });
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao remover de manutenção");
-    }
+  // 2️⃣ Atualizar status da mota para "Disponível"
+  await supabase
+    .from("vehicles")
+    .update({ status: "Disponível" })
+    .eq("id", selectedMotoForRemoval.id);
 
-    setSelectedMotoForRemoval(null);
+  // (Opcional) limpar campos de manutenção da mota se quiseres
+  // await supabase.from("motorcycles")
+  //   .update({ maintenancereason: null, maintenancedate: null })
 
-    // 3️⃣ Recarrega dados para atualizar UI
-    await loadMotorcycles();
-    await loadMaintenance();
-  }
+  setSelectedMotoForRemoval(null);
+
+  // 3️⃣ Recarrega dados para atualizar UI
+  await loadMotorcycles();
+  await loadMaintenance();
+}
 
 
   // ------------------- FILTERS -------------------
   const filteredMotorcycles = motorcycles.filter((m) =>
-    (m.vid || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (m.name || "").toLowerCase().includes(searchTerm.toLowerCase())
+    m.matricula.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    m.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const getMaintenanceDetails = (motoId: number) =>
@@ -156,7 +153,7 @@ const getStatusLabel = (status: string) => {
                   <div className="flex justify-between items-start">
                     <div>
                       <h3 className="font-medium">{moto.name}</h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Matrícula: {moto.vid}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Matrícula: {moto.matricula}</p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Motivo: {maint?.description}</p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         Data: {maint?.date.split("T")[0]}
@@ -199,7 +196,7 @@ const getStatusLabel = (status: string) => {
                 <div className="flex justify-between items-center">
                   <div>
                     <h3 className="font-medium">{moto.name}</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Matrícula: {moto.vid}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Matrícula: {moto.matricula}</p>
                   </div>
                   <span
   className={`px-3 py-1 rounded-full text-sm ${getStatusBadgeClass(moto.status)}`}
@@ -228,10 +225,10 @@ const getStatusLabel = (status: string) => {
                   <AlertCircle className="text-orange-500" size={20} />
                   <span className="text-sm text-gray-600 dark:text-gray-300">Está a enviar para manutenção:</span>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
+                <div className="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
                   <h4 className="font-medium">{selectedMoto.name}</h4>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Matrícula: {selectedMoto.vid}
+                    Matrícula: {selectedMoto.matricula}
                   </p>
                 </div>
               </div>
@@ -280,10 +277,10 @@ const getStatusLabel = (status: string) => {
                 <span className="text-sm text-gray-600 dark:text-gray-300">Está a remover da manutenção:</span>
               </div>
 
-              <div className="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg mb-4">
+              <div className="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg mb-4">
                 <h4 className="font-medium">{selectedMotoForRemoval.name}</h4>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Matrícula: {selectedMotoForRemoval.vid}
+                  Matrícula: {selectedMotoForRemoval.matricula}
                 </p>
               </div>
 

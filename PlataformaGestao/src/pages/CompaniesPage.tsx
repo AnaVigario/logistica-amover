@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { apiClient } from "../api/client";
+import { supabase } from "../supabaseClient";
 import { Plus, X, Pencil, Trash } from "lucide-react";
 
 const CompaniesPage: React.FC = () => {
@@ -21,26 +21,18 @@ const CompaniesPage: React.FC = () => {
   }, []);
 
   const loadCompanies = async () => {
-    try {
-      const { data } = await apiClient.get("/api/Company");
-      // Sort manually since API might not
-      const sorted = (data || []).sort((a: any, b: any) => a.name?.localeCompare(b.name));
-      setCompanies(sorted);
-    } catch (error) {
-      console.error(error);
-    }
+    const { data } = await supabase.from("companies").select("*").order("name");
+    setCompanies(data || []);
   };
 
   const loadServices = async (companyId: number) => {
-    try {
-      const { data } = await apiClient.get(`/api/Service`);
-      // Filter manually if the API doesn't support query params, but assume we filter locally if needed
-      const filtered = (data || []).filter((s: any) => s.company_id === companyId || s.CompanyId === companyId);
-      filtered.sort((a: any, b: any) => a.category?.localeCompare(b.category));
-      setServices(filtered);
-    } catch (error) {
-      console.error(error);
-    }
+    const { data } = await supabase
+      .from("services")
+      .select("*")
+      .eq("company_id", companyId)
+      .order("category");
+
+    setServices(data || []);
   };
 
   const selectCompany = (company: any) => {
@@ -56,31 +48,34 @@ const CompaniesPage: React.FC = () => {
   }
 
   if (isEditingCompany) {
-    try {
-      await apiClient.put(`/api/Company/${companyForm.id}`, {
+    await supabase
+      .from("companies")
+      .update({
         name: companyForm.name,
         description: companyForm.description,
-      });
+      })
+      .eq("id", companyForm.id);
 
-      setCompanies((prev) =>
-        prev.map((c) => (c.id === companyForm.id ? companyForm : c))
-      );
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao editar empresa");
-    }
+    setCompanies((prev) =>
+      prev.map((c) => (c.id === companyForm.id ? companyForm : c))
+    );
   } else {
-    try {
-      const { data } = await apiClient.post("/api/Company", {
+    const { data, error } = await supabase
+      .from("companies")
+      .insert([{
         name: companyForm.name,
         description: companyForm.description
-      });
+      }])
+      .select()
+      .single();
 
-      setCompanies((prev) => [...prev, data]);
-    } catch (error) {
+    if (error || !data) {
       console.error(error);
       alert("Erro ao criar empresa");
+      return;
     }
+
+    setCompanies((prev) => [...prev, data]);
   }
 
   closeCompanyModal();
@@ -91,15 +86,11 @@ const CompaniesPage: React.FC = () => {
   const deleteCompany = async (id: number) => {
     if (!confirm("Eliminar empresa e todos os serviços associados?")) return;
 
-    try {
-      await apiClient.delete(`/api/Company/${id}`);
-      setCompanies((prev) => prev.filter((c) => c.id !== id));
-      setServices([]);
-      setSelectedCompany(null);
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao eliminar empresa");
-    }
+    await supabase.from("companies").delete().eq("id", id);
+
+    setCompanies((prev) => prev.filter((c) => c.id !== id));
+    setServices([]);
+    setSelectedCompany(null);
   };
 
   const openEditCompany = (company: any) => {
@@ -122,32 +113,36 @@ const CompaniesPage: React.FC = () => {
   }
 
   if (isEditingService) {
-    try {
-      await apiClient.put(`/api/Service/${serviceForm.id}`, {
+    await supabase
+      .from("services")
+      .update({
         category: serviceForm.category,
         description: serviceForm.description,
-      });
+      })
+      .eq("id", serviceForm.id);
 
-      setServices((prev) =>
-        prev.map((s) => (s.id === serviceForm.id ? serviceForm : s))
-      );
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao editar serviço");
-    }
+    setServices((prev) =>
+      prev.map((s) => (s.id === serviceForm.id ? serviceForm : s))
+    );
   } else {
-    try {
-      const { data } = await apiClient.post("/api/Service", {
-        category: serviceForm.category,
-        description: serviceForm.description,
-        company_id: selectedCompany.id,
-      });
+    const { data, error } = await supabase
+      .from("services")
+      .insert([
+        {
+          category: serviceForm.category,
+          description: serviceForm.description,
+          company_id: selectedCompany.id,
+        },
+      ])
+      .select()
+      .single();
 
-      setServices((prev) => [...prev, data]);
-    } catch (error) {
-      console.error(error);
+    if (error || !data) {
       alert("Erro ao criar serviço");
+      return;
     }
+
+    setServices((prev) => [...prev, data]); 
   }
 
   closeServiceModal();
@@ -157,13 +152,8 @@ const CompaniesPage: React.FC = () => {
   const deleteService = async (id: number) => {
     if (!confirm("Eliminar serviço?")) return;
 
-    try {
-      await apiClient.delete(`/api/Service/${id}`);
-      setServices((prev) => prev.filter((s) => s.id !== id));
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao eliminar serviço");
-    }
+    await supabase.from("services").delete().eq("id", id);
+    setServices((prev) => prev.filter((s) => s.id !== id));
   };
 
   const openEditService = (service: any) => {

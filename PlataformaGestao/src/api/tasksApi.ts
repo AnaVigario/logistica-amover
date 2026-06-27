@@ -1,29 +1,48 @@
-import { apiClient } from "./client";
+import { supabase } from "../supabaseClient";
 
 export async function loadTasks() {
-  return await apiClient.get("/api/Task");
+  return await supabase
+    .from("tasks")
+    .select("*")
+    .order("date", { ascending: true });
 }
 
 export async function loadMotorcycles() {
-  return await apiClient.get("/api/Vehicle");
+  return await supabase
+    .from("motorcycles")
+    .select("*")
+    .order("id", { ascending: true });
 }
 
 export async function loadTaskAssignments() {
-  return await apiClient.get("/api/TaskAssignment");
+  return await supabase
+    .from("task_assignments")
+    .select("*");
 }
 
 export async function assignTask(taskId: number, motorcycleId: number) {
-  return await apiClient.post("/api/TaskAssignment", {
-    taskid: taskId,
-    motorcycleid: motorcycleId,
-    startdate: new Date(),
-  });
+  return await supabase
+    .from("task_assignments")
+    .insert([
+      {
+        taskid: taskId,
+        motorcycleid: motorcycleId,
+        startdate: new Date(),
+      },
+    ]);
 }
 
 export async function removeTask(taskId: number) {
-  return await apiClient.delete(`/api/TaskAssignment/${taskId}`);
+  return await supabase
+    .from("task_assignments")
+    .delete()
+    .eq("taskid", taskId);
 }
 
+
 export async function removeAllTasksFromMotorcycle(motorcycleId: number) {
-  return await apiClient.delete(`/api/TaskAssignment/vehicle/${motorcycleId}`);
+  return await supabase
+    .from("task_assignments")
+    .delete()
+    .eq("motorcycleid", motorcycleId);
 }

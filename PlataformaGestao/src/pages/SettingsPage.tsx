@@ -35,7 +35,7 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onMenuClick }) => {
               className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-200 dark:border-gray-700 text-left"
             >
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   {item.icon}
                 </div>
                 <div>

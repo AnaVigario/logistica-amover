@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { apiClient } from "../api/client";
+import { supabase } from "../supabaseClient";
 import { Plus, X, Pencil, Clock } from "lucide-react";
-import { useAuth } from "../context/AuthContext";
 
 const ClientsPage: React.FC = () => {
-  const { role, companyId } = useAuth();
-  const isManager = role === "manager";
-  const isAdmin = role === "admin";
-
   const [clients, setClients] = useState<Client[]>([]);
-  const [companies, setCompanies] = useState<any[]>([]);
-  const [editClient, setEditClient] = useState<Client | null>(null);
+const [editClient, setEditClient] = useState<Client | null>(null);
 
   const [loading, setLoading] = useState(true);
 
@@ -22,32 +16,31 @@ const ClientsPage: React.FC = () => {
 
   const [history, setHistory] = useState<any[]>([]);
   interface Client {
-    id: number;
-    name: string;
-    nif: string;
-    phone: string;
-    email: string;
-    street: string;
-    door_number: string;
-    floor?: string | null;
-    postal_code: string;
-    city: string;
-    company_id?: number | null;
-  }
+  id: number;
+  name: string;
+  nif: string;
+  phone: string;
+  email: string;
+  street: string;
+  door_number: string;
+  floor?: string | null;
+  postal_code: string;
+  city: string;
+}
 
 
-  const [newClient, setNewClient] = useState({
-    name: "",
-    nif: "",
-    phone: "",
-    email: "",
-    street: "",
-    door_number: "",
-    floor: "",
-    postal_code: "",
-    city: "",
-    company_id: isManager ? companyId : null,
-  });
+ const [newClient, setNewClient] = useState({
+
+  name: "",
+  nif: "",
+  phone: "",
+  email: "",
+  street: "",
+  door_number: "",
+  floor: "",
+  postal_code: "",
+  city: "",
+});
 
 
   
@@ -55,32 +48,11 @@ const ClientsPage: React.FC = () => {
   // CARREGAR CLIENTES
   useEffect(() => {
     async function load() {
-      try {
-        const { data } = await apiClient.get("/api/Client");
-        if (data) {
-          const mappedClients = data.map((c: any) => ({
-            id: c.id || c.ID,
-            name: c.name,
-            nif: c.nif,
-            phone: c.phone,
-            email: c.email,
-            street: c.street || c.address || '',
-            door_number: c.door_number || '',
-            floor: c.floor || '',
-            postal_code: c.postal_code || '',
-            city: c.city || '',
-            company_id: c.companyID || c.company_id || null
-          }));
-          setClients(mappedClients);
-        } else {
-          setClients([]);
-        }
+      const { data, error } = await supabase.from("clients").select("*");
 
-        const { data: companiesData } = await apiClient.get("/api/Company");
-        if (companiesData) setCompanies(companiesData);
-      } catch (error) {
-        console.error(error);
-      }
+      if (error) console.error(error);
+      else setClients(data);
+
       setLoading(false);
     }
 
@@ -94,67 +66,56 @@ const ClientsPage: React.FC = () => {
       return;
     }
 
-    try {
-      const { data } = await apiClient.post("/api/Client", {
-        name: newClient.name,
-        nif: newClient.nif,
-        phone: newClient.phone,
-        email: newClient.email,
-        address: `${newClient.street}, ${newClient.door_number}, ${newClient.postal_code} ${newClient.city}`,
-        street: newClient.street,
-        door_number: newClient.door_number,
-        floor: newClient.floor,
-        postal_code: newClient.postal_code,
-        city: newClient.city,
-        companyID: newClient.company_id
-      });
+    const { data, error } = await supabase
+      .from("clients")
+      .insert([{
+  name: newClient.name,
+  nif: newClient.nif,
+  phone: newClient.phone,
+  email: newClient.email,
+  street: newClient.street,
+  door_number: newClient.door_number,
+  floor: newClient.floor || null,
+  postal_code: newClient.postal_code,
+  city: newClient.city,
+}])
+      .select();
 
-      const newMappedClient = {
-        id: data.id || data.ID,
-        name: data.name,
-        nif: data.nif,
-        phone: data.phone,
-        email: data.email,
-        street: data.street || data.address || '',
-        door_number: data.door_number || '',
-        floor: data.floor || '',
-        postal_code: data.postal_code || '',
-        city: data.city || '',
-        company_id: data.companyID || data.company_id || null
-      };
-
-      setClients((prev) => [...prev, newMappedClient]);
-      setShowAddModal(false);
-
-      setNewClient({
-        name: "",
-        nif:"",
-        phone: "",
-        email: "",
-        street: "",
-        door_number: "",
-        floor: "",
-        postal_code: "",
-        city: "",
-        company_id: isManager ? companyId : null,
-      });
-    } catch (error) {
+    if (error) {
       console.error(error);
       alert("Erro ao adicionar cliente.");
+      return;
     }
+
+    setClients((prev) => [...prev, data[0]]);
+    setShowAddModal(false);
+
+    setNewClient({
+      name: "",
+      nif:"",
+      phone: "",
+      email: "",
+      street: "",
+  door_number: "",
+  floor: "",
+  postal_code: "",
+  city: "",
+    });
   };
 
   // ELIMINAR CLIENTE
   const deleteClient = async (id: number) => {
     if (!confirm("Queres mesmo eliminar este cliente?")) return;
 
-    try {
-      await apiClient.delete(`/api/Client/${id}`);
-      setClients((prev) => prev.filter((c) => c.id !== id));
-    } catch (error) {
+    const { error } = await supabase.from("clients").delete().eq("id", id);
+
+    if (error) {
       console.error(error);
       alert("Erro ao eliminar.");
+      return;
     }
+
+    setClients((prev) => prev.filter((c) => c.id !== id));
   };
 
   // ABRIR MODAL DE EDITAR
@@ -166,46 +127,49 @@ const ClientsPage: React.FC = () => {
 
   // GUARDAR EDIÇÃO
   const saveEdit = async () => {
-    if (!editClient) return;
+  if (!editClient) return;
 
-    try {
-      await apiClient.put(`/api/Client/${editClient.id}`, {
-        name: editClient.name,
-        nif: editClient.nif,
-        phone: editClient.phone,
-        email: editClient.email,
-        address: `${editClient.street}, ${editClient.door_number}, ${editClient.postal_code} ${editClient.city}`,
-        street: editClient.street,
-        door_number: editClient.door_number,
-        floor: editClient.floor,
-        postal_code: editClient.postal_code,
-        city: editClient.city,
-        companyID: editClient.company_id
-      });
+  const { error } = await supabase
+    .from("clients")
+    .update({
+      name: editClient.name,
+      nif: editClient.nif,
+      phone: editClient.phone,
+      email: editClient.email,
+      street: editClient.street,
+      door_number: editClient.door_number,
+      floor: editClient.floor || null,
+      postal_code: editClient.postal_code,
+      city: editClient.city,
+    })
+    .eq("id", editClient.id);
 
-      setClients((prev) =>
-        prev.map((c) => (c.id === editClient.id ? editClient : c))
-      );
+  if (error) {
+    console.error(error);
+    alert("Erro ao guardar alterações.");
+    return;
+  }
 
-      setShowEditModal(false);
-      setEditClient(null);
-    } catch (error) {
-      console.error(error);
-      alert("Erro ao guardar alterações.");
-    }
-  };
+  setClients((prev) =>
+    prev.map((c) => (c.id === editClient.id ? editClient : c))
+  );
+
+  setShowEditModal(false);
+  setEditClient(null);
+};
 
 
   // ABRIR HISTÓRICO DE TAREFAS
   const openHistory = async (client: any) => {
     setSelectedClient(client);
 
-    try {
-      const { data } = await apiClient.get(`/api/Task?clientId=${client.id}`);
-      setHistory(data || []);
-    } catch (error) {
-      console.error(error);
-    }
+    const { data, error } = await supabase
+      .from("tasks")
+      .select("id, title, status, date, driver_name")
+      .eq("client_id", client.id);
+
+    if (error) console.error(error);
+    else setHistory(data);
 
     setShowHistoryModal(true);
   };
@@ -277,7 +241,7 @@ const ClientsPage: React.FC = () => {
               </button>
             </div>
 
-            <ClientForm state={newClient} setState={setNewClient} companies={companies} isAdmin={isAdmin} isManager={isManager} />
+            <ClientForm state={newClient} setState={setNewClient} />
 
             <button
               className="w-full bg-black text-white py-2 rounded mt-4"
@@ -302,7 +266,7 @@ const ClientsPage: React.FC = () => {
               </button>
             </div>
 {editClient && (
-  <ClientForm state={editClient} setState={setEditClient} companies={companies} isAdmin={isAdmin} isManager={isManager} />
+  <ClientForm state={editClient} setState={setEditClient} />
 )}
 
 
@@ -338,7 +302,7 @@ const ClientsPage: React.FC = () => {
                 {history.map((task) => (
                   <div
                     key={task.id}
-                    className="border p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 flex justify-between"
+                    className="border p-3 rounded-lg bg-gray-50 dark:bg-gray-700 flex justify-between"
                   >
                     <div>
                       <p className="font-semibold">{task.title}</p>
@@ -371,7 +335,7 @@ const ClientsPage: React.FC = () => {
 export default ClientsPage;
 
 
-const ClientForm = ({ state, setState, companies, isAdmin, isManager }: any) => (
+const ClientForm = ({ state, setState }: any) => (
   <div className="space-y-3">
     <input
       type="text"
@@ -380,7 +344,7 @@ const ClientForm = ({ state, setState, companies, isAdmin, isManager }: any) => 
       value={state.name}
       onChange={(e) => setState({ ...state, name: e.target.value })}
     />
-    <input
+<input
       type="text"
       placeholder="NIF *"
       className="w-full border p-2 rounded"
@@ -402,66 +366,47 @@ const ClientForm = ({ state, setState, companies, isAdmin, isManager }: any) => 
       value={state.email}
       onChange={(e) => setState({ ...state, email: e.target.value })}
     />
-    <input
-      type="text"
-      placeholder="Rua *"
-      className="w-full border p-2 rounded"
-      value={state.street}
-      onChange={(e) => setState({ ...state, street: e.target.value })}
-    />
+<input
+  type="text"
+  placeholder="Rua *"
+  className="w-full border p-2 rounded"
+  value={state.street}
+  onChange={(e) => setState({ ...state, street: e.target.value })}
+/>
 
-    <input
-      type="text"
-      placeholder="Número *"
-      className="w-full border p-2 rounded"
-      value={state.door_number}
-      onChange={(e) => setState({ ...state, door_number: e.target.value })}
-    />
+<input
+  type="text"
+  placeholder="Número *"
+  className="w-full border p-2 rounded"
+  value={state.door_number}
+  onChange={(e) => setState({ ...state, door_number: e.target.value })}
+/>
 
-    <input
-      type="text"
-      placeholder="Andar (opcional)"
-      className="w-full border p-2 rounded"
-      value={state.floor}
-      onChange={(e) => setState({ ...state, floor: e.target.value })}
-    />
+<input
+  type="text"
+  placeholder="Andar (opcional)"
+  className="w-full border p-2 rounded"
+  value={state.floor}
+  onChange={(e) => setState({ ...state, floor: e.target.value })}
+/>
 
-    <input
-      type="text"
-      placeholder="Código Postal *"
-      className="w-full border p-2 rounded"
-      value={state.postal_code}
-      onChange={(e) => setState({ ...state, postal_code: e.target.value })}
-    />
+<input
+  type="text"
+  placeholder="Código Postal *"
+  className="w-full border p-2 rounded"
+  value={state.postal_code}
+  onChange={(e) => setState({ ...state, postal_code: e.target.value })}
+/>
 
-    <input
-      type="text"
-      placeholder="Localidade *"
-      className="w-full border p-2 rounded"
-      value={state.city}
-      onChange={(e) => setState({ ...state, city: e.target.value })}
-    />
+<input
+  type="text"
+  placeholder="Localidade *"
+  className="w-full border p-2 rounded"
+  value={state.city}
+  onChange={(e) => setState({ ...state, city: e.target.value })}
+/>
 
-    {isAdmin && (
-      <select
-        className="w-full border p-2 rounded"
-        value={state.company_id || ""}
-        onChange={(e) =>
-          setState({ ...state, company_id: e.target.value ? Number(e.target.value) : null })
-        }
-      >
-        <option value="">Selecionar empresa</option>
-        {companies.map((company: any) => (
-          <option key={company.id} value={company.id}>
-            {company.name}
-          </option>
-        ))}
-      </select>
-    )}
-    {isManager && (
-      <p className="text-sm text-gray-600 dark:text-gray-300">
-        Empresa: {companies.find((c: any) => c.id === state.company_id)?.name || state.company_id}
-      </p>
-    )}
+    
+
   </div>
 );

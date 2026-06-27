@@ -1,17 +1,14 @@
 import React from 'react';
 import { Building2 } from 'lucide-react';
 
-import { useAuth } from '../context/AuthContext';
-import { Truck, Users, Bike, Contact, Map } from 'lucide-react';
+import { UserRole } from '../types/auth';
+import { Truck, Users, Bike, Contact, Map } from 'lucide-react'; // <-- ADICIONADO Contact
 
 interface MainMenuProps {
   onMenuClick: (page: 'main' | 'tasks' | 'motorcycles' | 'drivers' | 'clients'| 'companies' | 'routes') => void;
 }
 
 const MainMenu: React.FC<MainMenuProps> = ({ onMenuClick }) => {
-  const { role } = useAuth();
-  const isManager = role === 'manager';
-
   const menuItems = [
     { 
       id: 1, 
@@ -61,7 +58,7 @@ const MainMenu: React.FC<MainMenuProps> = ({ onMenuClick }) => {
   icon: <Map className="w-6 h-6 text-blue-500" />
 },
 
-  ].filter(item => !isManager || item.page !== 'companies');
+  ];
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

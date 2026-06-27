@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { apiClient } from "../api/client";
+import { supabase } from "../supabaseClient";
 
 const CalendarPage: React.FC = () => {
   const [tasks, setTasks] = useState<any[]>([]);
@@ -10,19 +10,28 @@ const CalendarPage: React.FC = () => {
 
   React.useEffect(() => {
     async function loadTasks() {
-      try {
-        const { data } = await apiClient.get("/api/Task");
-        setTasks(data || []);
-      } catch (error) {
-        console.error("Error loading tasks", error);
-      }
+      const { data } = await supabase.from("tasks").select("*");
+      setTasks(data || []);
     }
     loadTasks();
   }, []);
 
+
+  React.useEffect(() => {
+    async function loadAssignments() {
+      const { data } = await supabase
+        .from("motorcycle_assignments")
+        .select("*")
+        .is("enddate", null);
+
+      setAssignments(data || []);
+    }
+    loadAssignments();
+  }, []);
+
+
   const eventsByDay: Record<number, any[]> = tasks.reduce((acc, t) => {
-    const rawDateStr = t.deadline || t.creationDate;
-    const dt = new Date(rawDateStr || new Date());
+    const dt = new Date(t.date);
 
     if (
       dt.getMonth() === currentDate.getMonth() &&
@@ -31,7 +40,8 @@ const CalendarPage: React.FC = () => {
       const day = dt.getDate();
       if (!acc[day]) acc[day] = [];
 
-      const assigned = t.motorcycleid !== null || t.VehicleId !== null;
+      const assigned = t.motorcycleid !== null;
+
 
       acc[day].push({
         ...t,
@@ -71,7 +81,7 @@ const CalendarPage: React.FC = () => {
     return (
       <div
         onClick={() => setSelectedDay(day)}
-        className="h-20 border border-gray-200 dark:border-gray-700 p-1 relative cursor-pointer hover:bg-gray-50 dark:bg-gray-700/50"
+        className="h-20 border border-gray-200 dark:border-gray-700 p-1 relative cursor-pointer hover:bg-gray-50 dark:bg-gray-700"
       >
         <span className="text-sm">{day}</span>
 
@@ -79,12 +89,12 @@ const CalendarPage: React.FC = () => {
           <div className="absolute bottom-1 left-1 flex gap-0.5 flex-wrap">
             {events.slice(0, 3).map((ev: any) => (
               <div
-                key={ev.id || ev.Id}
+                key={ev.id}
                 className={`w-2 h-2 rounded-full
                   ${
-                    (ev.priority || ev.Priority) === "ALTA"
+                    ev.priority === "ALTA"
                       ? "bg-red-500"
-                      : (ev.priority || ev.Priority) === "MÉDIA"
+                      : ev.priority === "MÉDIA"
                       ? "bg-orange-500"
                       : "bg-green-500"
                   }
@@ -129,7 +139,7 @@ const CalendarPage: React.FC = () => {
       {/* DAYS */}
       <div className="grid grid-cols-7 flex-1">
         {[...Array(firstDayOfMonth)].map((_, i) => (
-          <div key={i} className="h-20 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50" />
+          <div key={i} className="h-20 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700" />
         ))}
 
         {Array.from({ length: daysInMonth }).map((_, i) => (
@@ -169,12 +179,10 @@ const CalendarPage: React.FC = () => {
             {eventsByDay[selectedDay] ? (
               <div className="space-y-3">
                 {eventsByDay[selectedDay].map((ev: any) => (
-                  <div key={ev.id || ev.Id} className="border-b pb-2">
-                    <h4 className="font-medium">{ev.type || ev.description || "Sem título"}</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      {[ev.street, ev.door_number, ev.city].filter(Boolean).join(", ") || "Sem morada"}
-                    </p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">{ev.availableTimeStart || ev.availableTimeEnd || "Sem hora"}</p>
+                  <div key={ev.id} className="border-b pb-2">
+                    <h4 className="font-medium">{ev.title}</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{ev.address}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{ev.time}</p>
                   </div>
                 ))}
               </div>

@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { User, PenSquare, Camera, X } from 'lucide-react';
-import { apiClient } from '../api/client';
 
 interface ProfileData {
   name: string;
@@ -12,56 +11,18 @@ interface ProfileData {
   photo?: string;
 }
 
-interface ProfilePageProps {
-  user?: { name: string; email: string; role?: string } | null;
-}
-
-const ProfilePage: React.FC<ProfilePageProps> = ({ user }) => {
+const ProfilePage: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [dbUserId, setDbUserId] = useState<number | null>(null);
-  const [dbUserRole, setDbUserRole] = useState<string>('user');
-  
   const [profileData, setProfileData] = useState<ProfileData>({
-    name: user?.name || 'Utilizador',
+    name: 'Nuno Melo',
     driverLicense: '',
     citizenCard: '',
     phone: '',
     address: '',
-    email: user?.email || '',
+    email: '',
     photo: ''
   });
-
-  React.useEffect(() => {
-    if (user?.email) {
-      apiClient.get(`/api/User/byEmail/${user.email}`)
-        .then(res => {
-          if (res.data) {
-            setDbUserId(res.data.id);
-            setDbUserRole(res.data.role || 'user');
-            setProfileData(prev => ({
-              ...prev,
-              name: user.name || res.data.name || prev.name,
-              email: user.email || res.data.email || prev.email,
-              driverLicense: res.data.driverLicense || '',
-              citizenCard: res.data.citizenCard || '',
-              phone: res.data.phone || '',
-              address: res.data.address || '',
-              photo: res.data.photoUrl || ''
-            }));
-          }
-        })
-        .catch(err => {
-          console.error("Error fetching user from DB", err);
-          // If 404, we could potentially create the user, but for now we just fallback to Keycloak info
-          setProfileData(prev => ({
-            ...prev,
-            name: user.name || prev.name,
-            email: user.email || prev.email
-          }));
-        });
-    }
-  }, [user]);
 
   const handleInputChange = (field: keyof ProfileData) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfileData(prev => ({
@@ -91,47 +52,6 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ user }) => {
   const handleSave = () => {
     setIsEditing(false);
     console.log('Saving profile data:', profileData);
-    
-    if (dbUserId) {
-      apiClient.put(`/api/User/${dbUserId}`, {
-        name: profileData.name,
-        email: profileData.email,
-        password: 'dummy_password_not_used', // assuming backend needs something, but best is to omit or send existing
-        role: dbUserRole,
-        driverLicense: profileData.driverLicense,
-        citizenCard: profileData.citizenCard,
-        phone: profileData.phone,
-        address: profileData.address,
-        photoUrl: profileData.photo
-      }).then(() => {
-        console.log('Profile updated successfully');
-        window.dispatchEvent(new Event('profileUpdated'));
-      }).catch(err => {
-        console.error('Error updating profile', err);
-        alert('Erro ao guardar alterações');
-      });
-    } else {
-      // If dbUserId is null, we could POST a new user to the DB
-      apiClient.post(`/api/User`, {
-        name: profileData.name,
-        email: profileData.email,
-        password: 'imported_from_keycloak',
-        role: user?.role || 'user',
-        driverLicense: profileData.driverLicense,
-        citizenCard: profileData.citizenCard,
-        phone: profileData.phone,
-        address: profileData.address,
-        photoUrl: profileData.photo
-      }).then(res => {
-        setDbUserId(res.data.id);
-        setDbUserRole(res.data.role);
-        console.log('Profile created successfully');
-        window.dispatchEvent(new Event('profileUpdated'));
-      }).catch(err => {
-        console.error('Error creating profile', err);
-        alert('Erro ao criar perfil');
-      });
-    }
   };
 
   if (isEditing) {
@@ -171,7 +91,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ user }) => {
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept="image/jpeg, image/png"
+                  accept="image/*"
                   onChange={handlePhotoChange}
                   className="hidden"
                 />
