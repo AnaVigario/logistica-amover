@@ -124,9 +124,9 @@ function SortableTask({
       {...attributes}
       {...listeners}
       className={`p-4 rounded shadow cursor-grab ${
-        isSaved
-          ? "bg-green-50 border border-green-300"
-          : "bg-white dark:bg-gray-800"
+        isSaved 
+           ? "bg-green-50 border border-green-300 dark:bg-green-800 dark:border-green-50"
+    : "bg-white dark:bg-gray-800"
       }`}
     >
       <div className="flex justify-between items-center">
@@ -446,7 +446,7 @@ const RoutesPage = ({ vehicleId, date }: any) => {
                         </div>
                         <span className="text-xs text-gray-500 dark:text-gray-400">{routeObj.routePoints.length} tarefas associadas</span>
                         {routeObj.driverName && (
-                          <span className="text-xs text-blue-600 font-medium mt-0.5">
+                          <span className="text-xs text-white font-medium mt-0.5">
                             Condutor: {routeObj.driverName}
                           </span>
                         )}
@@ -504,6 +504,7 @@ const RoutesPage = ({ vehicleId, date }: any) => {
           </div>
         </>
       )}
+      
 
       {/* Cancel Route Modal */}
       {routeToCancel && (

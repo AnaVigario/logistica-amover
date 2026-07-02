@@ -97,8 +97,8 @@ const ClientsPage: React.FC = () => {
 
   // ADICIONAR CLIENTE
   const addClient = async () => {
-    if (!newClient.name || !newClient.nif) {
-      alert("O nome e o NIF é obrigatório!");
+    if (!newClient.name || !newClient.nif || !newClient.postal_code || !newClient.email || !newClient.street ||!newClient.city || !newClient.company_id) {
+      alert("O nome, NIF , email, morada e empresa são obrigatórios!");
       return;
     }
 

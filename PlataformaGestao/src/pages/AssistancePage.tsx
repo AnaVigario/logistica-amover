@@ -225,7 +225,11 @@ const AssistancePage: React.FC = () => {
           setSelectedRequest(null);
           setShowNewRequest(true);
         }}
-        className="bg-white dark:bg-gray-800 text-black py-2 px-4 rounded-md font-semibold shadow-md w-fit"
+        className="
+bg-white text-gray-900
+dark:bg-[#232B38] dark:text-white
+border border-gray-200 dark:border-gray-700
+hover:bg-gray-100 dark:hover:bg-gray-700 py-2 px-4 rounded-md font-semibold shadow-md w-fit"
       >
         + Enviar Pedido
       </button>
@@ -236,14 +240,20 @@ const AssistancePage: React.FC = () => {
           
           <div className="flex border-b border-gray-200 dark:border-gray-700 mb-4">
             <button
-              className={`flex-1 py-2 text-center font-semibold ${activeTab === 'Abertos' ? 'text-black border-b-2 border-black' : 'text-gray-400 hover:text-gray-600 dark:text-gray-300'}`}
-              onClick={() => setActiveTab('Abertos')}
+className={`flex-1 py-2 text-center font-semibold transition-colors ${
+  activeTab === 'Abertos'
+    ? 'text-black border-b-2 border-black dark:text-white dark:border-white'
+    : 'text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200'
+}`}              onClick={() => setActiveTab('Abertos')}
             >
               Abertos
             </button>
             <button
-              className={`flex-1 py-2 text-center font-semibold ${activeTab === 'Fechados' ? 'text-black border-b-2 border-black' : 'text-gray-400 hover:text-gray-600 dark:text-gray-300'}`}
-              onClick={() => setActiveTab('Fechados')}
+className={`flex-1 py-2 text-center font-semibold transition-colors ${
+  activeTab === 'Fechados'
+    ? 'text-black border-b-2 border-black dark:text-white dark:border-white'
+    : 'text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200'
+}`}              onClick={() => setActiveTab('Fechados')}
             >
               Histórico
             </button>
@@ -281,7 +291,12 @@ const AssistancePage: React.FC = () => {
             renderChat()
           ) : showNewRequest ? (
             <div className="bg-white dark:bg-gray-800 rounded-md p-4 shadow-md h-full flex flex-col">
-              <h2 className="text-black font-semibold mb-4">Novo Pedido / Alerta</h2>
+              <h2 className="bg-white
+dark:bg-[#232B38]
+rounded-lg
+p-6
+shadow
+dark:shadow-none">Novo Pedido / Alerta</h2>
               <div className="space-y-4 flex-1">
                 <div>
                   <label className="block text-gray-700 dark:text-gray-200 mb-1">Motivo:</label>

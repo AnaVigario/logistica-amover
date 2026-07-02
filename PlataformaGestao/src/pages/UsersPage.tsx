@@ -36,6 +36,7 @@ const UsersPage: React.FC = () => {
     try {
       const { data } = await apiClient.get("/api/User");
       const usersArray = data.$values || data || [];
+      console.log(usersArray);
       const managers = usersArray.filter((u: any) => u.role === "manager" || u.Role === "manager" || u.role === undefined); 
       setUsers(managers);
     } catch (error) {
@@ -88,19 +89,39 @@ const UsersPage: React.FC = () => {
   };
 
  
-  const toggleActive = async (user: any) => {
+  {/*const toggleActive = async (user: any) => {
     try {
       await apiClient.put(`/api/User/${user.id}`, {
         ...user,
         is_active: !user.is_active
       });
+      console.log("Enviado:", !user.is_active);
+
       loadUsers();
     } catch (error) {
       console.error(error);
     }
   };
+  */}
+ const toggleActive = async (user: any) => {
+  console.log("Antes:", user);
 
- 
+  try {
+    const response = await apiClient.put(`/api/User/${user.id}`, {
+      ...user,
+      is_active: !user.is_active
+    });
+
+    console.log("Resposta:", response.data);
+
+    await loadUsers();
+
+    console.log("Depois:", user.id);
+
+  } catch (error: any) {
+    console.error(error.response?.data || error);
+  }
+};
   const deleteUser = async (user: any) => {
     if (!confirm("Tem a certeza que pretende eliminar este gestor?")) return;
 
@@ -283,8 +304,17 @@ const UsersPage: React.FC = () => {
               </button>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="flex-1 bg-gray-200 py-2 rounded"
-              >
+className=" flex-1
+    bg-gray-200
+    text-gray-800
+    py-2
+    rounded
+    hover:bg-gray-300
+    dark:bg-gray-700
+    dark:text-white
+    dark:hover:bg-gray-600
+    transition-colors
+  "              >
                 Cancelar
               </button>
             </div>

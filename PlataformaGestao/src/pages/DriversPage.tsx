@@ -264,18 +264,26 @@ const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString(
     }
   }
   return (
-    <div className="flex flex-col h-full bg-[#d6d6d6] p-6">
+    <div className="flex flex-col h-full bg-[#d6d6d6] dark:bg-gray-900 p-6">
       {/* TABS E PESQUISA */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6 border-b border-gray-300 dark:border-gray-600 pb-2">
         <div className="flex gap-4 w-full md:w-auto">
           <button 
-            className={`px-4 py-2 font-semibold ${activeTab === 'ativos' ? 'text-[#333333] border-b-2 border-[#333333]' : 'text-gray-500 dark:text-gray-400'}`}
+          className={`px-4 py-2 font-semibold ${
+  activeTab === "ativos"
+    ? "text-[#333333] border-b-2 border-[#333333] dark:text-white dark:border-white"
+    : "text-gray-500 dark:text-gray-400"
+}`}
             onClick={() => setActiveTab('ativos')}
           >
             Ativos
           </button>
           <button 
-            className={`px-4 py-2 font-semibold ${activeTab === 'inativos' ? 'text-[#333333] border-b-2 border-[#333333]' : 'text-gray-500 dark:text-gray-400'}`}
+          className={`px-4 py-2 font-semibold ${
+  activeTab === "inativos"
+    ? "text-[#333333] border-b-2 border-[#333333] dark:text-white dark:border-white"
+    : "text-gray-500 dark:text-gray-400"
+}`}
             onClick={() => setActiveTab('inativos')}
           >
             Inativos
@@ -648,7 +656,17 @@ onClick={() => {
             setShowResetConfirm(false);
             setResetDriverId(null);
           }}
-          className="w-full bg-gray-200 py-2 rounded"
+          className=" w-full
+    bg-gray-200
+    text-gray-800
+    py-2
+    rounded
+    hover:bg-gray-300
+    dark:bg-gray-700
+    dark:text-white
+    dark:hover:bg-gray-600
+    transition-colors
+  "
         >
           Cancelar
         </button>

@@ -19,7 +19,7 @@ interface Task {
   clientid: number | null;
   notes?: string | null;
   instructions?: string | null;
-
+status: string;
   street?: string | null;
   door_number?: string | null;
   floor?: string | null;
@@ -144,12 +144,13 @@ const TaskAssignmentPage: React.FC<Props> = () => {
   async function loadTasks() {
     try {
       const { data } = await apiClient.get("/api/Task");
+      console.log(data);
       if (data) {
         const mappedTasks = data
           .filter((t: any) => t.status !== 'Finished' && t.status !== 'Cancelada' && t.status !== 'finished' && t.status !== 'completed' && t.status !== 'concluída')
           .map((t: any) => ({
           id: t.id || t.ID,
-          title: t.type || t.description || 'Sem título',
+          title: `Tarefa-${t.id || t.ID || "?"}`,        
           date: t.deadline ? t.deadline.split('T')[0] : (t.creationDate ? t.creationDate.split('T')[0] : new Date().toISOString().split('T')[0]),
           priority: t.priority || 'MÉDIA',
           time: t.availableTimeStart || '',
@@ -191,6 +192,7 @@ const TaskAssignmentPage: React.FC<Props> = () => {
   async function loadDrivers() {
     try {
       const { data } = await apiClient.get("/api/User");
+     
       setDrivers(data || []);
     } catch (error) {
       console.error(error);
@@ -227,7 +229,14 @@ const sortedTasks = (tasksList: Task[]) =>
 const filteredTasks = sortedTasks(tasks.filter(t => t.date === formatDate(selectedDate)));
 
 const getMotorcycleTasks = (motoId: number) =>
-  sortedTasks(tasks.filter(t => t.date === formatDate(selectedDate) && t.motorcycleid === motoId));
+  sortedTasks(
+    tasks.filter(
+      t =>
+        t.date === formatDate(selectedDate) &&
+        t.motorcycleid === motoId &&
+        t.status !== "EM ROTA"
+    )
+  );
 
   const getDriverName = (motoId: number) => {
     const moto = motorcycles.find(m => m.id === motoId);
@@ -325,6 +334,7 @@ const getMotorcycleTasks = (motoId: number) =>
       
       try {
         await apiClient.post("/api/Route/optimize-for-vehicle", {
+          
           vehicleId: motoId,
           date: formatDate(selectedDate),
           taskIds: list.map(t => t.id)
@@ -346,7 +356,9 @@ const getMotorcycleTasks = (motoId: number) =>
       createRoute
     );
   };
-
+const hasAssignedTasks = selectedTasks.some(
+  task => task.motorcycleid !== null
+);
 
   async function removeTask(taskId: number) {
     try {
@@ -423,7 +435,9 @@ function sortTasksSmart(tasks: Task[]) {
             
             {isUnassignedOpen && (
               <div className="mt-3 space-y-3">
-                {sortTasksSmart(filteredTasks.filter(t => t.motorcycleid === null)).map(task => {
+                {sortTasksSmart(filteredTasks.filter(
+  t => t.motorcycleid === null && t.status === "POR CONCLUIR"
+)).map(task => {
                   const isSelected = selectedTasks.some(t => t.id === task.id);
                   return (
                   <div key={task.id}
@@ -479,10 +493,21 @@ function sortTasksSmart(tasks: Task[]) {
             
             {isAssignedOpen && (
               <div className="mt-3 space-y-3">
-                {sortTasksSmart(filteredTasks.filter(t => t.motorcycleid !== null)).map(task => (
+                {sortTasksSmart(filteredTasks.filter(
+  t => t.motorcycleid !== null && t.status === "ATRIBUÍDO"
+)).map(task => (
                   <div key={task.id}
-                    className="border bg-green-50 border-green-300 rounded-lg p-3 cursor-pointer hover:shadow"
-                    onClick={() => setSelectedTasks(prev => prev.some(t => t.id === task.id) ? prev : [...prev, task])}
+className="border
+bg-green-50
+border-green-300
+rounded-lg
+p-3
+cursor-pointer
+hover:shadow
+dark:bg-green-800
+dark:border-green-300
+
+"                    onClick={() => setSelectedTasks(prev => prev.some(t => t.id === task.id) ? prev : [...prev, task])}
                   >
                     <div className="flex justify-between">
                       <span>{task.title}</span>
@@ -526,7 +551,7 @@ function sortTasksSmart(tasks: Task[]) {
               <div className="flex justify-between items-start gap-2">
                 <div className="min-w-0">
                   <h3 className="font-medium truncate">{moto.name}</h3>
-                  <p className="text-sm text-blue-600 truncate">
+                  <p className="text-sm text-white truncate">
                     {driverName ? `Condutor: ${driverName}` : "Sem condutor"}
                   </p>
                 </div>
@@ -633,16 +658,18 @@ function sortTasksSmart(tasks: Task[]) {
           <>
             <div className="border-t p-4">
               <div className="flex justify-between items-center">
-                <h3 className="font-semibold">{selectedTasks.length} {selectedTasks.length === 1 ? 'tarefa selecionada' : 'tarefas selecionadas'}</h3>
-                <X className="cursor-pointer" onClick={() => setSelectedTasks([])}/>
+<h3>
+  {selectedTasks.length} tarefa{selectedTasks.length > 1 ? "s" : ""}{" "}
+  {hasAssignedTasks ? "para reatribuição" : "selecionada"}
+</h3>                <X className="cursor-pointer" onClick={() => setSelectedTasks([])}/>
               </div>
               
               <button
-                className="w-full mt-3 bg-black text-white py-2 rounded"
-                onClick={() => setShowAssignModal(true)}
-              >
-                Atribuir {selectedTasks.length > 1 ? 'Todas' : ''}
-              </button>
+  onClick={() => setShowAssignModal(true)}
+  className="w-full mt-4 bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors"
+>
+  {hasAssignedTasks ? "Reatribuir" : "Atribuir"}
+</button>
             </div>
 
             <div className="mt-auto p-4">
@@ -664,8 +691,13 @@ function sortTasksSmart(tasks: Task[]) {
           <div className="bg-white dark:bg-gray-800 p-4 rounded w-80">
             <h3 className="font-semibold mb-3">Selecionar mota</h3>
 
-            {availableVehicles.length > 0 ? (
-            availableVehicles.map((vehicle) => (
+            {availableVehicles.filter(
+    vehicle => vehicle.id !== selectedTasks[0]?.motorcycleid
+).length > 0 ? (
+
+  availableVehicles
+    .filter(vehicle => vehicle.id !== selectedTasks[0]?.motorcycleid)
+    .map((vehicle) => (
            <button
             key={vehicle.id}
             className="w-full border p-2 mb-2 rounded hover:bg-gray-100 dark:bg-gray-700 text-left"
@@ -683,7 +715,18 @@ function sortTasksSmart(tasks: Task[]) {
     Nenhuma mota compatível com o serviço desta tarefa
   </p>
 )}
-            <button className="w-full mt-2 py-2 bg-gray-300 rounded"
+            <button className="
+    w-full
+    bg-gray-200
+    text-gray-800
+    py-2
+    rounded
+    hover:bg-gray-300
+    dark:bg-gray-700
+    dark:text-white
+    dark:hover:bg-gray-600
+    transition-colors
+  "
               onClick={() => setShowAssignModal(false)}
             >
               Cancelar

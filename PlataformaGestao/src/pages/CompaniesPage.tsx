@@ -50,8 +50,8 @@ const CompaniesPage: React.FC = () => {
 
 
  const saveCompany = async () => {
-  if (!companyForm.name) {
-    alert("Nome da empresa é obrigatório");
+  if (!companyForm.name || !companyForm.description) {
+    alert("Nome e a Descrição da empresa são obrigatórios");
     return;
   }
 
@@ -116,8 +116,8 @@ const CompaniesPage: React.FC = () => {
 
   
   const saveService = async () => {
-  if (!serviceForm.category) {
-    alert("Categoria é obrigatória");
+  if (!serviceForm.category || !serviceForm.description) {
+    alert("Categoria e Descrição são obrigatórios");
     return;
   }
 

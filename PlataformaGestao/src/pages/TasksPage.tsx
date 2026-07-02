@@ -243,8 +243,8 @@ function resetTaskForm() {
       if (data) {
         const mappedTasks = data.map((t: any) => ({
           id: t.id || t.ID,
-          title: t.type || t.description || 'Sem título',
-          date: t.deadline ? t.deadline.split('T')[0] : (t.creationDate ? t.creationDate.split('T')[0] : new Date().toISOString().split('T')[0]),
+           title: `Tarefa-${t.id || t.ID}`,
+           date: t.deadline ? t.deadline.split('T')[0] : (t.creationDate ? t.creationDate.split('T')[0] : new Date().toISOString().split('T')[0]),
           priority: t.priority || 'MÉDIA',
           time: t.availableTimeStart || '',
           clientid: t.clientID || t.clientId,
@@ -383,8 +383,8 @@ async function handleAddClientFromTask() {
 }
 
 async function handleAddTask() {
-  if (!newTask.clientid || !newTask.date || !newTask.street) {
-    alert("Por favor preencha os campos obrigatórios (Cliente, Data, Morada).");
+  if (!newTask.clientid || !newTask.date || !newTask.street ||) {
+    alert("Por favor preencha os campos obrigatórios (Cliente, Data, Morada,Empresa e Serviço).");
     return;
   }
 
@@ -417,15 +417,21 @@ async function handleAddTask() {
   }
 }
 
+const today = formatDateYYYYMMDD(new Date());
 
- const filteredTasks = visibleTasks.filter((task) => {
+const filteredTasks = visibleTasks.filter((task) => {
   const matchPrio =
     selectedPriority === "ALL" || task.priority === selectedPriority;
 
-  const matchDate = true; // TEMPORARY FIX: remove date filter
+  const matchDate =
+    !selectedDate || task.date === selectedDate;
 
-  return matchPrio && matchDate;
+  const matchPast =
+    showPastTasks || task.date >= today;
+
+  return matchPrio && matchDate && matchPast;
 });
+ 
   const grouped = filteredTasks.reduce((groups, t) => {
     const d = new Date(t.date).toLocaleDateString('pt-PT');
     if (!groups[d]) groups[d] = [];
@@ -597,7 +603,12 @@ async function handleAddTask() {
 
     <button
       type="button"
-      className="text-sm text-blue-600 hover:underline"
+      className="
+text-blue-600
+hover:text-blue-700
+dark:text-white
+dark:hover:text-gray-300
+"
       onClick={() => setShowNewClientModal(true)}
     >
       Novo cliente? Registar
@@ -957,12 +968,7 @@ async function handleAddTask() {
           Limpar
         </button>
 
-        <button
-          onClick={() => setShowFilters(false)}
-          className="flex-1 bg-black text-white rounded p-2"
-        >
-          Aplicar
-        </button>
+       
       </div>
     </div>
   </div>
@@ -1100,7 +1106,17 @@ async function handleAddTask() {
 
       <div className="flex gap-3">
         <button
-          className="flex-1 bg-gray-200 rounded py-2"
+          className="flex-1
+    bg-gray-200
+    text-gray-800
+    rounded
+    py-2
+    hover:bg-gray-300
+    dark:bg-gray-700
+    dark:text-white
+    dark:hover:bg-gray-600
+    transition-colors
+  "
           onClick={() => {
             setShowAddressConfirm(false);
             setPendingClient(null);

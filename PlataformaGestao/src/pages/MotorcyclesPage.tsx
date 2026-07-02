@@ -36,7 +36,7 @@ const [maintenanceReason, setMaintenanceReason] = useState("");
   marca: '',
   modelo: '',
   status: 'Disponível',
-  battery_capacity: null as number | null,
+  //battery_capacity: null as number | null,
   cargo_capacity: null as number | null,
   company_id: isManager ? companyId : (null as number | null),
 });
@@ -158,8 +158,9 @@ const [maintenanceReason, setMaintenanceReason] = useState("");
 
  
   const addMotorcycle = async () => {
-    if (!newVehicle.name || !newVehicle.matricula || !newVehicle.marca || !newVehicle.modelo) {
-      alert('Preenche os campos obrigatórios (Nome, Marca, Modelo, Matrícula)!');
+    if (!newVehicle.name || !newVehicle.matricula || !newVehicle.marca || !newVehicle.modelo  || !newVehicle.company_id
+) {
+      alert('Preenche os campos obrigatórios (Nome, Marca, Modelo, Matrícula e Empresa)!');
       return;
     }
 
@@ -171,7 +172,7 @@ const [maintenanceReason, setMaintenanceReason] = useState("");
         vid: newVehicle.matricula,
         status: 'Disponível',
         ownerID: null,
-        batteryCapacity: newVehicle.battery_capacity,
+        //batteryCapacity: newVehicle.battery_capacity,
         cargoCapacity: newVehicle.cargo_capacity,
         companyID: isManager ? companyId : newVehicle.company_id,
       });
@@ -185,7 +186,7 @@ const [maintenanceReason, setMaintenanceReason] = useState("");
         marca: '',
         modelo: '',
         status: 'Disponível',
-        battery_capacity: null as number | null,
+        //battery_capacity: null as number | null,
         cargo_capacity: null as number | null,
         company_id: isManager ? companyId : null,
       });
@@ -221,7 +222,7 @@ const updateMotorcycle = async () => {
       brand: selectedMotoForEdit.marca,
       model: selectedMotoForEdit.modelo,
       vid: selectedMotoForEdit.matricula,
-      batteryCapacity: selectedMotoForEdit.battery_capacity,
+      //batteryCapacity: selectedMotoForEdit.battery_capacity,
       cargoCapacity: selectedMotoForEdit.cargo_capacity,
       status: selectedMotoForEdit.status,
       ownerID: selectedMotoForEdit.ownerID,
@@ -496,13 +497,6 @@ return (
       )}
       <div className="flex gap-3 pt-2">
         <button
-          className="flex-1 bg-gray-200 py-2 rounded"
-          onClick={() => setSelectedMotoForEdit(null)}
-        >
-          Cancelar
-        </button>
-
-        <button
           className="flex-1 bg-black text-white py-2 rounded"
           onClick={updateMotorcycle}
         >
@@ -561,7 +555,17 @@ return (
       
 
       <button
-        className="w-full bg-gray-200 p-3 rounded"
+        className=" w-full
+    bg-gray-200
+    text-gray-800
+    py-2
+    rounded
+    hover:bg-gray-300
+    dark:bg-gray-700
+    dark:text-white
+    dark:hover:bg-gray-600
+    transition-colors
+  "
         onClick={() => setSelectedMotoMenu(null)}
       >
         Cancelar
@@ -611,7 +615,17 @@ return (
 
             <div className="flex gap-3 mt-6">
               <button
-                className="flex-1 bg-gray-200 py-2 rounded-lg"
+                className="  flex-1
+    bg-gray-200
+    text-gray-800
+    py-2
+    rounded
+    hover:bg-gray-300
+    dark:bg-gray-700
+    dark:text-white
+    dark:hover:bg-gray-600
+    transition-colors
+  "
                 onClick={() => setSelectedMotoForMaintenance(null)}
               >
                 Cancelar
@@ -679,7 +693,7 @@ return (
         }
       />
 
-      <input
+    {/*  <input
         type="number"
         className="w-full border p-2 rounded"
         placeholder="Capacidade bateria"
@@ -692,7 +706,7 @@ return (
               : null,
           })
         }
-      />
+      /> */}
 
       <input
         type="number"
@@ -730,7 +744,17 @@ return (
       )}
       <div className="flex gap-3 pt-2">
         <button
-          className="flex-1 bg-gray-200 py-2 rounded"
+          className="  flex-1
+    bg-gray-200
+    text-gray-800
+    py-2
+    rounded
+    hover:bg-gray-300
+    dark:bg-gray-700
+    dark:text-white
+    dark:hover:bg-gray-600
+    transition-colors
+  "
           onClick={() => setShowAddModal(false)}
         >
           Cancelar
@@ -782,7 +806,17 @@ return (
       )}
 
       <button
-        className="w-full mt-6 bg-gray-200 py-2 rounded"
+        className=" w-full
+    bg-gray-200
+    text-gray-800
+    py-2
+    rounded
+    hover:bg-gray-300
+    dark:bg-gray-700
+    dark:text-white
+    dark:hover:bg-gray-600
+    transition-colors
+  "
         onClick={() => {
           setShowAssignModal(false);
           setSelectedMotoForAssignment(null);

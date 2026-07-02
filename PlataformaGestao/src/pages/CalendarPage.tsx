@@ -30,9 +30,7 @@ const CalendarPage: React.FC = () => {
     ) {
       const day = dt.getDate();
       if (!acc[day]) acc[day] = [];
-
-      const assigned = t.motorcycleid !== null || t.VehicleId !== null;
-
+const assigned = t.vehicleID != null;
       acc[day].push({
         ...t,
         assignedTo: assigned,
@@ -121,9 +119,9 @@ const CalendarPage: React.FC = () => {
 
       {/* GRID */}
       <div className="p-3 grid grid-cols-7 text-center font-semibold text-sm text-gray-600 dark:text-gray-300">
-        {["D", "S", "T", "Q", "Q", "S", "S"].map((d) => (
-          <div key={d}>{d}</div>
-        ))}
+        {["D", "S", "T", "Q", "Q", "S", "S"].map((d, index) => (
+  <div key={index}>{d}</div>
+))}
       </div>
 
       {/* DAYS */}
@@ -170,12 +168,30 @@ const CalendarPage: React.FC = () => {
               <div className="space-y-3">
                 {eventsByDay[selectedDay].map((ev: any) => (
                   <div key={ev.id || ev.Id} className="border-b pb-2">
-                    <h4 className="font-medium">{ev.type || ev.description || "Sem título"}</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      {[ev.street, ev.door_number, ev.city].filter(Boolean).join(", ") || "Sem morada"}
-                    </p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">{ev.availableTimeStart || ev.availableTimeEnd || "Sem hora"}</p>
-                  </div>
+  <div className="flex justify-between items-center">
+    <h4 className="font-medium">
+  {`Tarefa-${ev.id || ev.ID}`}
+</h4>
+
+    <span
+      className={`text-xs px-2 py-1 rounded-full font-medium ${
+        ev.assignedTo
+          ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200"
+          : "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+      }`}
+    >
+      {ev.assignedTo ? "Atribuída" : "Não atribuída"}
+    </span>
+  </div>
+
+  <p className="text-sm text-gray-600 dark:text-gray-300">
+    {[ev.street, ev.door_number, ev.city].filter(Boolean).join(", ") || "Sem morada"}
+  </p>
+
+  <p className="text-sm text-gray-600 dark:text-gray-300">
+    {ev.availableTimeStart || ev.availableTimeEnd || "Sem hora"}
+  </p>
+</div>
                 ))}
               </div>
             ) : (

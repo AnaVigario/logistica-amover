@@ -64,6 +64,22 @@ const MaintenancePage: React.FC = () => {
       });
 
       await apiClient.patch(`/api/Vehicle/${selectedMoto.id}/status`, { status: "Manutenção" });
+      // Obter todas as tarefas
+const { data: tasks } = await apiClient.get("/api/Task");
+
+// Tarefas atribuídas a esta mota
+const motoTasks = (tasks || []).filter(
+  (t: any) => (t.vehicleID || t.vehicleId) === selectedMoto.id
+);
+
+// Desatribuir todas
+for (const task of motoTasks) {
+  await apiClient.put(`/api/Task/${task.id || task.ID}`, {
+    ...task,
+    vehicleID: null,
+    status: "Unassigned"
+  });
+}
     } catch (error) {
       console.error(error);
       alert("Erro ao enviar para manutenção");
@@ -171,7 +187,7 @@ const getStatusLabel = (status: string) => {
                       </span>
 
                       <button
-                        className="text-sm text-blue-600 hover:text-blue-800"
+                        className="text-sm text-white-600 hover:text-blue-800"
                         onClick={() => setSelectedMotoForRemoval(moto)}
                       >
                         Remover da Manutenção
@@ -244,8 +260,17 @@ const getStatusLabel = (status: string) => {
 
               <div className="flex gap-3 mt-6">
                 <button
-                  className="flex-1 bg-gray-200 py-2 rounded-lg"
-                  onClick={() => setSelectedMoto(null)}
+className=" flex-1
+    bg-gray-200
+    text-gray-800
+    py-2
+    rounded
+    hover:bg-gray-300
+    dark:bg-gray-700
+    dark:text-white
+    dark:hover:bg-gray-600
+    transition-colors
+  "                  onClick={() => setSelectedMoto(null)}
                 >
                   Cancelar
                 </button>
@@ -293,8 +318,17 @@ const getStatusLabel = (status: string) => {
 
               <div className="flex gap-3">
                 <button
-                  className="flex-1 bg-gray-200 py-2 rounded-lg"
-                  onClick={() => setSelectedMotoForRemoval(null)}
+className=" flex-1
+    bg-gray-200
+    text-gray-800
+    py-2
+    rounded
+    hover:bg-gray-300
+    dark:bg-gray-700
+    dark:text-white
+    dark:hover:bg-gray-600
+    transition-colors
+  "                  onClick={() => setSelectedMotoForRemoval(null)}
                 >
                   Cancelar
                 </button>
