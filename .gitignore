@@ -10,3 +10,11 @@ backend/bin/
 backend/obj/
 builds_móvel/
 *.apk
+# Python (motor de rotas)
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.bak
+simulacao_*.csv
+seed.sql

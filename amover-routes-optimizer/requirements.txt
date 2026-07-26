@@ -1,0 +1,4 @@
+Flask>=3.0,<4
+ortools>=9.10
+gunicorn>=21.2
+requests

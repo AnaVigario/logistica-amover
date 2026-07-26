@@ -1,0 +1,21 @@
+# Drop-in para o docker-compose do logistica-amover.
+# O compose faz: build context "./routes/Projeto Final", dockerfile "Dockerfile.python".
+# Basta colocar o conteúdo deste projeto nessa pasta para substituir o serviço atual
+# (que só corria nearest_neighbor) por este motor com todos os algoritmos + OR-Tools.
+FROM python:3.12-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PORT=5000
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 5000
+
+# Produção: gunicorn (OR-Tools pode demorar alguns segundos por pedido).
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app", "--workers", "2", "--threads", "4", "--timeout", "120", "--access-logfile", "-", "--error-logfile", "-"]

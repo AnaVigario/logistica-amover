@@ -55,22 +55,42 @@ namespace projeto.Services
                     x = lnt.LocationNode.latitude;
                     y = lnt.LocationNode.longintude;
                 }
-                else 
+                else
                 {
-                    // Mock coordinates if node doesn't exist yet
-                    x = (float)(new Random().NextDouble() * 10);
-                    y = (float)(new Random().NextDouble() * 10);
-                    
-                    // Create Node dynamically if it's missing (to satisfy the "use LocationNode for points")
-                    var newNode = new LocationNode { 
-                        latitude = x, 
-                        longintude = y, 
+                    // Geocodificar via motor de rotas (codigo postal/morada -> lat/lon reais)
+                    var geoPayload = new
+                    {
+                        postal_code = task.postal_code,
+                        street = task.street,
+                        city = task.city,
+                        door_number = task.door_number
+                    };
+                    var geoJson = JsonSerializer.Serialize(geoPayload);
+                    var geoContent = new StringContent(geoJson, Encoding.UTF8, "application/json");
+                    var geoResp = await _httpClient.PostAsync(
+                        "http://amover-routes-optimizer:5000/geocode", geoContent);
+
+                    if (!geoResp.IsSuccessStatusCode)
+                    {
+                        // Geocode falhou: excluir a tarefa da rota (nao inventar coordenadas)
+                        Console.WriteLine($"[RouteServices] Tarefa {task.ID} sem coordenadas e geocode falhou (HTTP {(int)geoResp.StatusCode}) - excluida da rota.");
+                        continue;
+                    }
+
+                    var geoBody = await geoResp.Content.ReadAsStringAsync();
+                    using var geoDoc = JsonDocument.Parse(geoBody);
+                    var geoRoot = geoDoc.RootElement;
+                    x = (float)geoRoot.GetProperty("lat").GetDouble();
+                    y = (float)geoRoot.GetProperty("lon").GetDouble();
+
+                    var newNode = new LocationNode {
+                        latitude = x,
+                        longintude = y,
                         address = task.street ?? "Sem morada",
                         status = "Pending"
                     };
                     _context.locationNodes.Add(newNode);
                     await _context.SaveChangesAsync();
-
                     var newLnt = new LocationNodeTask {
                         NodeID = newNode.ID,
                         TaskID = task.ID,

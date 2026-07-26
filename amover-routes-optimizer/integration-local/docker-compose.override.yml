@@ -1,0 +1,24 @@
+# docker-compose.override.yml
+# =====================================================================
+# Colocar este ficheiro na RAIZ do repositorio clonado `logistica-amover`
+# (ao lado do docker-compose.yml). O Docker Compose le e funde-o
+# automaticamente com o compose principal — nao e preciso mexer no original.
+#
+# O que faz:
+#   Troca o servico `routes-optimizer` para usar o TEU motor de rotas
+#   (com todos os algoritmos + OR-Tools), a partir da pasta vizinha
+#   ../amover-routes-optimizer — sem tocar em `routes/Projeto Final`.
+#
+#   Mantem o mesmo container_name (amover-routes-optimizer) e a porta 5000,
+#   por isso o backend .NET continua a chamar http://amover-routes-optimizer:5000
+#   exatamente como antes.
+#
+# Pre-requisito: clonar o repo como VIZINHO da pasta do teu motor, por ex.:
+#   D:\amover-routes-optimizer      <-- o teu projeto
+#   D:\logistica-amover             <-- repo clonado (este ficheiro fica aqui)
+# =====================================================================
+services:
+  routes-optimizer:
+    build:
+      context: ../amover-routes-optimizer
+      dockerfile: Dockerfile.python

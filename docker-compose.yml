@@ -68,7 +68,7 @@ services:
 
   routes-optimizer:
     build:
-      context: "./routes/Projeto Final"
+      context: "./amover-routes-optimizer"
       dockerfile: Dockerfile.python
     container_name: amover-routes-optimizer
     restart: always

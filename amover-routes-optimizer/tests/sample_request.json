@@ -1,0 +1,24 @@
+{
+  "algorithm": "auto",
+  "depot": { "lat": 41.5454, "lon": -8.4265 },
+  "vehicle": {
+    "capacity": 500,
+    "battery_kwh": 70,
+    "current_charge_kwh": 55,
+    "speed_kph": 40,
+    "consumption_kwh_per_km": 0.05
+  },
+  "tasks": [
+    { "id": 101, "lat": 41.5510, "lon": -8.4200, "demand": 20, "priority": "ALTA",  "deadline": "2026-06-30T17:00:00Z" },
+    { "id": 102, "lat": 41.5380, "lon": -8.4310, "demand": 35, "priority": "MÉDIA", "deadline": "2026-06-30T18:30:00Z" },
+    { "id": 103, "lat": 41.5600, "lon": -8.4100, "demand": 15, "priority": "BAIXA" },
+    { "id": 104, "lat": 41.5290, "lon": -8.4400, "demand": 40, "priority": "ALTA",  "deadline": "2026-06-30T16:30:00Z" },
+    { "id": 105, "lat": 41.5475, "lon": -8.4015, "demand": 25, "priority": "MÉDIA" },
+    { "id": 106, "lat": 41.5330, "lon": -8.4180, "demand": 10, "priority": "BAIXA" }
+  ],
+  "options": {
+    "route_start": "2026-06-30T09:00:00Z",
+    "mode": "balanced",
+    "time_limit_s": 5
+  }
+}
